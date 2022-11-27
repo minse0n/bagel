@@ -1,0 +1,38 @@
+.register {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 50px;
+  border: none;
+  background-color: #F2E1CF;
+}
+.signin {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 50px;
+  border: none;
+  background-color: #4C9D9F;
+}
+.edit, .signout  {
+  padding: 10px 20px;
+  font-size: 1.3rem;
+  text-align: center;
+  border: 0.5px solid #F0CB92;
+  border-radius: 50px;
+  background-color: #ffffff;
+  color: #F0CB92;
+}
+.save {
+  padding: 10px 20px;
+  font-size: 1.3rem;
+  text-align: center;
+  border: none;
+  border-radius: 50px;
+  background-color: #EE5133;
+  color: #F2E1CF;
+}
