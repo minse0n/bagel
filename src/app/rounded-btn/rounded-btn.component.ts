@@ -9,7 +9,8 @@ export class RoundedBtnComponent implements OnInit {
 
   @Input('btnType') btnType!: string;
   @Input('btnText') btnText!: string;
-
+  @Input('btnClick') btnClick!: void;
+  
   constructor() { }
 
   ngOnInit(): void {
