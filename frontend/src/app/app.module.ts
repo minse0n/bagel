@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoundedBtnComponent } from './rounded-btn/rounded-btn.component';
+import { CardListComponent } from './card-list/card-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RoundedBtnComponent
+    RoundedBtnComponent,
+    CardListComponent
   ],
   imports: [
     BrowserModule,
