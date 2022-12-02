@@ -1,6 +1,5 @@
 import { User } from '../models/user.model';
 
-
 /** Class representing a Comment */
 export class CommentNode {
   userName: User["userName"] = '';
