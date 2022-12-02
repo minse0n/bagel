@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.comment-container {
+  max-width: 1024px;
+  padding-left: 10px;
+}
+// 이 요소는 지울 것
+.comment-container div {
+  // border: solid 1px black;
+}
+
+.profil {
+  display: flex;
+}
+.comment-write-container {
+  display: flex;
+}
+.comment-write-container button {
+  width: 100px;
+  height: 100px;
+  background-color: #f0cb92;
+  margin-left: 8px;
+  font-weight: bold;
+}
+.comment-write-container textarea::placeholder {
+  display: flex;
+  padding: 10px 0 0 20px;
+  // color: #f0cb92;
+  font-weight: bold;
+}
+
