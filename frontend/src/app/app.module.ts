@@ -11,7 +11,7 @@ import { CardListComponent } from './card-list/card-list.component';
   declarations: [
     AppComponent,
     RoundedBtnComponent,
-    CardListComponent
+    CardListComponent,
   ],
   imports: [
     BrowserModule,

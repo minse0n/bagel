@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { BAGELS } from '../models/mock-bagelCard';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-card-list',
@@ -9,10 +10,11 @@ import { BAGELS } from '../models/mock-bagelCard';
 export class CardListComponent implements OnInit {
 
   bagels = BAGELS;
-  
+  searched: boolean = false;  
+    
   constructor() { }
 
   ngOnInit(): void {
-  }
+  }  
 
 }
