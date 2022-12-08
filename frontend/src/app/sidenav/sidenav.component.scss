@@ -1,0 +1,54 @@
+@import '../../styles.scss';
+.sidenav-wrapper {
+  background-color: #fff;
+}
+.user-info {
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  border: 1px solid $bagel-dark;
+}
+button {
+  border: none;
+  background: none;
+}
+i {
+  font-size: 2rem;
+}
+.close-btn {
+  // width: 20px;
+  margin: 16px;
+  position: absolute;
+  right: 0px;
+}
+.avatar-item {
+  margin-top: 20px;
+  width: 90%;
+  text-align: center;
+}
+.avatar-image {
+  width: 80%;
+  border-radius: 50%;
+  margin-top: 64px;
+}
+#avatar-change {
+  opacity: 0.5;
+}
+input {
+  width: 100%;
+  text-align: center;
+}
+
+// todo: delete
+.sidenav-content {
+  display: flex;
+  justify-content: flex-end;
+  background-color: blanchedalmond;
+  height: 100ch;
+}
+.temp-btn {
+  width: 100px;
+  height: 100px;
+}
