@@ -7,7 +7,7 @@ export interface dummyUser {
 export const USERS: dummyUser = 
   {
     userName: 'Jinny',
-    imgSrc: '../assets/images/Avatar_1.png',
-    email: 'sabbith@newsnight.net',
+    imgSrc: '../../assets/images/Avatar_1.png',
+    email: 'hyejin.kang@rwth-aachen.de',
   }
 

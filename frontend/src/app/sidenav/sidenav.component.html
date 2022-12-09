@@ -1,34 +1,25 @@
-<!-- <mat-sidenav-container class="example-container" (backdropClick)="close('backdrop')">
-  <mat-sidenav class="sidenav-wrapper" #sidenav mode="over" (keydown.escape)="close('escape')" position="end" disableClose> -->
-<mat-sidenav-container class="example-container">
-  <mat-sidenav class="sidenav-wrapper" #sidenav mode="over" position="end" disableClose>
-    
-    <section class="user-info" [ngSwitch]="navMode">
-      <button mat-button class="close-btn" (click)="close('toggle hidden')"><i class="bi bi-x-lg"></i></button>
-      <!-- Edit Fields -->
-      <img *ngSwitchCase="'edit'" class="avatar-item avatar-image" id="avatar-change" src="../../assets/images/avatar-sample.jpeg"/>
-      <span *ngSwitchCase="'edit'">change</span>
-      <h2 *ngSwitchCase="'edit'" class="avatar-item">
-        <input type="text" placeholder="{{ myUser.userName }}" />
-      </h2>
-      <span *ngSwitchCase="'edit'" class="avatar-item">
-        <input type="text" placeholder="{{ myUser.email }}" />
-      </span>
-      <!-- Saved Information -->
-      <img *ngSwitchCase="'saved'" class="avatar-item avatar-image" src="../../assets/images/avatar-sample.jpeg"/>
-      <h2 *ngSwitchCase="'saved'" class="avatar-item">{{ myUser.userName }}</h2>
-      <span *ngSwitchCase="'saved'" class="avatar-item">{{ myUser.email }}</span>
-      
-      <!-- todo: add click event - data send to mongoDB  -->
-      <app-rounded-btn *ngSwitchCase="'saved'" class="avatar-item" [btnText]="'Edit'" [btnType]="'edit'" [btnClick]="changeViewMode()"></app-rounded-btn>
-      <app-rounded-btn *ngSwitchCase="'edit'" class="avatar-item" [btnText]="'Save'" [btnType]="'save'" [btnClick]="changeViewMode()"></app-rounded-btn>
-      <app-rounded-btn class="avatar-item" [btnText]="'Sign Out'" [btnType]="'signout'" [btnClick]=""></app-rounded-btn>
-    </section>
-  </mat-sidenav>
-
-  <!-- todo: bind with avatar-button in header -->
-  <div class="sidenav-content">
-    <button class="temp-btn" mat-button (click)="sidenav.toggle()">Open</button>
-  </div>
-
-</mat-sidenav-container>
+<mat-nav-list [ngSwitch]="navMode">
+  <button class="close-btn" type="button" (click)="onToggleClose()"><i class="bi bi-x-lg"></i></button>
+  <!-- Saved Information -->
+  <section class="avatar-info" *ngSwitchCase="'saved'">
+    <img class="avatar-item avatar-image" [src]="myUser.imgSrc"/>
+    <h2 class="avatar-item">{{ myUser.userName }}</h2>
+    <span class="avatar-item">{{ myUser.email }}</span>
+    <button class="avatar-item avatar-btn" id="edit-btn" type="button" (click)="changeViewMode()">Edit</button>
+    <button class="avatar-item avatar-btn" type="button">Sign Out</button>
+  </section>
+  <!-- Edit Fields -->
+  <section class="avatar-info" *ngSwitchCase="'edit'">
+    <!-- todo: add image change event -->
+    <a class="avatar-item" id="avatar-change" href="">
+      <img class="avatar-image" [src]="myUser.imgSrc"/></a>
+    <i class="bi bi-image" id="avatar-change-icon"></i>
+    <h2 class="avatar-item">
+      <input type="text" placeholder="{{ myUser.userName }}" />
+    </h2>
+    <span class="avatar-item">
+      <input type="text" placeholder="{{ myUser.email }}" />
+    </span>
+    <button class="avatar-item avatar-btn" id="save-btn" type="button" (click)="changeViewMode()">Save</button>
+  </section>
+</mat-nav-list>

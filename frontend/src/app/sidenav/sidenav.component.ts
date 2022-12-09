@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { USERS } from './dummyUser';
 
 @Component({
@@ -7,29 +6,26 @@ import { USERS } from './dummyUser';
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent implements OnInit {
-  
-  @ViewChild('sidenav') sidenav!: MatSidenav;
-  
-  clickEvent = '';
-  myUser = USERS;
-  navMode: string = 'saved';
-     
-  constructor() { }
 
+export class SidenavComponent implements OnInit{
+       
+  @Output() closeSideNav = new EventEmitter();
+  navMode: string = 'saved';
+  myUser = USERS;
+  
+  constructor() { }
+  
   ngOnInit(): void {
+	}
+  
+  onToggleClose(): void {
+    this.closeSideNav.emit();
   }
   changeViewMode() {
-    if(this.navMode == 'saved') {
+    if(this.navMode=='saved') {
       this.navMode = 'edit';
     } else {
       this.navMode = 'saved';
     }
-  }
-  close(clickEvent: string) {
-    this.clickEvent = clickEvent;
-    this.sidenav.close();
-  }
-
-
+  }  
 }

@@ -1,19 +1,27 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoundedBtnComponent } from './rounded-btn/rounded-btn.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { AvatarModalComponent } from './avatar-modal/avatar-modal.component';
+import { DummyHeaderComponent } from './dummy-header/dummy-header.component';
+import { DummyMainComponent } from './dummy-main/dummy-main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RoundedBtnComponent,
     SidenavComponent,
+    AvatarModalComponent,
+    DummyHeaderComponent,
+    DummyMainComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,6 +29,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     BrowserAnimationsModule,
     MatSidenavModule,
     MatDividerModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

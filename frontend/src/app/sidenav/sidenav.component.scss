@@ -1,24 +1,16 @@
 @import '../../styles.scss';
-.sidenav-wrapper {
-  background-color: #fff;
-}
-.user-info {
+
+.avatar-info {
   width: 300px;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;  
-  border: 1px solid $bagel-dark;
-}
-button {
-  border: none;
-  background: none;
 }
 i {
   font-size: 2rem;
 }
 .close-btn {
-  // width: 20px;
   margin: 16px;
   position: absolute;
   right: 0px;
@@ -32,23 +24,39 @@ i {
   width: 80%;
   border-radius: 50%;
   margin-top: 64px;
+  text-align: center;
 }
 #avatar-change {
+  width: 100%;
   opacity: 0.5;
+  justify-items: center;
+  margin-top: 0;
+}
+#avatar-change-icon {
+  margin-top: -130px;
+  margin-bottom: 80px;
 }
 input {
   width: 100%;
   text-align: center;
 }
-
-// todo: delete
-.sidenav-content {
-  display: flex;
-  justify-content: flex-end;
-  background-color: blanchedalmond;
-  height: 100ch;
+.avatar-btn {
+  width: 120px;
+  height: 32px;
+  font-size: 1rem;
+  text-align: center;
+  border: 0.5px solid #F0CB92;
+  border-radius: 50px;
+  background-color: #ffffff;
+  color: #F0CB92;
 }
-.temp-btn {
-  width: 100px;
-  height: 100px;
+#edit-btn {
+  border: none;
+  background-color: $bagel-primary;
+  color: $bagel-W-text;
+}
+#save-btn {
+  border: none;
+  background-color: $bagel-warn;
+  color: $bagel-W-text;
 }
