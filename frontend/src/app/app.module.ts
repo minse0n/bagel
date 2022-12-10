@@ -10,7 +10,6 @@ import { MatListModule } from '@angular/material/list';
 import { AppComponent } from './app.component';
 import { RoundedBtnComponent } from './rounded-btn/rounded-btn.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import { AvatarModalComponent } from './avatar-modal/avatar-modal.component';
 import { DummyHeaderComponent } from './dummy-header/dummy-header.component';
 import { DummyMainComponent } from './dummy-main/dummy-main.component';
 
@@ -19,7 +18,6 @@ import { DummyMainComponent } from './dummy-main/dummy-main.component';
     AppComponent,
     RoundedBtnComponent,
     SidenavComponent,
-    AvatarModalComponent,
     DummyHeaderComponent,
     DummyMainComponent,
   ],
