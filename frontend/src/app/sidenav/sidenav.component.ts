@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { USERS } from './dummyUser';
+import { AVATARS } from './avatar';
 
 @Component({
   selector: 'app-sidenav',
@@ -12,6 +13,7 @@ export class SidenavComponent implements OnInit{
   @Output() closeSideNav = new EventEmitter();
   navMode: string = 'saved';
   myUser = USERS;
+  avatars = AVATARS;
   
   constructor() { }
   
@@ -27,5 +29,8 @@ export class SidenavComponent implements OnInit{
     } else {
       this.navMode = 'saved';
     }
+  }
+  changeAvatar(imageObject: { imageSrc: string; }) {
+    this.myUser.imageSrc = imageObject.imageSrc;
   }  
 }

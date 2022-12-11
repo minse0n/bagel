@@ -18,16 +18,13 @@ body {
 ul, ol {
   list-style: none;
 }
-a {
+a, a:link, a:visited, a:active, a:hover {
   text-decoration: none; 
   outline: none;
   color: #1B1C1E;
+  background: none;
 }
-a:hover, a:active {
-  text-decoration: none; 
-  color: #1B1C1E;
-}
-button {
+button, .btn.active, .btn.show {
   border: none;
   background: none;
 }

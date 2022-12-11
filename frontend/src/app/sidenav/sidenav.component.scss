@@ -1,5 +1,9 @@
 @import '../../styles.scss';
 
+.sidenav-container {
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+}
 .avatar-info {
   width: 300px;
   height: 100%;
@@ -20,17 +24,23 @@ i {
   width: 90%;
   text-align: center;
 }
+#dropdownMenuLink {
+  width: 100%;
+  margin: 0;;
+}
 .avatar-image {
   width: 80%;
   border-radius: 50%;
   margin-top: 64px;
   text-align: center;
 }
-#avatar-change {
-  width: 100%;
+.avatar-change-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#avatar-bg {
   opacity: 0.5;
-  justify-items: center;
-  margin-top: 0;
 }
 #avatar-change-icon {
   margin-top: -130px;
@@ -59,4 +69,32 @@ input {
   border: none;
   background-color: $bagel-warn;
   color: $bagel-W-text;
+}
+.dropdown-menu {
+  width: 100%;
+  border: none;
+}
+.dropdown-item-wrapper {
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  justify-items: center;
+} 
+.dropdown-item, .dropdown-image {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+}
+.avatar-upload-text {
+  font-size: 0.75rem;
+}
+#avatar {
+  opacity: 0;
+  height: 0;
+}
+label {
+  width: 100%;
+  text-align: center;
 }
