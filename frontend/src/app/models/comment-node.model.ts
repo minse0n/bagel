@@ -1,12 +1,16 @@
 import { User } from '../models/user.model';
+import { Card } from '../models/card.model';
+
 
 /** Class representing a Comment */
 export class CommentNode {
-  userName: User["userName"] = '';
-  userPictureUrl: User["userPictureUrl"] = '';
+  // cardId: Card['cardId'] = '';
+  // userName: User["userName"] = '';
+  // userPictureUrl: User["userPictureUrl"] = '';
+  // timeStamp: Date = new Date();
   text: string = '';
-  timeStamp: Date = new Date();
-  answer: CommentNode[] = [];
+  isOpened: boolean = false;
+  // answer: CommentNode[] = [];
 
   /**
    * Create a comment
@@ -17,32 +21,31 @@ export class CommentNode {
    * 
    * Add param later: User.photo, User.nickname
    */
-  constructor (userName: User["userName"], userPictureUrl: User["userPictureUrl"], text: string, timeStamp: Date) {
-    this.userName = userName;
-    this.userPictureUrl = userPictureUrl;
+  constructor (text: string) {
+    // this.userName = userName;
+    // this.userPictureUrl = userPictureUrl;
+    // this.timeStamp = timeStamp;
     this.text = text;
-    this.timeStamp = timeStamp;
   }
 
   /**
    * Add new comment object to answer-array
+   * @param answer - Array of CommentNode 
    * @param newComment - CommentNode object which wrote by writing comment
    */
-  addComment = ((newComment: CommentNode) => {
-    if (newComment.text) {
-      this.answer.push(newComment);
-    }
+  addComment = ((answer: CommentNode[] ,newComment: CommentNode) => {
+      answer.push(newComment);
   });
 
   /**
    * Remove a comment object from answer-array
    * @param newComment - CommentNode object in answer-array
    */
-  removeComment = ((Comment: CommentNode) => {
+  removeComment = ((answer: CommentNode[] ,Comment: CommentNode) => {
     let index = this.answer.indexOf(Comment);
     // ~index: if this index exist in array
     if (~index) {
-      this.answer.splice(index, 1);
+      answer.splice(index, 1);
     }
   });
 

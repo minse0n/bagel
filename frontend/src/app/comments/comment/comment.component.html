@@ -1,0 +1,27 @@
+<div class="comment-container">
+  <div class="content-container">
+    <p *ngIf="!isCommentInEditMode" class="comment">
+      {{ comment.text }}
+    </p>
+  </div>
+  <div *ngIf="!isCommentInEditMode" class="kebab-menu">
+    <div class="dot-container float-end">
+      <figure></figure>
+      <figure class="middle"></figure>
+      <figure></figure>
+    </div>
+  </div>
+  <app-comment-form
+    *ngIf="isCommentInEditMode"
+    [comment]="comment"
+    [comments]="comments"
+    [index]="index"
+    [isCommentInEditMode]="isCommentInEditMode"
+    (commentEditModeChanged)="disableCommentEditMode($event)">
+  </app-comment-form>
+
+  <!-- <div *ngIf="!isCommentInEditMode" class="comment-btn">
+    <button class="edit-btn" (click)="editComment()">Edit</button>
+    <button class="delete-btn" (click)="deleteComment()">Delete</button>
+  </div> -->
+</div>
