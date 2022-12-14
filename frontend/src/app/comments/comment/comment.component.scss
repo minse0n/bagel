@@ -2,8 +2,7 @@
   padding: 0;
   margin: 0;
 } 
-$cubic-out: cubic-bezier(.32,2.04,.85,.54);
-$cubic-in: cubic-bezier(.72,1.2,.71,.72);
+
 .comment-container {
   margin: 0 0 15px 43px;
   padding-bottom: 10px;
@@ -13,53 +12,22 @@ $cubic-in: cubic-bezier(.72,1.2,.71,.72);
 }
 .comment {
   font-size: 1.2rem;
+  white-space: pre-wrap;
 }
-.comment-btn {
-  margin-top: 30px;
-}
-.comment-btn button {
-  width: 60px;
-  border: none;
-  border-radius: 2.5px;
-  opacity: 0.9;
-  color: #fff;
-}
-.edit-btn {
-  background-color: #4c9d9f;
-  
-}
-.delete-btn {
-  background-color: #ee5133;
-  margin-left: 15px;
-}
-
-
 .kebab-menu {
-  padding-right: 25px;
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  box-sizing: border-box;
-  figure {
-    width: 4px;
-    height: 4px;
-    border-radius: 5px;
-    background: #ee5133;
-    margin: 3px 0;
-  }
+  display: flex;
+  justify-content: flex-end;
+  color: #4c9d9f;
 }
-
-.middle {
-  transition: all 0.25s $cubic-in;
-  transform: scale(1);
-  position: relative;
-  box-shadow: 0 0.1px 0.1px 0 rgba(0, 0, 0, 0.16), 0 0.1px 0.3px 0 rgba(0, 0, 0, 0.12);
-  -webkit-filter: blur(.1px);
-  filter: blur(.1px);
+.dropdown-menu a {
+  display: flex;
+  align-items: center;
+  width: 160px;
+  height: 30px;
+  margin: 3px 0;
+  padding-left: 10px;
 }
-
-.middle.active {
-  transform: scale(4.5);
-  transition: all 0.25s $cubic-out;
-  box-shadow: 0 0.1px 0.1px 0 rgba(0, 0, 0, 0.16), 0 0.1px 0.3px 0 rgba(0, 0, 0, 0.12);
+.dropdown-menu a:hover {
+  background-color: #ee5133;
+  color: #fff;
 }

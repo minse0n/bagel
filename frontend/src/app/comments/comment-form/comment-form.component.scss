@@ -3,22 +3,23 @@
   margin: 0;
 } 
 .form-group {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 8fr 1fr;
+  column-gap: 8px;
+  margin-left: 43px;
+  height: 100px;
 }
 .form-control {
-  width: 873px;
-  height: 100px;
-  margin-left: 43px;
+  padding: 3px 8px;
+}
+.form-control:focus {
+  outline: none !important;
+  border: 2px solid #f0c892;
+  box-shadow: none;
 }
 .btn {
-  width: 6.25rem;
-  height: 100px;
   background-color: #f0c892;
-  margin-left: 8px;
 }
 .btn:hover {
   opacity: 0.8;
 }
-

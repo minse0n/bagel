@@ -10,10 +10,12 @@ import { Comment } from 'src/app/models/comment.model';
 export class CommentComponent {
   // isCommentInEditMode: if the current comment is in the edit mode or not
   isCommentInEditMode: boolean = false;
+  // isDropdowClick: boolean = false;
 
   @Input() comment: Comment;
   @Input() index: number;
   @Input() comments: Comment[];
+
 
   editComment(): void {
     this.isCommentInEditMode = true;
@@ -26,6 +28,13 @@ export class CommentComponent {
   disableCommentEditMode(isEditMode: boolean) {
     this.isCommentInEditMode = isEditMode;
   }
+
+  // dropdownClick(): void {
+  //   this.isDropdowClick = !this.isDropdowClick;
+  //   console.log(this.isDropdowClick);
+  // }
+
+
 
 
 }

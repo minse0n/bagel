@@ -2,8 +2,6 @@
   padding: 0;
   margin: 0;
 } 
-
-
 .comments-container {
   display: flex;
   align-items: center;
@@ -11,6 +9,7 @@
 }
 .comments-list {
   list-style: none;
+  margin-bottom: 30px;
 }
 .user-container {
   display: flex;
@@ -25,6 +24,7 @@
   margin-left: 8px;
   width: 70px;
   font-size: 1rem;
+  color: #a39e9e;
 }
 .content-container {
   margin-left: 35px;
