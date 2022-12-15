@@ -12,6 +12,7 @@ import { RoundedBtnComponent } from './rounded-btn/rounded-btn.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { DummyHeaderComponent } from './dummy-header/dummy-header.component';
 import { DummyMainComponent } from './dummy-main/dummy-main.component';
+import { CardListComponent } from './card-list/card-list.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { DummyMainComponent } from './dummy-main/dummy-main.component';
     SidenavComponent,
     DummyHeaderComponent,
     DummyMainComponent,
+    CardListComponent,
   ],
   imports: [
     BrowserModule,
