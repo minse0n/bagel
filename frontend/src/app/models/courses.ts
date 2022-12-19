@@ -3,14 +3,14 @@ export interface Category {
 }
 
 export const CATEGORIES: Category[] = [
-  { category: 'Study' },
-  { category: '1 Sem.' },
-  { category: '2 Sem.' },
-  { category: '3 Sem.' },
-  { category: '4 Sem.' },
-  { category: '5 Sem.' },
-  { category: '6 Sem.' },
+  { category: '1 Sem' },
+  { category: '2 Sem' },
+  { category: '3 Sem' },
+  { category: '4 Sem' },
+  { category: '5 Sem' },
+  { category: '6 Sem' },
   { category: 'Thesis' },
+  { category: 'Study' },
 ] 
 
 export interface Course {
