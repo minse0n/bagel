@@ -33,7 +33,35 @@ $bagel-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($bagel-theme);
 
-/* You can add global styles to this file, and also import other style files */
+
+$bagel-primary: #4c9d9f;
+$bagel-accent: #F0CB92;
+$bagel-warn: #EE5133;
+$bagel-dark: #5D433A;
+$bagel-W-text: #F2F0ED; 
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body { 
+  font-family: "Poppins", "Helvetica Neue", sans-serif; 
+  color: #1B1C1E;
+}
+ul, ol {
+  list-style: none;
+}
+
+a, a:link, a:visited, a:active, a:hover {
+  text-decoration: none; 
+  outline: none;
+  color: #1B1C1E;
+  background: none;
+}
+button, .btn.active, .btn.show {
+  border: none;
+  background: none;
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
