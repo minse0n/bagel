@@ -1,15 +1,21 @@
+@import '../../styles.scss'; 
+
 .container{
   width: 1180px;
   height: 56px;
+  align-items: center;
+  display: flex;
+  z-index: 1;
 }
 
 .logo{
-
+  float: left;
+  padding: 0px;
 }
 
 .btn-container{
   height: 48px;
-  float: right;
+  margin-left: auto;
 }
 
 .btn-item{
@@ -17,8 +23,7 @@
 }
 
 button{
-  margin-left: 12px;
-  margin-right: 12px;
+  margin-left: 24px;
   width: 127px;
   height: 100%;
   font-size: 1rem;
