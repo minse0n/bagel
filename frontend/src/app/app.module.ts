@@ -8,6 +8,7 @@ import { RoundedBtnComponent } from './rounded-btn/rounded-btn.component';
 import { NavbarSearchbarComponent } from './navbar-searchbar/navbar-searchbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { SignupComponent } from './signup/signup.component';
+import { Signup2Component } from './signup2/signup2.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SignupComponent } from './signup/signup.component';
     RoundedBtnComponent,
     NavbarSearchbarComponent,
     FooterComponent,
-    SignupComponent
+    SignupComponent,
+    Signup2Component
   ],
   imports: [
     BrowserModule,
