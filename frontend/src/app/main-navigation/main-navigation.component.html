@@ -7,10 +7,12 @@
     </ul>
     <ul class="courses-wrapper">
       <li class="courseItem" *ngFor="let course of courses">
-        <!-- todo: set path -->
-        <a [href]="course.courseName" class="courses" >
-          <img class="courseModule" (src)="course.moduleUrl"/>
-          <span class="courseText">{{ course.courseName }}</span>
+        <a class="courses" [href]="course.courseName">
+          <img class="courseLogo" [src]="course.moduleUrl"/>
+          <div class="courseText">
+            <span class="courseModule">{{ course.module }}</span>
+            <span class="courseName">{{ course.courseName }}</span>
+          </div>
         </a>
       </li>
     </ul>
