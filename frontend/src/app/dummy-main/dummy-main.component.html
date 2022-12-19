@@ -1,0 +1,10 @@
+<mat-sidenav-container class="container-fluid">
+  <mat-sidenav class="mySidenav" #sidenav mode="over" position="end">
+    <app-sidenav (closeSideNav)="sidenav.close()"></app-sidenav>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="header-container">
+    <!-- header.component -->
+    <app-dummy-header (SideNavToggle)="sidenav.toggle()"></app-dummy-header>  
+  </mat-sidenav-content>
+</mat-sidenav-container>
