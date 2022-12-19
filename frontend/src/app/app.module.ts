@@ -14,6 +14,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { DummyHeaderComponent } from './dummy-header/dummy-header.component';
 import { DummyMainComponent } from './dummy-main/dummy-main.component';
 import { CardListComponent } from './card-list/card-list.component';
+import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CardListComponent } from './card-list/card-list.component';
     DummyHeaderComponent,
     DummyMainComponent,
     CardListComponent,
+    MainNavigationComponent,
   ],
   imports: [
     BrowserModule,
