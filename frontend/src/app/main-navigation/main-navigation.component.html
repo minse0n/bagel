@@ -1,0 +1,18 @@
+<section class="mainNav-container">
+  <div class="mainNav-wrapper">
+    <ul class="categories">
+      <li class="categoryItem" *ngFor="let category of categories">
+        <button>{{ category.category }}</button>
+      </li>
+    </ul>
+    <ul class="courses-wrapper">
+      <li class="courseItem" *ngFor="let course of courses">
+        <!-- todo: set path -->
+        <a [href]="course.courseName" class="courses" >
+          <img class="courseModule" (src)="course.moduleUrl"/>
+          <span class="courseText">{{ course.courseName }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
