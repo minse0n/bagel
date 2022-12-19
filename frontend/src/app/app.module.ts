@@ -12,8 +12,6 @@ import { RoundedBtnComponent } from './rounded-btn/rounded-btn.component';
 import { NavbarSearchbarComponent } from './navbar-searchbar/navbar-searchbar.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { SignupComponent } from './signup/signup.component';
-import { Signup2Component } from './signup2/signup2.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { DummyHeaderComponent } from './dummy-header/dummy-header.component';
 import { DummyMainComponent } from './dummy-main/dummy-main.component';
@@ -27,8 +25,6 @@ import { CardListComponent } from './card-list/card-list.component';
     NavbarSearchbarComponent,
     HeaderComponent,
     FooterComponent,
-    SignupComponent,
-    Signup2Component,
     SidenavComponent,
     DummyHeaderComponent,
     DummyMainComponent,
