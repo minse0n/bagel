@@ -23,6 +23,7 @@ import { CardListComponent } from './card-list/card-list.component';
     AppComponent,
     RoundedBtnComponent,
     NavbarSearchbarComponent,
+    FooterComponent,
     HeaderComponent,
     FooterComponent,
     SidenavComponent,
