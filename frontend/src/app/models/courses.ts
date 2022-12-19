@@ -4,12 +4,12 @@ export interface Category {
 
 export const CATEGORIES: Category[] = [
   { category: 'Study' },
-  { category: '1_Sem.' },
-  { category: '2_Sem.' },
-  { category: '3_Sem.' },
-  { category: '4_Sem.' },
-  { category: '5_Sem.' },
-  { category: '6_Sem.' },
+  { category: '1 Sem.' },
+  { category: '2 Sem.' },
+  { category: '3 Sem.' },
+  { category: '4 Sem.' },
+  { category: '5 Sem.' },
+  { category: '6 Sem.' },
   { category: 'Thesis' },
 ] 
 
