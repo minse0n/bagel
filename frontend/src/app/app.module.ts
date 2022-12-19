@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { CommonModule } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
@@ -17,7 +17,6 @@ import { DummyHeaderComponent } from './dummy-header/dummy-header.component';
 import { DummyMainComponent } from './dummy-main/dummy-main.component';
 import { CardListComponent } from './card-list/card-list.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
-
 
 @NgModule({
   declarations: [
@@ -39,7 +38,8 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
     BrowserAnimationsModule,
     MatSidenavModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
