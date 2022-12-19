@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import Mongoose from "mongoose";
 import { config } from '../config.js';
 
 export async function connectDB() {
-  return mongoose.connect(config.db.host);
+  return Mongoose.connect(config.db.host);
 }
