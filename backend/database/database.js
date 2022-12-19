@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import Mongoose from "mongoose";
 import { config } from '../config.js';
 
 export async function connectDB() {
@@ -8,5 +8,5 @@ export async function connectDB() {
      .then(() => console.log('MongoDB Connected'))
      .catch(err => console.log(err));
   //Main DB test background
-  // return mongoose.connect(config.db.host);
+  //return Mongoose.connect(config.db.host);
 }
