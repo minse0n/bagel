@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { SignupComponent } from '../signup/signup.component';
 import { FooterComponent } from '../footer/footer.component';
 

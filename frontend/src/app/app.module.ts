@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatListModule } from '@angular/material/list';
+import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
 
 import { AppComponent } from './app.component';
 import { RoundedBtnComponent } from './rounded-btn/rounded-btn.component';
@@ -16,8 +17,9 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { DummyHeaderComponent } from './dummy-header/dummy-header.component';
 import { CardListComponent } from './card-list/card-list.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
+import { RegisterComponent } from './register/register.component';
+import { QuillModule } from 'ngx-quill';
 import { MainPageComponent } from './Pages/main-page/main-page.component';
-
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { MainPageComponent } from './Pages/main-page/main-page.component';
     DummyHeaderComponent,
     CardListComponent,
     MainNavigationComponent,
+    RegisterComponent
     MainPageComponent,
   ],
   imports: [
@@ -39,7 +42,26 @@ import { MainPageComponent } from './Pages/main-page/main-page.component';
     BrowserAnimationsModule,
     MatSidenavModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    FormsModule,
+    QuillModule.forRoot({
+      modules: {
+        syntax: true,
+        toolbar: [
+          // ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+          // ['blockquote', 'code-block'],
+          // [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+          // [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          // [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+          // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+          // [{ 'direction': 'rtl' }],                         // text direction      
+          // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+          // [{ 'align': [] }],
+          // ['clean'],                                         // remove formatting button
+          // ['link', 'image', 'video']                         // link and image, video
+        ]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
