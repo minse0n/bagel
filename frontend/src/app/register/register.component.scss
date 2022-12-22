@@ -1,12 +1,21 @@
 @import '../../styles.scss';
 
+::ng-deep .ql-snow .ql-editor {
+  font-size: 1rem;
+  background-color: #fff;
+}
+::ng-deep .ql-container {
+  height: 90%;
+}
 .register-container {
   max-width: 1024px;
-  margin: 70px auto 0;
+  margin: 40px auto 0;
   background-color: $bagel-W-text;
 }
 .form-group {
   padding: 8px 16px;
+  display: flex;
+  flex-direction: column;
 }
 label {
   font-family: 'Poppins';
@@ -50,6 +59,10 @@ datalist option:hover, datalist option:active {
 #content-text {
   height: 160px;
   padding: 10px;
+}
+quill-editor {
+  height: 300px;
+  background-color: #fff;
 }
 .register-btn {
   width: 100%;
