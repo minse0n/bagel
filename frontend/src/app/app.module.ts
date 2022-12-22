@@ -27,6 +27,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { Signup2Component } from './signup2/signup2.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
