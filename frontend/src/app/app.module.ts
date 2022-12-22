@@ -15,11 +15,11 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { DummyHeaderComponent } from './dummy-header/dummy-header.component';
-import { DummyMainComponent } from './dummy-main/dummy-main.component';
 import { CardListComponent } from './card-list/card-list.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 import { RegisterComponent } from './register/register.component';
 import { QuillModule } from 'ngx-quill';
+import { MainPageComponent } from './Pages/main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -31,10 +31,10 @@ import { QuillModule } from 'ngx-quill';
     FooterComponent,
     SidenavComponent,
     DummyHeaderComponent,
-    DummyMainComponent,
     CardListComponent,
     MainNavigationComponent,
     RegisterComponent
+    MainPageComponent,
   ],
   imports: [
     BrowserModule,
