@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from "@angular/material/dialog";
 
 import { AppComponent } from './app.component';
 import { RoundedBtnComponent } from './rounded-btn/rounded-btn.component';
@@ -17,6 +18,9 @@ import { DummyHeaderComponent } from './dummy-header/dummy-header.component';
 import { CardListComponent } from './card-list/card-list.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 import { MainPageComponent } from './Pages/main-page/main-page.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { Signup2Component } from './signup2/signup2.component';
 
 
 @NgModule({
@@ -32,6 +36,9 @@ import { MainPageComponent } from './Pages/main-page/main-page.component';
     CardListComponent,
     MainNavigationComponent,
     MainPageComponent,
+    LoginComponent,
+    SignupComponent,
+    Signup2Component
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,8 @@ import { MainPageComponent } from './Pages/main-page/main-page.component';
     BrowserAnimationsModule,
     MatSidenavModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
