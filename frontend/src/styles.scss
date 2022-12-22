@@ -9,6 +9,7 @@
 //    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
 @include mat.all-legacy-component-typographies();
 @include mat.legacy-core();
+@import '~quill/dist/quill.snow.css';
 
 $bagel-primary: #4c9d9f;
 $bagel-accent: #F0CB92;
@@ -27,7 +28,6 @@ body {
 ul, ol {
   list-style: none;
 }
-
 a, a:link, a:visited, a:active, a:hover {
   text-decoration: none; 
   outline: none;
