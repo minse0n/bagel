@@ -17,7 +17,8 @@ import { DummyHeaderComponent } from './dummy-header/dummy-header.component';
 import { DummyMainComponent } from './dummy-main/dummy-main.component';
 import { CardListComponent } from './card-list/card-list.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
-
+import { RegisterComponent } from './register/register.component';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
     DummyMainComponent,
     CardListComponent,
     MainNavigationComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
     BrowserAnimationsModule,
     MatSidenavModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    QuillModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
