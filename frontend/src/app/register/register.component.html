@@ -42,8 +42,8 @@
   </div>
   <div class="form-group">
     <label for="inputContent">Content</label>
-    <div id="editor"></div>
-    <!-- <textarea class="form-control" id="content-text" rows="10"></textarea> -->
+    <quill-editor [(ngModel)]="content"
+    [modules]="modules" (onEditorCreated)="addBindingCreated($event)"></quill-editor>
   </div>
   <div class="form-group">
     <button type="submit" class="register-btn">REGISTER</button>

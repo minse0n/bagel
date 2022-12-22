@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
 
 import { AppComponent } from './app.component';
 import { RoundedBtnComponent } from './rounded-btn/rounded-btn.component';
@@ -17,11 +19,13 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { DummyHeaderComponent } from './dummy-header/dummy-header.component';
 import { CardListComponent } from './card-list/card-list.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
+import { RegisterComponent } from './register/register.component';
+import { QuillModule } from 'ngx-quill';
+import { RegisterPageComponent } from './Pages/register-page/register-page.component';
 import { MainPageComponent } from './Pages/main-page/main-page.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { Signup2Component } from './signup2/signup2.component';
-
 
 @NgModule({
   declarations: [
@@ -35,6 +39,8 @@ import { Signup2Component } from './signup2/signup2.component';
     DummyHeaderComponent,
     CardListComponent,
     MainNavigationComponent,
+    RegisterComponent,
+    RegisterPageComponent,
     MainPageComponent,
     LoginComponent,
     SignupComponent,
@@ -48,6 +54,14 @@ import { Signup2Component } from './signup2/signup2.component';
     MatDividerModule,
     MatListModule,
     MatDialogModule,
+    CommonModule,
+    FormsModule,
+    QuillModule.forRoot({
+      modules: {
+        syntax: true,
+        toolbar: [ ]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
