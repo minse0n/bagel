@@ -1,8 +1,9 @@
 @import '../../styles.scss';
 
 .mainNav-container {
-  padding: 64px;
-  margin-bottom: 80px;
+  padding: 80px;
+  margin-bottom: 40px;
+  background-color: rgb(240, 203, 146, 0.35);
 }
 .mainNav-wrapper {
   max-width: 1024px;
@@ -17,14 +18,11 @@
 .categoryItem {
   padding: 0 32px 16px;
   margin-bottom: 32px;
-  border-bottom: 3px solid rgb(215, 215, 215);
-  font-weight: bold;
+  border-bottom: 3px solid $bagel-accent;
+  font-size: 1.3rem;
 }
 .categoryItem:hover {
   border-bottom: 3px solid $bagel-warn;
-}
-#category-title {
-  font-weight: bold;
 }
 .courses-wrapper {
   display: inline-grid;
@@ -33,10 +31,10 @@
 }
 .courseItem {
   border-radius: 20px;
-  // border: 1px solid $bagel-dark;
+  border: 3px solid rgb(240, 203, 146, 0);
 }
 .courseItem:hover {
-  border: 1px solid $bagel-primary;
+  border: 3px solid $bagel-primary;
 }
 .courses {
   display: flex;
