@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from "@angular/material/dialog";
 import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
 
 import { AppComponent } from './app.component';
@@ -21,6 +23,9 @@ import { RegisterComponent } from './register/register.component';
 import { QuillModule } from 'ngx-quill';
 import { RegisterPageComponent } from './Pages/register-page/register-page.component';
 import { MainPageComponent } from './Pages/main-page/main-page.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { Signup2Component } from './signup2/signup2.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +42,9 @@ import { MainPageComponent } from './Pages/main-page/main-page.component';
     RegisterComponent,
     RegisterPageComponent,
     MainPageComponent,
+    LoginComponent,
+    SignupComponent,
+    Signup2Component
   ],
   imports: [
     BrowserModule,
@@ -45,6 +53,7 @@ import { MainPageComponent } from './Pages/main-page/main-page.component';
     MatSidenavModule,
     MatDividerModule,
     MatListModule,
+    MatDialogModule,
     CommonModule,
     FormsModule,
     QuillModule.forRoot({
