@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { CATEGORIES } from '../models/post-category';
 
 @Component({
   selector: 'app-navbar-searchbar',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarSearchbarComponent implements OnInit {
 
+  @Output() SelectedCategory = new EventEmitter<string>();
+  
+  categories = CATEGORIES;
+  
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  
+  selectedPostCategory(category: string) {
+    this.SelectedCategory.emit(category);
+  }
 }
