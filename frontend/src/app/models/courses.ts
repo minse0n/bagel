@@ -69,6 +69,7 @@ export const COURSES: Course[] = [
     courseId: 5,
 		module: 'Praktisch',
 		moduleUrl: iconPraktisch
+		moduleUrl: '../../assets/logos/mathematik.svg',
   },
   {    
     courseName: 'Betriebssysteme und Systemsoftware',
