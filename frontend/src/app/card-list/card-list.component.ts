@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { PostcategoryFilterService } from '../services/postcategory-filter.service';
 import { bagelCard } from '../models/bagelCard';
 
