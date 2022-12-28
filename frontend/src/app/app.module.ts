@@ -8,6 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from "@angular/material/dialog";
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { RoundedBtnComponent } from './rounded-btn/rounded-btn.component';
@@ -26,7 +27,6 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { Signup2Component } from './signup2/signup2.component';
 import { TopButtonComponent } from './top-button/top-button.component';
-
 
 @NgModule({
   declarations: [
@@ -63,7 +63,8 @@ import { TopButtonComponent } from './top-button/top-button.component';
         syntax: true,
         toolbar: [ ]
       }
-    })
+    }),
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
