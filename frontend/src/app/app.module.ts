@@ -26,6 +26,7 @@ import { MainPageComponent } from './Pages/main-page/main-page.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { Signup2Component } from './signup2/signup2.component';
+import { TopButtonComponent } from './top-button/top-button.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { Signup2Component } from './signup2/signup2.component';
     MainPageComponent,
     LoginComponent,
     SignupComponent,
-    Signup2Component
+    Signup2Component,
+    TopButtonComponent
   ],
   imports: [
     BrowserModule,

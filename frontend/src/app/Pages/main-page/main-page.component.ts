@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-main-page',
@@ -6,13 +7,19 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
-  
-  selectedCategory: string;
-  constructor() { }
 
-  ngOnInit(): void {
-  }
+  selectedCategory: string;
+
+  constructor(
+    private scroller: ViewportScroller
+  ) {}
   
+  ngOnInit(): void {}
+  
+  scrollToTop() {
+    this.scroller.scrollToPosition([0, 0]);
+  }
+
   changePostCategory(postCategory: string) {
     this.selectedCategory = postCategory;
   }

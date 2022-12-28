@@ -8,5 +8,6 @@
     <app-main-navigation></app-main-navigation>
     <app-navbar-searchbar (SelectedCategory)="changePostCategory($event)"></app-navbar-searchbar>
     <app-card-list [postCategory]="selectedCategory"></app-card-list>
+    <app-top-button (TopButton)="scrollToTop()"></app-top-button>
   </mat-sidenav-content>
 </mat-sidenav-container>
