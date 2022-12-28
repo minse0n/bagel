@@ -1,6 +1,5 @@
-import { DOCUMENT, ViewportScroller } from '@angular/common';
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { ViewportScroller } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-main-page',
@@ -10,7 +9,6 @@ import { fromEvent } from 'rxjs';
 export class MainPageComponent implements OnInit {
 
   constructor(
-    @Inject(DOCUMENT) private document: Document,
     private scroller: ViewportScroller
   ) {}
   

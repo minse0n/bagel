@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BAGELS } from '../models/mock-bagelCard';
 import { ActivatedRoute, Router } from '@angular/router';
 
