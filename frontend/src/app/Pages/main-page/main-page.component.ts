@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT, ViewportScroller } from '@angular/common';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private scroller: ViewportScroller
+  ) {}
+  
+  ngOnInit(): void {}
+  
+  scrollToTop() {
+    this.scroller.scrollToPosition([0, 0]);
   }
-
 }
