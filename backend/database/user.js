@@ -4,7 +4,7 @@ const userSchema = new Mongoose.Schema(
   {
     username: { type: String, required: true },
     googleID: { type: String, requierd: true },
-    avataUrl: { type: String },
+    avatarUrl: { type: String },
     }, { timestamps: true, versionKey: false }
 );
 
