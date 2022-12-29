@@ -1,13 +1,21 @@
 import express from 'express';
+import session from 'express-session';
 import 'express-async-errors';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import passport from 'passport';
+
+import { google } from './passport/googleStrategy.js'
 import { connectDB } from './database/database.js';
 import * as courseCategoryRepository from './database/courseCategory.js';
 import * as moduleCategoryRepository from './database/moduleCategory.js';
 import * as postCategoryRepository from './database/postCategory.js';
 import * as cardRepository from './database/card.js';
+import * as userRepository from './database/user.js'
+import authRouter from './router/auth.js'
+
+
 const app = express();
 const port = 8080;
 
@@ -15,6 +23,28 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 app.use(morgan('tiny'));
+app.use(session({ 
+  secret: 'SECRET',
+  resave: true,
+  saveUninitialized: true
+}));
+
+app.use('/auth', authRouter);
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser((user, done) => {
+  done(null, user.googleID);
+});
+
+passport.deserializeUser((id, done) => {
+  userRepository.findUser(id)
+    .then(user => done(null, user))
+    .catch(err => done(err));
+}); 
+google();
 
 app.get('/category/module', async (req, res) => {
   const category = await moduleCategoryRepository.getAll();
@@ -96,7 +126,7 @@ app.delete('/card/:id', async (req, res) => {
   }
   await cardRepository.remove(id);
   res.sendStatus(204);
-})
+});
 
 app.use((req, res, next) => {
   res.sendStatus(404);
