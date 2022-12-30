@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainPageComponent } from './Pages/main-page/main-page.component';
-import { RegisterPageComponent } from './Pages/register-page/register-page.component';
-import { PostPageComponent } from './post-page/post-page.component';
+import { MainPageComponent } from './pages/main/main-page/main-page.component';
+import { RegisterPageComponent } from './pages/register/register-page/register-page.component';
+import { PostPageComponent } from './pages/post/post-page/post-page.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent },
