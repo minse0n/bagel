@@ -6,6 +6,6 @@
     </a>
   </div>
   <div class="searchbar">
-    <input type="search" placeholder="Search"/>
+    <input [(ngModel)]="searchInput" name="searchInput" type="search" autocomplete="off" placeholder="Search" (keydown.enter)="searchCard(); $event.preventDefault(); "/>
   </div>
 </div>

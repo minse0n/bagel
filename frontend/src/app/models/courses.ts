@@ -30,7 +30,7 @@ export interface Course {
 // icon src for each module
 const iconMathematik: string = "../../assets/logos/MATHEMATIK.svg";
 const iconTheoretisch: string = "../../assets/logos/THEORETISCH.svg";
-const iconPraktisch: string = "../../assets/logos/PRAKTISCH.svg";
+const iconPraktisch: string = "../../assets/logos/praktische.svg";
 const iconTechnisch: string = "../../assets/logos/TECHNISCH.svg";
 const iconWahlpflicht: string = "../../assets/logos/WHALPFLICHT.svg";
 const iconSonstige: string = "../../assets/logos/SONSTIGE.svg";

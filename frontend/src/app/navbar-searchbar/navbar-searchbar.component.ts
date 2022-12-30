@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CATEGORIES } from '../models/post-category';
+import { SearchService } from '../services/search.service';
 
 @Component({
   selector: 'app-navbar-searchbar',
@@ -7,12 +8,13 @@ import { CATEGORIES } from '../models/post-category';
   styleUrls: ['./navbar-searchbar.component.scss']
 })
 export class NavbarSearchbarComponent implements OnInit {
-
   @Output() SelectedCategory = new EventEmitter<string>();
-  
   categories = CATEGORIES;
   
-  constructor() { }
+  searchInput: string;
+  doubbleSubmit: boolean = false;
+
+  constructor(private searchService: SearchService) { }
 
   ngOnInit(): void {
   }
@@ -20,4 +22,20 @@ export class NavbarSearchbarComponent implements OnInit {
   selectedPostCategory(category: string) {
     this.SelectedCategory.emit(category);
   }
+
+  searchCard () {
+    if(this.searchInput === undefined) {
+      return console.log("Input some keyword...")
+    } else {
+        if (this.doubbleSubmit) {
+          this.doubbleSubmit = false;
+          return
+        } else {
+          this.doubbleSubmit = true;
+          return this.searchService.searchCard(this.searchInput);
+       }
+    }
+  }
+
+
 }
