@@ -27,6 +27,10 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { Signup2Component } from './signup2/signup2.component';
 import { TopButtonComponent } from './top-button/top-button.component';
+import { PostPageComponent } from './post-page/post-page.component';
+import { CommentComponent } from './comments/comment/comment.component';
+import { CommentFormComponent } from './comments/comment-form/comment-form.component';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,10 @@ import { TopButtonComponent } from './top-button/top-button.component';
     MainNavigationComponent,
     RegisterComponent,
     RegisterPageComponent,
+    PostPageComponent,
+    CommentComponent,
+    CommentFormComponent,
+    CommentsComponent,
     MainPageComponent,
     LoginComponent,
     SignupComponent,
