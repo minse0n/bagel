@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,8 @@ export class RegisterComponent implements OnInit {
   isEnabled: boolean = false;
   content: string = '';
   modules = {};
-  constructor() { 
+    
+  constructor( private route: ActivatedRoute ) { 
     this.modules = {
       syntax: true,
       'emoji-shortname': true,

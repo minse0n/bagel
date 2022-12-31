@@ -1,4 +1,9 @@
-<mat-sidenav-container class="container-fluid">
+<app-main-navigation></app-main-navigation>
+<app-navbar-searchbar (SelectedCategory)="changePostCategory($event)"></app-navbar-searchbar>
+<app-card-list [postCategory]="selectedCategory"></app-card-list>
+
+
+<!-- <mat-sidenav-container class="container-fluid">
   <mat-sidenav class="mySidenav" #sidenav mode="over" position="end">
     <app-sidenav (closeSideNav)="sidenav.close()"></app-sidenav>
   </mat-sidenav>
@@ -10,4 +15,4 @@
     <app-card-list [postCategory]="selectedCategory"></app-card-list>
     <app-top-button (TopButton)="scrollToTop()"></app-top-button>
   </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-sidenav-container> -->
