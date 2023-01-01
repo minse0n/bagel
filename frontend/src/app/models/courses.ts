@@ -30,9 +30,9 @@ export interface Course {
 // icon src for each module
 const iconMathematik: string = "../../assets/logos/MATHEMATIK.svg";
 const iconTheoretisch: string = "../../assets/logos/THEORETISCH.svg";
-const iconPraktisch: string = "../../assets/logos/praktische.svg";
+const iconPraktisch: string = "../../assets/logos/PRAKTISCH.svg";
 const iconTechnisch: string = "../../assets/logos/TECHNISCH.svg";
-const iconWahlpflicht: string = "../../assets/logos/WHALPFLICHT.svg";
+const iconWahlpflicht: string = "../../assets/logos/WAHLPFLICHT.svg";
 const iconSonstige: string = "../../assets/logos/SONSTIGE.svg";
 
 export const COURSES: Course[] = [
@@ -81,7 +81,7 @@ export const COURSES: Course[] = [
     courseName: 'Formale Systeme, Automaten, Prozesse',
     category: '2 Semester',
     courseId: 7,
-		module: 'Technisch',
+		module: 'Theoretisch',
 		moduleUrl: iconTheoretisch
   },
   {    
@@ -127,7 +127,7 @@ export const COURSES: Course[] = [
 		moduleUrl: iconTheoretisch
   },
   {    
-    courseName: 'Wahlpflicht-/Anwendungsbereich',
+    courseName: 'Wahlpflicht-/ Anwendungsbereich',
     category: '3 Semester',
     courseId: 14,
 		module: 'Wahlpflicht',
@@ -155,14 +155,14 @@ export const COURSES: Course[] = [
 		moduleUrl: iconMathematik
   },
   {    
-    courseName: 'Wahlpflicht-/Anwendungsbereich',
+    courseName: 'Wahlpflicht-/ Anwendungsbereich',
     category: '4 Semester',
     courseId: 18,
 		module: 'Wahlpflicht',
 		moduleUrl: iconWahlpflicht
   },
   {    
-    courseName: 'Elements of Machine Learning and Data Science',
+    courseName: 'Machine Learning and Data Science',
     category: '5 Semester',
     courseId: 19,
 		module: 'Praktisch',
@@ -183,18 +183,18 @@ export const COURSES: Course[] = [
 		moduleUrl: iconWahlpflicht
   },
   {    
-    courseName: 'Wahlpflicht-/Anwendungsbereich',
+    courseName: 'Wahlpflicht-/ Anwendungsbereich',
     category: '5 Semester',
     courseId: 22,
-		module: 'Sonstige',
-		moduleUrl: iconSonstige
+		module: 'Wahlpflicht',
+		moduleUrl: iconWahlpflicht
   },
   {    
-    courseName: 'Wahlpflicht-/Anwendungsbereich',
+    courseName: 'Wahlpflicht-/ Anwendungsbereich',
     category: '6 Semester',
     courseId: 23,
-		module: 'Sonstige',
-		moduleUrl: iconSonstige
+		module: 'Wahlpflicht',
+		moduleUrl: iconWahlpflicht
   },
   {    
     courseName: 'Bachelorarbeit',
