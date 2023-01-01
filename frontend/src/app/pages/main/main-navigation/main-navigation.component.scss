@@ -24,6 +24,7 @@
 }
 .categoryItem:hover {
   border-bottom: 3px solid $bagel-warn;
+  cursor: pointer;
 }
 .selected {
   border-bottom: 3px solid $bagel-warn !important;
