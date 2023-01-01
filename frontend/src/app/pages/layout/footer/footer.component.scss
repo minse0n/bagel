@@ -1,15 +1,9 @@
-.container{
-  position: static;
-  height: 127px;
-  display: flex;
-  align-items: center;
-}
+@import '../../../../styles.scss';
 
 .footer-container{
-  width: 100%;
-  text-align: center;
-}
-
-span{
-  display: block;
+  height: 127px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
