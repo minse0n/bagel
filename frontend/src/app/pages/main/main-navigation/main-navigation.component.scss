@@ -25,6 +25,9 @@
 .categoryItem:hover {
   border-bottom: 3px solid $bagel-warn;
 }
+.selected {
+  border-bottom: 3px solid $bagel-warn !important;
+}
 .courses-wrapper {
   display: inline-grid;
   grid-template-columns: repeat(3, 1fr);
