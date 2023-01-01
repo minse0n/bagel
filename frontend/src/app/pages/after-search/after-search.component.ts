@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./after-search.component.scss']
 })
 export class AfterSearchComponent {
-
+  
+  hasResult: boolean = true;
+  inputtedText: string;
+  searched: boolean;
+  
+  searchText(text: string) {
+    this.inputtedText = text;
+    this.hasResult = true;
+    this.searched = true;
+  }
 }

@@ -8,7 +8,6 @@ const routes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'register', component: RegisterComponent },
   // { path: '**', component: PageNotFoundComponent },
-  // { path: 'serach', component: AfterSearchComponent },
   { path: 'card/:cardId', component: PostPageComponent },
 ];
 
