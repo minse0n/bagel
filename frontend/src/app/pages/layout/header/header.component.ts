@@ -2,8 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SignupComponent } from '../../../components/signup/signup.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { LoginComponent } from '../../../components/login/login.component';
-import { Signup2Component } from '../../../components/signup2/signup2.component';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -15,7 +14,10 @@ export class HeaderComponent implements OnInit{
 
   isLoggedIn: boolean = false;
 
-  constructor(public matDialog: MatDialog) {}
+  constructor(
+    public matDialog: MatDialog,
+    private router: Router  
+  ) {}
   
   login(): void{
     this.isLoggedIn = !this.isLoggedIn;

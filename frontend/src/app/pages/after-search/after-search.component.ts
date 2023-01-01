@@ -7,13 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AfterSearchComponent {
   
-  hasResult: boolean = true;
   inputtedText: string;
   searched: boolean;
   
   searchText(text: string) {
     this.inputtedText = text;
-    this.hasResult = true;
-    this.searched = true;
+    this.searched = this.inputtedText!=='';
+    // this.searched = true;
   }
 }

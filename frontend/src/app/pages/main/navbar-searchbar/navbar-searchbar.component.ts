@@ -30,7 +30,6 @@ export class NavbarSearchbarComponent implements OnInit {
 
   searchCard() {
     this.InputtedText.emit(this.searchInput);
-    // this.router.navigate(['search']);
     if(this.searchInput === undefined) {
       return console.log("Input some keyword...")
     } else {

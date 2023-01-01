@@ -1,5 +1,6 @@
 import { ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -9,12 +10,11 @@ import { Component, OnInit } from '@angular/core';
 export class MainPageComponent implements OnInit {
 
   selectedCategory: string;
-  hasResult: boolean = true;
   inputtedText: string;
   searched: boolean;
 
   constructor(
-    private scroller: ViewportScroller
+    private scroller: ViewportScroller,
   ) {}
   
   ngOnInit(): void {}
@@ -27,7 +27,6 @@ export class MainPageComponent implements OnInit {
   }
   searchText(text: string) {
     this.inputtedText = text;
-    this.hasResult = true;
-    this.searched = true;
+    this.searched = this.inputtedText!=='';    
   }
 }
