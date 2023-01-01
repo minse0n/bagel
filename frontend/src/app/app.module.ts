@@ -8,24 +8,27 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from "@angular/material/dialog";
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { RoundedBtnComponent } from './rounded-btn/rounded-btn.component';
-import { NavbarSearchbarComponent } from './navbar-searchbar/navbar-searchbar.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { DummyHeaderComponent } from './dummy-header/dummy-header.component';
-import { CardListComponent } from './card-list/card-list.component';
-import { MainNavigationComponent } from './main-navigation/main-navigation.component';
-import { RegisterComponent } from './register/register.component';
+import { RoundedBtnComponent } from './components/rounded-btn/rounded-btn.component';
+import { NavbarSearchbarComponent } from './pages/main/navbar-searchbar/navbar-searchbar.component';
+import { HeaderComponent } from './pages/layout/header/header.component';
+import { FooterComponent } from './pages/layout/footer/footer.component';
+import { SidenavComponent } from './pages/layout/sidenav/sidenav.component';
+import { CardListComponent } from './pages/main/card-list/card-list.component';
+import { MainNavigationComponent } from './pages/main/main-navigation/main-navigation.component';
+import { RegisterComponent } from './pages/register/register/register.component';
 import { QuillModule } from 'ngx-quill';
-import { RegisterPageComponent } from './Pages/register-page/register-page.component';
-import { MainPageComponent } from './Pages/main-page/main-page.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
-import { Signup2Component } from './signup2/signup2.component';
-
+import { MainPageComponent } from './pages/main/main-page/main-page.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { Signup2Component } from './components/signup2/signup2.component';
+import { TopButtonComponent } from './pages/layout/top-button/top-button.component';
+import { PostPageComponent } from './pages/post/post-page/post-page.component';
+import { CommentComponent } from './pages/post/comments/comment/comment.component';
+import { CommentFormComponent } from './pages/post/comments/comment-form/comment-form.component';
+import { CommentsComponent } from './pages/post/comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -36,15 +39,18 @@ import { Signup2Component } from './signup2/signup2.component';
     HeaderComponent,
     FooterComponent,
     SidenavComponent,
-    DummyHeaderComponent,
     CardListComponent,
     MainNavigationComponent,
     RegisterComponent,
-    RegisterPageComponent,
+    PostPageComponent,
+    CommentComponent,
+    CommentFormComponent,
+    CommentsComponent,
     MainPageComponent,
     LoginComponent,
     SignupComponent,
-    Signup2Component
+    Signup2Component,
+    TopButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +67,8 @@ import { Signup2Component } from './signup2/signup2.component';
         syntax: true,
         toolbar: [ ]
       }
-    })
+    }),
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
