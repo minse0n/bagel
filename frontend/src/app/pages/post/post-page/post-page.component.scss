@@ -1,49 +1,50 @@
+@import '../../../../styles.scss';
+
 .post-page-container {
   max-width: 1024px;
-  margin: auto;
+  margin: 40px auto 60px;
 }
 .back-btn-container {
   height: 68px;
   display: flex;
   align-items: center;
 }
-#course {
-  height: 56px;
-  font-size: 1.8rem;
+.post-info {
   display: flex;
-  align-items: flex-end;
-  margin-top: 20px;
+  flex-direction: column;
+  margin: 32px 0;
+}
+#course {
+  font-size: 1.8rem;
+  margin-bottom: 32px;
 }
 #title {
-  height: 72px;
   font-size: 2.5rem;
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 30px;
+  margin-bottom: 16px;
 }
-#user-info {
+.user-info {
   width: 400px;
   display: flex;
   align-items: center;
   margin-left: 10px;
 }
-#user-info img {
+.user-info img {
   width: 35px;
   height: 35px;
   border-radius: 50%;
 }
-.username {
+#username {
   font-size: 1.2rem;
   margin-left: 10px;
 }
-.created-date {
+#created-date {
   font-size: 1.2rem;
   margin-left: 40px;
 }
 .content {
-  min-height: 500px;
+  min-height: 100px;
   margin-top: 30px;
   margin-bottom: 72px;
-  padding-left: 20px;
   font-size: 1.2rem;
+  border: 1px solid red;
 }
