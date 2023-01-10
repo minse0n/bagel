@@ -1,13 +1,15 @@
 @import '../../../../styles.scss'; 
 
-.container{
-  width: min(100% - 1rem, 1180px);
-  margin-inline: auto;
+.container-fluid {
+  z-index: 1;
+}
+.content-wrapper {
+  width: min(100%, 1180px);
   height: 85px;
+  margin-inline: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 1;
 }
 .logo{
   float: left;
@@ -32,13 +34,24 @@
   height: 50px;
 }
 
+@media only screen and (max-width: 1200px) {
+  /* For mobile: */
+  .content-wrapper {
+    width: min(100% - 4rem, 1200px);
+    margin-inline: auto;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   /* For mobile: */
-  .container {
-    width: min(100%, 768px);
-    padding: 4px 16px 0;
-    height: 56px;
+  .container-fluid {
     background-color: $bagel-accent;
+  }  
+  .content-wrapper {
+    width: min(100% - 2rem, 768px);
+    margin-inline: auto;
+    height: 64px;
+    padding-top: 4px;
   }
   .logo {
     height: 40px;
