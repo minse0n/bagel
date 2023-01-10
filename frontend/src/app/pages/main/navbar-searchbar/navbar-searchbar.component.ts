@@ -13,6 +13,7 @@ export class NavbarSearchbarComponent implements OnInit {
   
   searchInput: string;
   doubbleSubmit: boolean = false;
+  selected: string;
 
   constructor(private searchService: SearchService) { }
 
@@ -21,6 +22,7 @@ export class NavbarSearchbarComponent implements OnInit {
   
   selectedPostCategory(category: string) {
     this.SelectedCategory.emit(category);
+    this.selected = category;
   }
 
   searchCard () {
