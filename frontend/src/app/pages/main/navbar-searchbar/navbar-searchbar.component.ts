@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { CATEGORIES } from '../../../models/post-category';
 import { SearchService } from '../../../services/search.service';
 
@@ -9,23 +10,29 @@ import { SearchService } from '../../../services/search.service';
 })
 export class NavbarSearchbarComponent implements OnInit {
   @Output() SelectedCategory = new EventEmitter<string>();
+  @Output() InputtedText = new EventEmitter<string>();
+  
   categories = CATEGORIES;
   
   searchInput: string;
   doubbleSubmit: boolean = false;
   selected: string;
+  screenMode: string;
 
-  constructor(private searchService: SearchService) { }
+  constructor(
+    private searchService: SearchService, 
+    public router: Router) { }
 
   ngOnInit(): void {
+    let screenWidth = window.innerWidth;
+    (screenWidth > 767) ? this.screenMode = "W" : this.screenMode = "M";
   }
-  
   selectedPostCategory(category: string) {
     this.SelectedCategory.emit(category);
     this.selected = category;
   }
-
-  searchCard () {
+  searchCard() {
+    this.InputtedText.emit(this.searchInput);
     if(this.searchInput === undefined) {
       return console.log("Input some keyword...")
     } else {
@@ -38,6 +45,9 @@ export class NavbarSearchbarComponent implements OnInit {
        }
     }
   }
-
-
+  @HostListener ('window:resize', ['$event'])
+  onResize(event: any) {
+    let screenWidth = window.innerWidth;
+    (screenWidth > 767) ? this.screenMode = "W" : this.screenMode = "M";
+  }
 }

@@ -29,6 +29,7 @@ import { PostPageComponent } from './pages/post/post-page/post-page.component';
 import { CommentComponent } from './pages/post/comments/comment/comment.component';
 import { CommentFormComponent } from './pages/post/comments/comment-form/comment-form.component';
 import { CommentsComponent } from './pages/post/comments/comments.component';
+import { AfterSearchComponent } from './pages/after-search/after-search.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { CommentsComponent } from './pages/post/comments/comments.component';
     LoginComponent,
     SignupComponent,
     Signup2Component,
-    TopButtonComponent
+    TopButtonComponent,
+    AfterSearchComponent
   ],
   imports: [
     BrowserModule,
