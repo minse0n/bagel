@@ -1,8 +1,9 @@
 @import '../../../../styles.scss';
 
 .cardList-wrapper {
-  max-width: 1180px;
-  margin: 0 auto 60px;
+  width: min(100% - 1rem, 1180px);
+  margin-inline: auto;
+  margin-bottom: 60px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 44px;
