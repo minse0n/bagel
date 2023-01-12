@@ -23,6 +23,8 @@ export class NavbarSearchbarComponent implements OnInit {
     public router: Router) { }
 
   ngOnInit(): void {
+    let screenWidth = window.innerWidth;
+    (screenWidth > 767) ? this.screenMode = "W" : this.screenMode = "M";
   }
   
   selectedPostCategory(category: string) {
