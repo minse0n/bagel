@@ -6,20 +6,18 @@ import { PostPageComponent } from './pages/post/post-page/post-page.component';
 import { RegisterComponent } from './pages/register/register/register.component';
 
 const routes: Routes = [
-  { path: 'home', component: MainPageComponent },
-  { path: '', component: MainPageComponent,
-    children: [
-      { path: 'search', component: AfterSearchComponent },
-    ]
-  },
+  { path: '', component: MainPageComponent },
+  { path: 'home', redirectTo: '/', pathMatch: 'full'},
   { path: 'search', component: AfterSearchComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'card/:cardId', component: PostPageComponent },
+  { path: 'card/:cardId', component: PostPageComponent }, 
     // { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    scrollPositionRestoration: 'top',
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
