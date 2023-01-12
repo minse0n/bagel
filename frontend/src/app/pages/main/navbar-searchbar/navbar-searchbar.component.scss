@@ -44,6 +44,8 @@ a:hover{
   color: $bagel-warn;
   text-decoration: none;
 }
+.selected {
+  color: $bagel-warn;
 
 @media only screen and (max-width: 768px) {
   /* For mobile: */
