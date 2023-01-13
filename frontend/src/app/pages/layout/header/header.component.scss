@@ -1,0 +1,67 @@
+@import '../../../../styles.scss'; 
+
+.container-fluid {
+  z-index: 1;
+}
+.content-wrapper {
+  width: min(100%, 1180px);
+  height: 85px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo{
+  float: left;
+  padding: 0px;
+  cursor: pointer;
+}
+.btn-item{
+  margin-left: 24px;
+  width: 127px;
+  height: 48px;
+  font-size: 1rem;
+  text-align: center;
+  border: 0.5px solid;
+  border-radius: 50px;
+  background-color: #ffffff;
+}
+.temp-btn {
+  margin-right: 100px;
+}
+.temp-img {
+  border-radius: 50%;
+  height: 50px;
+}
+
+@media only screen and (max-width: 1200px) {
+  /* For mobile: */
+  .content-wrapper {
+    width: min(100% - 4rem, 1200px);
+    margin-inline: auto;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile: */
+  .container-fluid {
+    background-color: $bagel-accent;
+  }  
+  .content-wrapper {
+    width: min(100% - 2rem, 768px);
+    margin-inline: auto;
+    height: 64px;
+    padding-top: 4px;
+  }
+  .logo {
+    height: 40px;
+  }
+  .btn-item {
+    height: 32px;
+    width: 64px;
+    font-size: 0.7rem;
+    background-color: $bagel-dark;
+    border: none;
+    color: $bagel-accent;
+  }
+}

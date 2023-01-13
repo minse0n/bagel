@@ -1,0 +1,42 @@
+*{
+  padding: 0;
+  margin: 0;
+} 
+.form-group {
+  display: grid;
+  grid-template-columns: 8fr 1fr;
+  column-gap: 8px;
+  margin-left: 43px;
+  height: 100px;
+}
+.form-control {
+  padding: 3px 8px;
+}
+.form-control:focus {
+  outline: none !important;
+  border: 2px solid #f0c892;
+  box-shadow: none;
+}
+.btn {
+  background-color: #f0c892;
+}
+.btn:hover {
+  opacity: 0.8;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile: */
+  .form-group {
+    display: grid;
+    grid-template-columns: 7fr 1fr;
+    column-gap: 8px;
+    margin-left: 28px;
+    height: 72px;
+  }  
+  .btn {
+    font-size: 0.7rem;
+  }
+  .form-control {
+    font-size: 1rem;
+  }
+}

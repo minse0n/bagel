@@ -1,0 +1,55 @@
+*{
+  padding: 0;
+  margin: 0;
+} 
+.comments-container {
+  width: min(100% - 2rem, 1024px);
+  margin-inline: auto;
+}
+.comments-list {
+  list-style: none;
+  margin-bottom: 30px;
+  width: 100%;
+}
+.user-container {
+  display: flex;
+  align-items: flex-start;
+}
+.user-photo {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.user-name {
+  margin-left: 8px;
+  width: 70px;
+  font-size: 1rem;
+  color: #a39e9e;
+}
+.content-container {
+  margin-left: 35px;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile: */
+  .comments-container {
+    width: min(100% - 1rem, 768px);
+    margin-inline: auto;
+  }
+  .comments-list {
+    list-style: none;
+    margin-bottom: 30px;
+  }  
+  .user-photo {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+}
+@media only screen and (max-width: 576px) {
+  /* For mobile: */
+  .comments-container {
+    width: min(100%, 576px);
+    margin-inline: auto;
+  }
+}
