@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChange, Output } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, Output, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostcategoryFilterService } from '../../../services/postcategory-filter.service';
 import { SearchService } from 'src/app/services/search.service';
@@ -16,7 +16,8 @@ export class CardListComponent implements OnInit {
   @Input() isSearch: boolean;
   @Output() currentBagelId: string;
   bagels: BagelCard[]; 
-  noResult: boolean
+  noResult: boolean;
+  screenMode: string;
   
   constructor(
     private _filterservice: PostcategoryFilterService,
@@ -25,6 +26,9 @@ export class CardListComponent implements OnInit {
   ) {}
   
   ngOnInit() {
+    let screenWidth = window.innerWidth;
+    (screenWidth > 576) ? this.screenMode = "W" : this.screenMode = "M";
+
     this._filterservice.getAllData().subscribe({
       next: (data) => {
         this.bagels = data;
@@ -32,6 +36,12 @@ export class CardListComponent implements OnInit {
       error: (e) => console.log(e)
     });
   }
+  @HostListener ('window:resize', ['$event'])
+  onResize(event: any) {
+    let screenWidth = window.innerWidth;
+    (screenWidth > 576) ? this.screenMode = "W" : this.screenMode = "M";
+  }
+
   ngOnChanges(change: SimpleChange) {
     if(this.searchText && !this.postCategory) {
       this._searchservice.searchCard(this.searchText).subscribe(res => {
