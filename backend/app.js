@@ -114,6 +114,7 @@ app.post('/card', async (req, res) => {
   const { title, text, category, term, course } = req.body;
   const card = await cardRepository.create(title, text, category, term, course );
   res.status(201).json(card);
+})
 
 app.put('/card/:id', async (req, res) => {
   const { title, text, category, term, course } = req.body;
