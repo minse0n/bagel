@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit{
 
   @Output() SideNavToggle = new EventEmitter();
 
-  isLoggedIn: boolean = false;
+  isLoggedIn: boolean = true;
   screenMode: string;
 
   constructor(
