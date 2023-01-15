@@ -7,6 +7,7 @@
     <app-header (SideNavToggle)="sidenav.toggle()"></app-header>
     <router-outlet></router-outlet>
     <app-top-button *ngIf="screenMode==='W'" (TopButton)="scrollToTop()"></app-top-button>
+    <app-plus-button *ngIf="screenMode==='M'" (PlusButton)="plusNewCard()"></app-plus-button>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
