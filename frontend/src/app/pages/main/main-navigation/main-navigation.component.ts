@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Course, COURSES, CATEGORIES } from '../../../models/courses';
 
 @Component({
@@ -14,6 +14,10 @@ export class MainNavigationComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+  @HostListener ('window:resize', ['$event'])
+  onResize(event: any) {
+    let screenWidth = window.innerWidth;
   }
 
   selectCategory(data: string) {
