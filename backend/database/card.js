@@ -26,8 +26,7 @@ export async function getCard(id){
   return Card.findById(id);
 }
 
-export async function create(title, text, category, term, course){
-  console.log(title);
+export async function create(title, text, category, term, course, username){
   return new Card({
     title,
     text,

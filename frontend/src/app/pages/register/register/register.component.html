@@ -2,29 +2,24 @@
   <div class="form-group">
     <label for="selectCategory">Category</label>
     <select class="form-select form-control" id="selectCategory" (change)="selectCategory()" name="category" [(ngModel)]="newCard.category" aria-placeholder="Select category">
-      <!-- <option selected>Select category</option> -->
-      <option value="courses">Courses</option>
-      <option value="review">Review</option>
-      <option value="community">Community</option>
+      <option selected>Select category</option>
+      <option value="Courses">Courses</option>
+      <option value="Study">Study</option>
+      <option value="InAachen">In Aachen</option>
+      <option value="AfterRWTH">After RWTH</option>
     </select>    
   </div>
   <div class="form-group">
     <label for="inputTerm">Term</label>
-    <input type="term" class="form-control" placeholder="ex) ss21, ws22" name="term" [(ngModel)]="newCard.term">
+    <input type="term" class="form-control" placeholder="ex) ss21, ws22" [disabled]="isEnabled" name="term" [(ngModel)]="newCard.term">
   </div>
 
   <div class="form-group">
     <label for="inputCourses">Courses</label>
     <input type="Courses" class="form-control" id="inputCourses" list="selectCourses" placeholder="Input course" [disabled]="isEnabled" name="course" [(ngModel)]="newCard.course">
     <datalist id="selectCourses">
-      <option value="Programmierung">Programmierung</option>
-      <option value="Technische Informatik">Technische Informatik</option>
-      <option value="Diskrete Strukturen">Diskrete Strukturen</option>
-      <option value="Analysis für Informatiker">Analysis für Informatiker</option>
-      <option value="Datenstrukturen und Algorithmen">Datenstrukturen und Algorithmen</option>
-      <option value="Betriebssysteme und Systemsoftware">Betriebssysteme und Systemsoftware</option>
-      <option value="Formale Systeme, Automaten, Prozesse">Formale Systeme, Automaten, Prozesse</option>
-      <option value="Lineare Algebra">Lineare Algebra</option>
+      <option *ngFor="let course of courses">{{course.courseName}}</option>
+      <!-- <option value="Programmierung">Programmierung</option> -->
     </datalist>
   </div>
   <div class="form-group">

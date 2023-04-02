@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ConstructorSansProvider, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CardService } from 'src/app/services/card.service';
 import { BagelCard } from 'src/app/models/bagelCard';
+import { COURSES } from 'src/app/models/courses';
 
 @Component({
   selector: 'app-register',
@@ -31,9 +31,11 @@ export class RegisterComponent implements OnInit {
     term: '', 
     course: ''
   };
+  courses = COURSES;
+  
 
   constructor(
-    private route: ActivatedRoute,
+    private router: Router,
     private _cardservice: CardService,
     ) {
   }
@@ -58,11 +60,9 @@ export class RegisterComponent implements OnInit {
     let categorySelect = (document.getElementById('selectCategory')) as HTMLSelectElement;
     let selected = categorySelect.selectedIndex;
     let selectedValue = categorySelect.options[selected];
-    selectedValue.value==='community' ? this.isEnabled = true : this.isEnabled = false;
+    selectedValue.value==='InAachen' ? this.isEnabled = true : this.isEnabled = false;
   }
   cardRegister() {
-    console.log('register.ts');
-    // console.log(this.newCard);
     const data = {
       title: this.newCard.title, 
       text: this.newCard.text,
@@ -71,12 +71,10 @@ export class RegisterComponent implements OnInit {
       term: this.newCard.term,
       course: this.newCard.course
     }
-    console.log(data.title);
-    console.log(typeof(data.title));
-
     this._cardservice.create(data).subscribe({
       next: (res) => {
         alert('new Post saved successfully.');
+        this.router.navigate(['']);
       },
       error: (e) => console.error(e)
     });
