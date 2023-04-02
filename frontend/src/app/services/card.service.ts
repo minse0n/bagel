@@ -22,6 +22,7 @@ export class CardService {
   }
 
   create(data: any): Observable<any> {
+    console.log('service.ts');
     return this._http.post(this.cardUrl, data);
   }
 

@@ -1,8 +1,8 @@
-<form class="container" (ngSubmit)="onFormSubmit()">
+<form class="container submit-form">
   <div class="form-group">
     <label for="selectCategory">Category</label>
-    <select class="form-select form-control" id="selectCategory" (change)="selectCategory()" name="category" [(ngModel)]="newCard.category">
-      <option selected>Select category</option>
+    <select class="form-select form-control" id="selectCategory" (change)="selectCategory()" name="category" [(ngModel)]="newCard.category" aria-placeholder="Select category">
+      <!-- <option selected>Select category</option> -->
       <option value="courses">Courses</option>
       <option value="review">Review</option>
       <option value="community">Community</option>
@@ -42,6 +42,6 @@
     [modules]="quillConfig" (onEditorCreated)="addBindingCreated($event)"></quill-editor>
   </div>
   <div class="form-group">
-    <button type="submit" class="register-btn">REGISTER</button>
+    <button type="submit" class="register-btn" (click)="cardRegister()">REGISTER</button>
   </div>
 </form>

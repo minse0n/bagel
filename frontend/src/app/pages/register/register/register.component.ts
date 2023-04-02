@@ -22,14 +22,7 @@ export class RegisterComponent implements OnInit {
         [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
       ],
     },
-  }
-  title: string;
-  text: string;
-  category: string;
-  username: string;
-  term: string;
-  course: string;
-  
+  }  
   newCard: BagelCard = {
     title: '', 
     text: '',
@@ -37,7 +30,7 @@ export class RegisterComponent implements OnInit {
     username: '',
     term: '', 
     course: ''
-  }; 
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -67,11 +60,25 @@ export class RegisterComponent implements OnInit {
     let selectedValue = categorySelect.options[selected];
     selectedValue.value==='community' ? this.isEnabled = true : this.isEnabled = false;
   }
-  onFormSubmit() {
-    this._cardservice.create(this.newCard).subscribe({
+  cardRegister() {
+    console.log('register.ts');
+    // console.log(this.newCard);
+    const data = {
+      title: this.newCard.title, 
+      text: this.newCard.text,
+      category: this.newCard.category,
+      username: this.newCard.username,
+      term: this.newCard.term,
+      course: this.newCard.course
+    }
+    console.log(data.title);
+    console.log(typeof(data.title));
+
+    this._cardservice.create(data).subscribe({
       next: (res) => {
         alert('new Post saved successfully.');
-      }
-    })
+      },
+      error: (e) => console.error(e)
+    });
   }
 }

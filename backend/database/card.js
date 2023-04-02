@@ -27,10 +27,11 @@ export async function getCard(id){
 }
 
 export async function create(title, text, category, term, course){
+  console.log(title);
   return new Card({
     title,
     text,
-    username: 'yoseob',
+    username,
     category,
     term,
     course
