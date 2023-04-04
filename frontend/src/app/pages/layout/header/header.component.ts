@@ -12,7 +12,8 @@ export class HeaderComponent implements OnInit{
 
   @Output() SideNavToggle = new EventEmitter();
 
-  isLoggedIn: boolean = false;
+  headerFixed: boolean = false;  
+  isLoggedIn: boolean = true;
   screenMode: string;
 
   constructor(
@@ -51,6 +52,13 @@ export class HeaderComponent implements OnInit{
   onResize(event: any) {
     let screenWidth = window.innerWidth;
     (screenWidth > 767) ? this.screenMode = "W" : this.screenMode = "M";
+  }
+  @HostListener('window:scroll', ['$event']) onscroll() {
+    if(window.scrollY > 1) {
+      this.headerFixed = true;
+    } else {
+      this.headerFixed = false;
+    }
   }
 
 }
