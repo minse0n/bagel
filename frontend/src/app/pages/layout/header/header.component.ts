@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit{
 
   @Output() SideNavToggle = new EventEmitter();
 
-  isLoggedIn: boolean = true;
+  isLoggedIn: boolean = false;
   screenMode: string;
 
   constructor(
@@ -21,7 +21,12 @@ export class HeaderComponent implements OnInit{
   ) {
   }
   
-  login(): void{
+  // route to singup page
+  signup(): void {
+    this.router.navigate(['/signup']);
+  }
+
+  login(): void {
     this.isLoggedIn = !this.isLoggedIn;
   }
   openSidenav() {
