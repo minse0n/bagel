@@ -10,7 +10,7 @@
     </div>
   </div>
   <ul class="cardList-wrapper">
-    <a [routerLink]="['/register']" class="cardItem" id="newBagel" *ngIf="!isSearch && screenMode === 'W'">
+    <a (click)="newBagel()" class="cardItem" id="newBagel" *ngIf="!isSearch && screenMode === 'W'">
       <div>+ new card</div>      
     </a>
     <a class="cardItem" (click)="showDetail(bagel._id)" *ngFor="let bagel of bagels">

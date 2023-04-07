@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChange, Output, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { PostcategoryFilterService } from '../../../services/postcategory-filter.service';
 import { SearchService } from 'src/app/services/search.service';
 import { BagelCard } from '../../../models/bagelCard';
@@ -16,8 +16,10 @@ export class CardListComponent implements OnInit {
   @Input() isSearch: boolean;
   @Output() currentBagelId: string;
   bagels: BagelCard[]; 
+  bagel: BagelCard = {};
   noResult: boolean;
   screenMode: string;
+  category: string;
   
   constructor(
     private _filterservice: PostcategoryFilterService,
@@ -42,26 +44,46 @@ export class CardListComponent implements OnInit {
     (screenWidth > 576) ? this.screenMode = "W" : this.screenMode = "M";
   }
 
+  newBagel() {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        currentBagel: this.bagel
+      }
+    };
+    this.router.navigate(['/register'], navigationExtras);
+  }
   ngOnChanges(change: SimpleChange) {
-    if(this.searchText && !this.postCategory) {
-      this._searchservice.searchCard(this.searchText).subscribe(res => {
-        this.bagels = res;
-        this.noResult = res.length === 0 ? true : false;
+    if(this.postCategory === 'All') {
+      this._filterservice.getAllData().subscribe({
+        next: (data) => {
+          this.bagels = data;
+        },
+        error: (e) => console.log(e)
       });
-      this.router.navigate(['search']);
-    } else if(this.searchText && this.postCategory) {
-      this._filterservice.findBySearchCategory(this.searchText, this.postCategory)
-        .subscribe(res => { 
-          this.bagels = res;
-          this.noResult = res.length === 0;
-      });
-      
-    }
-    if(this.postCategory && !this.searchText) {
+    } else if(this.postCategory) {
       this._filterservice.findByCategory(this.postCategory).subscribe(res => {
         this.bagels = res;
       });
     }
+    // if(this.searchText && !this.postCategory) {
+    //   this._searchservice.searchCard(this.searchText).subscribe(res => {
+    //     this.bagels = res;
+    //     this.noResult = res.length === 0 ? true : false;
+    //   });
+    //   this.router.navigate(['search']);
+    // } else if(this.searchText && this.postCategory) {
+    //   this._filterservice.findBySearchCategory(this.searchText, this.postCategory)
+    //     .subscribe(res => { 
+    //       this.bagels = res;
+    //       this.noResult = res.length === 0;
+    //   });
+      
+    // }
+    // if(this.postCategory && !this.searchText) {
+    //   this._filterservice.findByCategory(this.postCategory).subscribe(res => {
+    //     this.bagels = res;
+    //   });
+    // }
   } 
   showDetail(id: string) {
     this.router.navigate(['/card',id], { skipLocationChange: true });

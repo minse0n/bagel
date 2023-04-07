@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgModel } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from "@angular/material/dialog";
-import { HttpClientModule } from '@angular/common/http';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RoundedBtnComponent } from './components/rounded-btn/rounded-btn.component';
 import { NavbarSearchbarComponent } from './pages/main/navbar-searchbar/navbar-searchbar.component';
@@ -57,14 +58,15 @@ import { PlusButtonComponent } from './pages/layout/plus-button/plus-button.comp
     PlusButtonComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     MatSidenavModule,
     MatDividerModule,
     MatListModule,
     MatDialogModule,
-    CommonModule,
     FormsModule,
     QuillModule.forRoot({
       modules: {

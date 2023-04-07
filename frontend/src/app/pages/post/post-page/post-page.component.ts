@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
 import { BagelCard } from '../../../models/bagelCard';
 import { CardService } from '../../../services/card.service';
 
@@ -11,10 +12,12 @@ import { CardService } from '../../../services/card.service';
 export class PostPageComponent implements OnInit {
     
   bagel: BagelCard = {};
+  isMy: boolean = true;
   
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
-    private _getCardService:CardService
+    private _getCardService:CardService,
   ) { }
 
   ngOnInit(): void {
@@ -29,5 +32,23 @@ export class PostPageComponent implements OnInit {
         },
         error: (e) => console.error(e)
       });
+  }
+  bagelUpdate() {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        currentBagel: this.bagel
+      }
+    };
+    this.router.navigate(['/register'], navigationExtras);
+  }
+  bagelDelete() {
+    this._getCardService.delete(this.bagel._id).subscribe({
+      next: (data) => {
+        console.log(data);
+        console.log("삭제됨");
+        this.router.navigate(['']);
+      },
+      error: (e) => console.error(e)
+    });
   }
 }

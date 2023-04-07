@@ -10,7 +10,7 @@ export const CATEGORIES: Category[] = [
   { category: '5 Sem' },
   { category: '6 Sem' },
   { category: 'Thesis' },
-  { category: 'Study' },
+  { category: 'Alte' },
 ] 
 
 export interface Course {

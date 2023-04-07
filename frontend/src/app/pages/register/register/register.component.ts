@@ -1,8 +1,10 @@
-import { Component, ConstructorSansProvider, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CardService } from 'src/app/services/card.service';
 import { BagelCard } from 'src/app/models/bagelCard';
 import { COURSES } from 'src/app/models/courses';
+import { QuillEditorComponent } from 'ngx-quill';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +13,7 @@ import { COURSES } from 'src/app/models/courses';
 })
 export class RegisterComponent implements OnInit {
 
+  isMy: boolean = true;
   isEnabled: boolean = false;
   quillConfig = {
     toolbar: {
@@ -22,58 +25,69 @@ export class RegisterComponent implements OnInit {
         [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
       ],
     },
-  }  
-  newCard: BagelCard = {
+  }; 
+  courses = COURSES;
+  bagelCard: BagelCard = {
+    _id: '',
     title: '', 
     text: '',
     category: '',
     username: '',
-    term: '', 
+    term: '',
     course: ''
   };
-  courses = COURSES;
   
-
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private _cardservice: CardService,
     ) {
   }
-  addBindingCreated(quill: { keyboard: { addBinding: (arg0: { key: string; shiftKey?: boolean; }, arg1: { (range: any, context: any): void; (range: any, context: any): void; }) => void; }; }) {
-    quill.keyboard.addBinding({
-      key: 'b'
-    }, (range: any, context: any) => {
-      console.log('KEYBINDING B', range, context)
-    })
-    quill.keyboard.addBinding({
-      key: 'B',
-      shiftKey: true
-    }, (range: any, context: any) => {
-      console.log('KEYBINDING SHIFT + B', range, context)
-    })
-  }
-
   ngOnInit(): void {
+    const state = window.history.state;
+    this.bagelCard = state && (state.currentBagel || state.newBagel) || this.bagelCard;
+    // 위의 코드에서는 window.history.state에 값이 있을 경우, currentBagel 또는 newBagel 속성 중 하나의 값을 bagelCard에 할당합니다. 만약 window.history.state가 undefined인 경우, this.bagelCard의 초기값을 사용합니다.
+    console.log(this.bagelCard);
   }
   
   selectCategory() {
     let categorySelect = (document.getElementById('selectCategory')) as HTMLSelectElement;
     let selected = categorySelect.selectedIndex;
-    let selectedValue = categorySelect.options[selected];
-    selectedValue.value==='InAachen' ? this.isEnabled = true : this.isEnabled = false;
+    let selectedValue = categorySelect.options[selected].value;
+    this.isEnabled = selectedValue === 'InAachen' || selectedValue === 'AfterRWTH';
   }
-  cardRegister() {
-    const data = {
-      title: this.newCard.title, 
-      text: this.newCard.text,
-      category: this.newCard.category,
-      username: this.newCard.username,
-      term: this.newCard.term,
-      course: this.newCard.course
+  bagelSave() {
+    let bagel = {
+      _id: this.bagelCard._id,
+      title: this.bagelCard.title, 
+      text: this.bagelCard.text.replace(/<\/?p>/g, ''),
+      category: this.bagelCard.category,
+      username: this.bagelCard.username,
+      term: this.bagelCard.term,
+      course: this.bagelCard.course
     }
-    this._cardservice.create(data).subscribe({
+    if(!this.isMy) {
+    this._cardservice.create(bagel).subscribe({
       next: (res) => {
         alert('new Post saved successfully.');
+        this.router.navigate(['']);
+      },
+      error: (e) => console.error(e)
+    });
+    } else {
+      this._cardservice.update(bagel._id, bagel).subscribe({
+        next: (data) => {
+          bagel = data;
+          alert('new Post saved successfully.');
+          this.router.navigate(['']);
+        },
+        error: (e) => console.error(e)
+      });
+    }
+  }
+  bagelDelete() {
+    this._cardservice.delete(this.bagelCard._id).subscribe({
+      next: (res) => {
         this.router.navigate(['']);
       },
       error: (e) => console.error(e)
