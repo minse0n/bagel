@@ -26,11 +26,11 @@ export async function getCard(id){
   return Card.findById(id);
 }
 
-export async function create(title, text, category, term, course){
+export async function create(title, text, category, term, course, username){
   return new Card({
     title,
     text,
-    username: 'yoseob',
+    username,
     category,
     term,
     course

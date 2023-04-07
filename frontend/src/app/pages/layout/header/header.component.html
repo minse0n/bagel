@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" (scroll)="onscroll()" [ngClass]="headerFixed?'fixed':'nofixed'">
   <div class="content-wrapper">
     <a href=""><img class="logo" src="../../assets/logos/Bagel.svg"/></a>
     <div *ngIf="screenMode==='W'">
