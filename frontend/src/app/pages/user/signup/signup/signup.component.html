@@ -1,0 +1,26 @@
+<div class="signup-container">
+  <div class="signip-title-container">
+    <h1 class="signup-title">Create your account</h1>
+  </div>
+  <div class="singup-guide">
+    Please note that RWTH-Email verification is required for sign up.
+    Your information will only be used to verify your identity for security purpose.
+  </div>
+  <div class="email-wrapper">
+    <div class="input-container">
+      <input class="email-input" name="email" type="text" autocomplete="off" required />
+      <label for="text" class="label-name">
+        <!-- RWTH-Email 입력 -->
+        <span *ngIf="!verified" class="content-name">RWTH Email</span>
+        <!-- Verfication code 입력 -->
+        <span *ngIf="verified" class="content-name">Verification code</span>
+      </label>
+    </div>
+    
+
+
+    <div class="email-btn-container">
+     <button class="email-btn" type="submit" name="action">Continue</button>
+    </div>
+  </div>
+</div>
