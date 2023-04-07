@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModel } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -68,12 +67,13 @@ import { PlusButtonComponent } from './pages/layout/plus-button/plus-button.comp
     MatListModule,
     MatDialogModule,
     FormsModule,
-    QuillModule.forRoot({
-      modules: {
-        syntax: true,
-        toolbar: [ ]
-      }
-    }),
+    QuillModule.forRoot(),
+    // QuillModule.forRoot({
+    //   modules: {
+    //     syntax: true,
+    //     toolbar: [ ]
+    //   }
+    // }),
     HttpClientModule,
   ],
   providers: [],

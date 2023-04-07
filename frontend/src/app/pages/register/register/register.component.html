@@ -27,12 +27,14 @@
     <input type="text" class="form-control" name="title" placeholder="ex) 과제 팀원 구합니다." [(ngModel)]="bagelCard.title">
   </div>
   <div class="form-group">
-    <label for="inputContent">Content</label>
+    <label for="inputText">Content</label>
     <quill-editor name="text" [(ngModel)]="bagelCard.text"
-    [modules]="quillConfig"></quill-editor>
+    [modules]="quillConfig"
+    (onEditorChanged)="changedEditor($event)"
+    ></quill-editor>
   </div>
   <div class="form-group" id="btn-group">
-    <button type="submit" class="register-btn" (click)="bagelSave()">SAVE</button>
+    <button type="submit" class="register-btn" (click)="bagelSave()">{{ saveType }}</button>
     <button *ngIf="isMy" type="submit" class="delete-btn" (click)="bagelDelete()">DELETE</button>
   </div>
 </form>

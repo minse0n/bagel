@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardService } from 'src/app/services/card.service';
 import { BagelCard } from 'src/app/models/bagelCard';
 import { COURSES } from 'src/app/models/courses';
-import { QuillEditorComponent } from 'ngx-quill';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 
 @Component({
   selector: 'app-register',
@@ -13,18 +12,17 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 })
 export class RegisterComponent implements OnInit {
 
+  saveType: string = '';
   isMy: boolean = true;
   isEnabled: boolean = false;
   quillConfig = {
-    toolbar: {
-      container: [
-        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-        ['blockquote', 'code-block'],
-        [{ 'header': 1 }, { 'header': 2 }],
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
-      ],
-    },
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      ['blockquote', 'code-block'],
+      [{ 'header': 1 }, { 'header': 2 }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+    ],
   }; 
   courses = COURSES;
   bagelCard: BagelCard = {
@@ -43,11 +41,14 @@ export class RegisterComponent implements OnInit {
     private _cardservice: CardService,
     ) {
   }
+  
   ngOnInit(): void {
     const state = window.history.state;
     this.bagelCard = state && (state.currentBagel || state.newBagel) || this.bagelCard;
     // 위의 코드에서는 window.history.state에 값이 있을 경우, currentBagel 또는 newBagel 속성 중 하나의 값을 bagelCard에 할당합니다. 만약 window.history.state가 undefined인 경우, this.bagelCard의 초기값을 사용합니다.
-    console.log(this.bagelCard);
+    this.saveType = this.bagelCard._id && 'EDIT' || 'REGISTER';
+    console.log(this.bagelCard._id);
+    console.log(state);
   }
   
   selectCategory() {
@@ -57,28 +58,21 @@ export class RegisterComponent implements OnInit {
     this.isEnabled = selectedValue === 'InAachen' || selectedValue === 'AfterRWTH';
   }
   bagelSave() {
-    let bagel = {
-      _id: this.bagelCard._id,
-      title: this.bagelCard.title, 
-      text: this.bagelCard.text.replace(/<\/?p>/g, ''),
-      category: this.bagelCard.category,
-      username: this.bagelCard.username,
-      term: this.bagelCard.term,
-      course: this.bagelCard.course
-    }
-    if(!this.isMy) {
-    this._cardservice.create(bagel).subscribe({
+    if(this.saveType === 'REGISTER') {
+    this._cardservice.create(this.bagelCard).subscribe({
       next: (res) => {
-        alert('new Post saved successfully.');
+        console.log(this.bagelCard.text);
+        alert('new Post saved successfully :D');
         this.router.navigate(['']);
       },
       error: (e) => console.error(e)
     });
-    } else {
-      this._cardservice.update(bagel._id, bagel).subscribe({
+    } else if (this.saveType === 'EDIT') {
+      this._cardservice.update(this.bagelCard._id, this.bagelCard).subscribe({
         next: (data) => {
-          bagel = data;
-          alert('new Post saved successfully.');
+          this.bagelCard = data;
+          console.log(this.bagelCard.text);
+          alert('Post updated successfully :)');
           this.router.navigate(['']);
         },
         error: (e) => console.error(e)
@@ -92,5 +86,9 @@ export class RegisterComponent implements OnInit {
       },
       error: (e) => console.error(e)
     });
+  }
+  changedEditor(event: EditorChangeContent | EditorChangeSelection) {
+    console.log('editor got changed', event);
+    // this.bagelCard.text = event['editor']['root']['innerText'];
   }
 }
