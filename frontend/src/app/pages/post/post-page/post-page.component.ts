@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BagelCard } from '../../../models/bagelCard';
 import { CardService } from '../../../services/card.service';
 
+
 @Component({
   selector: 'app-post-page',
   templateUrl: './post-page.component.html',
@@ -42,10 +43,10 @@ export class PostPageComponent implements OnInit {
     this.router.navigate(['/register'], navigationExtras);
   }
   bagelDelete() {
+    alert('Do you want to delete it?');
     this._getCardService.delete(this.bagel._id).subscribe({
       next: (data) => {
-        console.log(data);
-        console.log("삭제됨");
+        alert('Post has been deleted.');
         this.router.navigate(['']);
       },
       error: (e) => console.error(e)

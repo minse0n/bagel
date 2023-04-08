@@ -6,19 +6,15 @@
       </li>
     </ul>
     <ul class="courses-wrapper" id="department" *ngIf="selected==='Thesis'">
-      <li id="depart-item" *ngFor="let course of courses">
-        <a id="depart-info" [href]="course.href" target="_blank" rel="noopener noreferrer">
-          <img id="depart-logo" [src]="course.moduleUrl"/>
-          <!-- <div id="hide">
-            <span class="depart-num">{{ course.module }}</span>
-            <span class="depart-name">{{ course.courseName }}</span>
-          </div> -->
+      <li id="depart-item" *ngFor="let lehrsthul of lehrsthule">
+        <a id="depart-info" [href]="lehrsthul.href" target="_blank" rel="noopener noreferrer">
+          <img id="depart-logo" [src]="lehrsthul.moduleUrl"/>
         </a>
       </li>
     </ul>
     <ul class="courses-wrapper" *ngIf="selected==='Thesis'? false : true">
       <li class="courseItem" *ngFor="let course of courses">
-        <a class="courses" [href]="course.courseName">
+        <a class="courses" [href]="course.courseName" (click)="getCourseBagel($event)">
           <img class="courseLogo" [src]="course.moduleUrl"/>
           <div class="courseText">
             <span class="courseModule">{{ course.module }}</span>

@@ -80,8 +80,10 @@ export class RegisterComponent implements OnInit {
     }
   }
   bagelDelete() {
+    alert('Are you sure to proceed?');
     this._cardservice.delete(this.bagelCard._id).subscribe({
       next: (res) => {
+        alert('Post has been deleted.');
         this.router.navigate(['']);
       },
       error: (e) => console.error(e)
