@@ -8,19 +8,21 @@
   </div>
   <div class="email-wrapper">
     <div class="input-container">
-      <input class="email-input" name="email" type="text" autocomplete="off" required />
+      <input *ngIf="!sentCode" class="email-input" type="text" name="email" autocomplete="off" [(ngModel)]="rwthEmail" required>
+      <input *ngIf="sentCode" class="email-input" type="text" name="email" autocomplete="off" [(ngModel)]="verificationCode" required>
       <label for="text" class="label-name">
         <!-- RWTH-Email 입력 -->
-        <span *ngIf="!verified" class="content-name">RWTH Email</span>
+        <span *ngIf="!sentCode" class="content-name">RWTH Email</span>
         <!-- Verfication code 입력 -->
-        <span *ngIf="verified" class="content-name">Verification code</span>
+        <span *ngIf="sentCode" class="content-name">Verification code</span>
       </label>
     </div>
     
 
 
     <div class="email-btn-container">
-     <button class="email-btn" type="submit" name="action">Continue</button>
+     <button *ngIf="!sentCode" class="email-btn" type="submit" name="action" (click)="verificationEmail(rwthEmail)">Send</button>
+     <button *ngIf="sentCode" class="email-btn" type="submit" name="action" (click)="validateCode(verificationCode)">Continue</button>
     </div>
   </div>
 </div>

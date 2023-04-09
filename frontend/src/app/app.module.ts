@@ -22,8 +22,6 @@ import { RegisterComponent } from './pages/register/register/register.component'
 import { QuillModule } from 'ngx-quill';
 import { MainPageComponent } from './pages/main/main-page/main-page.component';
 import { LoginComponent } from './components/login/login.component';
-// import { SignupComponent } from './components/signup/signup.component';
-// import { Signup2Component } from './components/signup2/signup2.component';
 import { TopButtonComponent } from './pages/layout/top-button/top-button.component';
 import { PostPageComponent } from './pages/post/post-page/post-page.component';
 import { CommentComponent } from './pages/post/comments/comment/comment.component';
@@ -52,8 +50,6 @@ import { SignupComponent } from './pages/user/signup/signup/signup.component';
     MainPageComponent,
     LoginComponent,
     SignupComponent,
-    // SignupComponent,
-    // Signup2Component,
     TopButtonComponent,
     AfterSearchComponent,
     PlusButtonComponent

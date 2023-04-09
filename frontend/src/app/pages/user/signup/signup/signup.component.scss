@@ -35,28 +35,32 @@
   position: relative;
   height: 100px;
   overflow: hidden;
-  border-bottom: 1px solid #c2c8d0;
+  // border-bottom: 1px solid #c2c8d0;
 }
 .email-input {
   width: 350px;
   height: 120px;
-  padding-top: 100px;
+  padding-top: 10px;
   padding-left: 5px;
   border: none;
+  font-size: 1.2rem;
 }
 .email-wrapper label {
   position: absolute;
-  bottom: 0px;
+  bottom: 10px;
   left: 0px;
   width: 350px;
   height: 50px;
   font-size: 1.2rem;
   color: #c2c8d0;
   pointer-events: none;
+  // border: 1px solid blue;
+  border-bottom: 1px solid #c2c8d0;
 }
 .email-wrapper label::after {
   content: "";
   position: absolute;
+  z-index: 10;
   bottom: -1px;
   left: 0px;
   width: 100%;

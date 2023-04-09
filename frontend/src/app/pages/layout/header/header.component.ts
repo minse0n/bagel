@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, Input, HostListener } from '@angular/core';
-import { SignupComponent } from '../../../components/signup/signup.component';
+import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
+import { SignupComponent } from '../../../pages/user/signup/signup/signup.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { LoginComponent } from '../../../components/login/login.component';
 import { Router } from '@angular/router';
@@ -26,9 +26,6 @@ export class HeaderComponent implements OnInit{
     this.router.navigate(['/signup']);
   }
 
-  login(): void {
-    this.isLoggedIn = !this.isLoggedIn;
-  }
   openSidenav() {
     this.SideNavToggle.emit();
   }
