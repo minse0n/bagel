@@ -10,14 +10,8 @@ export const CATEGORIES: Category[] = [
   { category: '5 Sem' },
   { category: '6 Sem' },
   { category: 'Thesis' },
-  { category: 'Study' },
+  { category: 'Alte' },
 ] 
-
-export interface Course {
-  courseName: string;
-  category: string;
-  courseId: number;
-}
 
 export interface Course {
   courseName: string;
@@ -26,6 +20,14 @@ export interface Course {
 	module : string;
 	moduleUrl: string;
   href?: string;
+}
+export interface Lehrstuhl {
+  courseName: string;
+  category: string;
+  courseId?: number;
+	module : string;
+	moduleUrl: string;
+  href: string;
 }
 
 // icon src for each module
@@ -42,7 +44,7 @@ export const COURSES: Course[] = [
     category: '1 Sem',
     courseId: 1,
 		module: 'Praktisch',
-		moduleUrl: iconPraktisch
+		moduleUrl: iconPraktisch,
   },
   {    
     courseName: 'Technische Informatik',
@@ -204,6 +206,9 @@ export const COURSES: Course[] = [
 		module: 'Sonstige',
 		moduleUrl: iconSonstige
   },
+]
+
+export const LEHRSTUHLE: Lehrstuhl[] = [  
   {    
     courseName: 'Anfrage "Support Abschlussarbeit',
     category: 'Thesis',

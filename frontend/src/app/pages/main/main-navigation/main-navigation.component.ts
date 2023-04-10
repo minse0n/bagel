@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Course, COURSES, CATEGORIES } from '../../../models/courses';
+import { Course, COURSES, CATEGORIES, LEHRSTUHLE } from '../../../models/courses';
 
 @Component({
   selector: 'app-main-navigation',
@@ -9,6 +9,7 @@ import { Course, COURSES, CATEGORIES } from '../../../models/courses';
 export class MainNavigationComponent implements OnInit {
   categories = CATEGORIES;
   courses: Course[] = COURSES.filter(courses => courses.category === '1 Sem');
+  lehrsthule = LEHRSTUHLE;
   selected: string;
   
   constructor() { }
@@ -19,9 +20,11 @@ export class MainNavigationComponent implements OnInit {
   onResize(event: any) {
     let screenWidth = window.innerWidth;
   }
-
   selectCategory(data: string) {
     this.courses = COURSES.filter(courses => courses.category === data );
     this.selected = data;
+  }
+  getCourseBagel(event: any) {
+    console.log(event);
   }
 }
