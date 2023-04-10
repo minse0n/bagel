@@ -3,7 +3,8 @@ import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import { BagelCard } from '../../../models/bagelCard';
 import { CardService } from '../../../services/card.service';
-
+import { ToastrService } from 'ngx-toastr';
+import { filter, take } from 'rxjs/operators';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class PostPageComponent implements OnInit {
   isMy: boolean = true;
   
   constructor(
+    private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
     private _getCardService:CardService,
@@ -44,13 +46,19 @@ export class PostPageComponent implements OnInit {
     this.router.navigate(['/register'], navigationExtras);
   }
   bagelDelete() {
-    alert('Do you want to delete it?');
+    this.toastr.warning('please here click', 'If you really want to delete it,')
+      .onTap
+      .pipe(take(1))
+      .subscribe(() => this.trueDelete()
+    );
+  }
+  trueDelete() {
     this._getCardService.delete(this.bagel._id).subscribe({
-      next: (data) => {
-        alert('Post has been deleted.');
-        this.router.navigate(['']);
-      },
-      error: (e) => console.error(e)
-    });
+        next: (res) => {
+          this.toastr.success('', 'Post has been deleted.');
+          this.router.navigate(['']);
+        },
+        error: (e) => console.error(e)
+      });  
   }
 }

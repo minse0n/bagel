@@ -4,6 +4,8 @@ import { CardService } from 'src/app/services/card.service';
 import { BagelCard } from 'src/app/models/bagelCard';
 import { COURSES } from 'src/app/models/courses';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
+import { ToastrService } from 'ngx-toastr';
+import { filter, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -17,11 +19,11 @@ export class RegisterComponent implements OnInit {
   isEnabled: boolean = false;
   quillConfig = {
     toolbar: [
-      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      ['bold', 'italic', 'underline', 'strike'],        
       ['blockquote', 'code-block'],
       [{ 'header': 1 }, { 'header': 2 }],
       [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-      [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+      [{ 'script': 'sub' }, { 'script': 'super' }]
     ],
   }; 
   courses = COURSES;
@@ -36,6 +38,7 @@ export class RegisterComponent implements OnInit {
   };
   
   constructor(
+    private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
     private _cardservice: CardService,
@@ -62,7 +65,7 @@ export class RegisterComponent implements OnInit {
     this._cardservice.create(this.bagelCard).subscribe({
       next: (res) => {
         console.log(this.bagelCard.text);
-        alert('new Post saved successfully :D');
+        this.toastr.success('saved successfully :D', 'new Post');
         this.router.navigate(['']);
       },
       error: (e) => console.error(e)
@@ -72,7 +75,7 @@ export class RegisterComponent implements OnInit {
         next: (data) => {
           this.bagelCard = data;
           console.log(this.bagelCard.text);
-          alert('Post updated successfully :)');
+          this.toastr.success('updated successfully :)', 'Post');
           this.router.navigate(['']);
         },
         error: (e) => console.error(e)
@@ -80,17 +83,33 @@ export class RegisterComponent implements OnInit {
     }
   }
   bagelDelete() {
-    alert('Are you sure to proceed?');
-    this._cardservice.delete(this.bagelCard._id).subscribe({
-      next: (res) => {
-        alert('Post has been deleted.');
-        this.router.navigate(['']);
-      },
-      error: (e) => console.error(e)
-    });
+    this.toastr.warning('please here click', 'If you really want to delete it,')
+      .onTap
+      .pipe(take(1))
+      .subscribe(() => this.trueDelete()
+    );
   }
+  trueDelete() {
+    this._cardservice.delete(this.bagelCard._id).subscribe({
+        next: (res) => {
+          this.toastr.success('', 'Post has been deleted.');
+          this.router.navigate(['']);
+        },
+        error: (e) => console.error(e)
+      });  
+  }
+  
+  
   changedEditor(event: EditorChangeContent | EditorChangeSelection) {
     console.log('editor got changed', event);
-    // this.bagelCard.text = event['editor']['root']['innerText'];
   }
 }
+
+      // closeButton: true,
+      // disableTimeOut: true,
+      // tapToDismiss: false,
+      // onActivateTick: true,
+      // progressAnimation: 'increasing',
+      // positionClass: 'toast-top-right',
+      // titleClass: 'toast-title',
+      // messageClass: 'toast-message'

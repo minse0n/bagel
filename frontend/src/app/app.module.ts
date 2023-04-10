@@ -12,6 +12,9 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RoundedBtnComponent } from './components/rounded-btn/rounded-btn.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { Signup2Component } from './components/signup2/signup2.component';
 import { NavbarSearchbarComponent } from './pages/main/navbar-searchbar/navbar-searchbar.component';
 import { HeaderComponent } from './pages/layout/header/header.component';
 import { FooterComponent } from './pages/layout/footer/footer.component';
@@ -19,11 +22,7 @@ import { SidenavComponent } from './pages/layout/sidenav/sidenav.component';
 import { CardListComponent } from './pages/main/card-list/card-list.component';
 import { MainNavigationComponent } from './pages/main/main-navigation/main-navigation.component';
 import { RegisterComponent } from './pages/register/register/register.component';
-import { QuillModule, QuillEditorComponent } from 'ngx-quill';
 import { MainPageComponent } from './pages/main/main-page/main-page.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { Signup2Component } from './components/signup2/signup2.component';
 import { TopButtonComponent } from './pages/layout/top-button/top-button.component';
 import { PostPageComponent } from './pages/post/post-page/post-page.component';
 import { CommentComponent } from './pages/post/comments/comment/comment.component';
@@ -31,6 +30,9 @@ import { CommentFormComponent } from './pages/post/comments/comment-form/comment
 import { CommentsComponent } from './pages/post/comments/comments.component';
 import { AfterSearchComponent } from './pages/after-search/after-search.component';
 import { PlusButtonComponent } from './pages/layout/plus-button/plus-button.component';
+import { QuillModule, QuillEditorComponent } from 'ngx-quill';
+import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -68,12 +70,8 @@ import { PlusButtonComponent } from './pages/layout/plus-button/plus-button.comp
     MatDialogModule,
     FormsModule,
     QuillModule.forRoot(),
-    // QuillModule.forRoot({
-    //   modules: {
-    //     syntax: true,
-    //     toolbar: [ ]
-    //   }
-    // }),
+    ToastNoAnimationModule.forRoot(),
+    ToastrModule.forRoot(),
     HttpClientModule,
   ],
   providers: [],
