@@ -19,7 +19,7 @@ import { SidenavComponent } from './pages/layout/sidenav/sidenav.component';
 import { CardListComponent } from './pages/main/card-list/card-list.component';
 import { MainNavigationComponent } from './pages/main/main-navigation/main-navigation.component';
 import { RegisterComponent } from './pages/register/register/register.component';
-import { QuillModule } from 'ngx-quill';
+import { QuillModule, QuillEditorComponent } from 'ngx-quill';
 import { MainPageComponent } from './pages/main/main-page/main-page.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
@@ -54,7 +54,7 @@ import { PlusButtonComponent } from './pages/layout/plus-button/plus-button.comp
     Signup2Component,
     TopButtonComponent,
     AfterSearchComponent,
-    PlusButtonComponent
+    PlusButtonComponent,
   ],
   imports: [
     CommonModule,

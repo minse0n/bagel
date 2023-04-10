@@ -5,6 +5,7 @@ import { BagelCard } from '../../../models/bagelCard';
 import { CardService } from '../../../services/card.service';
 
 
+
 @Component({
   selector: 'app-post-page',
   templateUrl: './post-page.component.html',
