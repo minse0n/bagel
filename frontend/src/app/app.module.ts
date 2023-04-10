@@ -15,6 +15,7 @@ import { RoundedBtnComponent } from './components/rounded-btn/rounded-btn.compon
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { Signup2Component } from './components/signup2/signup2.component';
+import { SignupComponent } from './pages/user/signup/signup/signup.component';
 import { NavbarSearchbarComponent } from './pages/main/navbar-searchbar/navbar-searchbar.component';
 import { HeaderComponent } from './pages/layout/header/header.component';
 import { FooterComponent } from './pages/layout/footer/footer.component';
@@ -23,6 +24,7 @@ import { CardListComponent } from './pages/main/card-list/card-list.component';
 import { MainNavigationComponent } from './pages/main/main-navigation/main-navigation.component';
 import { RegisterComponent } from './pages/register/register/register.component';
 import { MainPageComponent } from './pages/main/main-page/main-page.component';
+import { LoginComponent } from './components/login/login.component';
 import { TopButtonComponent } from './pages/layout/top-button/top-button.component';
 import { PostPageComponent } from './pages/post/post-page/post-page.component';
 import { CommentComponent } from './pages/post/comments/comment/comment.component';
@@ -32,6 +34,7 @@ import { AfterSearchComponent } from './pages/after-search/after-search.componen
 import { PlusButtonComponent } from './pages/layout/plus-button/plus-button.component';
 import { QuillModule, QuillEditorComponent } from 'ngx-quill';
 import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
+
 
 
 @NgModule({
@@ -53,7 +56,6 @@ import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toas
     MainPageComponent,
     LoginComponent,
     SignupComponent,
-    Signup2Component,
     TopButtonComponent,
     AfterSearchComponent,
     PlusButtonComponent,
