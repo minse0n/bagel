@@ -1,8 +1,11 @@
-import { Component, ConstructorSansProvider, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CardService } from 'src/app/services/card.service';
 import { BagelCard } from 'src/app/models/bagelCard';
 import { COURSES } from 'src/app/models/courses';
+import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
+import { ToastrService } from 'ngx-toastr';
+import { filter, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -11,72 +14,102 @@ import { COURSES } from 'src/app/models/courses';
 })
 export class RegisterComponent implements OnInit {
 
+  saveType: string = '';
+  isMy: boolean = true;
   isEnabled: boolean = false;
   quillConfig = {
-    toolbar: {
-      container: [
-        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-        ['blockquote', 'code-block'],
-        [{ 'header': 1 }, { 'header': 2 }],
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
-      ],
-    },
-  }  
-  newCard: BagelCard = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],        
+      ['blockquote', 'code-block'],
+      [{ 'header': 1 }, { 'header': 2 }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'script': 'sub' }, { 'script': 'super' }]
+    ],
+  }; 
+  courses = COURSES;
+  bagelCard: BagelCard = {
+    _id: '',
     title: '', 
     text: '',
     category: '',
     username: '',
-    term: '', 
+    term: '',
     course: ''
   };
-  courses = COURSES;
   
-
   constructor(
+    private toastr: ToastrService,
     private router: Router,
+    private route: ActivatedRoute,
     private _cardservice: CardService,
     ) {
   }
-  addBindingCreated(quill: { keyboard: { addBinding: (arg0: { key: string; shiftKey?: boolean; }, arg1: { (range: any, context: any): void; (range: any, context: any): void; }) => void; }; }) {
-    quill.keyboard.addBinding({
-      key: 'b'
-    }, (range: any, context: any) => {
-      console.log('KEYBINDING B', range, context)
-    })
-    quill.keyboard.addBinding({
-      key: 'B',
-      shiftKey: true
-    }, (range: any, context: any) => {
-      console.log('KEYBINDING SHIFT + B', range, context)
-    })
-  }
-
+  
   ngOnInit(): void {
+    const state = window.history.state;
+    this.bagelCard = state && (state.currentBagel || state.newBagel) || this.bagelCard;
+    // 위의 코드에서는 window.history.state에 값이 있을 경우, currentBagel 또는 newBagel 속성 중 하나의 값을 bagelCard에 할당합니다. 만약 window.history.state가 undefined인 경우, this.bagelCard의 초기값을 사용합니다.
+    this.saveType = this.bagelCard._id && 'EDIT' || 'REGISTER';
+    console.log(this.bagelCard._id);
+    console.log(state);
   }
   
   selectCategory() {
     let categorySelect = (document.getElementById('selectCategory')) as HTMLSelectElement;
     let selected = categorySelect.selectedIndex;
-    let selectedValue = categorySelect.options[selected];
-    selectedValue.value==='InAachen' ? this.isEnabled = true : this.isEnabled = false;
+    let selectedValue = categorySelect.options[selected].value;
+    this.isEnabled = selectedValue === 'InAachen' || selectedValue === 'AfterRWTH';
   }
-  cardRegister() {
-    const data = {
-      title: this.newCard.title, 
-      text: this.newCard.text,
-      category: this.newCard.category,
-      username: this.newCard.username,
-      term: this.newCard.term,
-      course: this.newCard.course
-    }
-    this._cardservice.create(data).subscribe({
+  bagelSave() {
+    if(this.saveType === 'REGISTER') {
+    this._cardservice.create(this.bagelCard).subscribe({
       next: (res) => {
-        alert('new Post saved successfully.');
+        console.log(this.bagelCard.text);
+        this.toastr.success('saved successfully :D', 'new Post');
         this.router.navigate(['']);
       },
       error: (e) => console.error(e)
     });
+    } else if (this.saveType === 'EDIT') {
+      this._cardservice.update(this.bagelCard._id, this.bagelCard).subscribe({
+        next: (data) => {
+          this.bagelCard = data;
+          console.log(this.bagelCard.text);
+          this.toastr.success('updated successfully :)', 'Post');
+          this.router.navigate(['']);
+        },
+        error: (e) => console.error(e)
+      });
+    }
+  }
+  bagelDelete() {
+    this.toastr.warning('please here click', 'If you really want to delete it,')
+      .onTap
+      .pipe(take(1))
+      .subscribe(() => this.trueDelete()
+    );
+  }
+  trueDelete() {
+    this._cardservice.delete(this.bagelCard._id).subscribe({
+        next: (res) => {
+          this.toastr.success('', 'Post has been deleted.');
+          this.router.navigate(['']);
+        },
+        error: (e) => console.error(e)
+      });  
+  }
+  
+  
+  changedEditor(event: EditorChangeContent | EditorChangeSelection) {
+    console.log('editor got changed', event);
   }
 }
+
+      // closeButton: true,
+      // disableTimeOut: true,
+      // tapToDismiss: false,
+      // onActivateTick: true,
+      // progressAnimation: 'increasing',
+      // positionClass: 'toast-top-right',
+      // titleClass: 'toast-title',
+      // messageClass: 'toast-message'
