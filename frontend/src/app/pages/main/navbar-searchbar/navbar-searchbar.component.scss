@@ -1,8 +1,6 @@
 @import '../../../../styles.scss';
 
 .nav-search-bar{
-  border: 1px solid blue;
-
   width: min(100% - 1rem, 1180px);
   margin-inline: auto;  
   max-height: 120px;
@@ -15,7 +13,6 @@
   }
 }
 .navbar{
-  border: 1px solid red;
   flex-basis: max-content;
   display: flex;
   justify-content: space-between;

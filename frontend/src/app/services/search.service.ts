@@ -12,6 +12,7 @@ export class SearchService {
   constructor(private http: HttpClient) { }
 
   searchCard (search: string): Observable<BagelCard[]> {
+    console.log(search);
     return this.http.get<BagelCard[]>("http://localhost:8080/cards", {
       params: new HttpParams().set('search', search)
     });

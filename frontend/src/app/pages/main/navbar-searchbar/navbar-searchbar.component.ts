@@ -31,7 +31,6 @@ export class NavbarSearchbarComponent implements OnInit {
   }
 
   searchCard() {
-    console.log('navbar ok');
     this.InputtedText.emit(this.searchInput);
     if(this.searchInput === undefined) {
       return console.log("Input some keyword...")
