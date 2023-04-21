@@ -31,7 +31,7 @@ export class MainPageComponent implements OnInit {
   }
   searchText(text: string) {
     this.inputtedText = text;
-    this.searched = this.inputtedText!=='';    
+    this.searched = this.inputtedText!=='';
   }
   @HostListener ('window:resize', ['$event'])
   onResize(event: any) {

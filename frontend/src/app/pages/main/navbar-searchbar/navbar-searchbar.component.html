@@ -1,5 +1,5 @@
-<div class="nav-search-bar">
-  <div class="navbar">
+<div class="nav-search-bar" [ngClass]="isSearch ? 'jc-end':''">
+  <div class="navbar" *ngIf="!isSearch">
     <a class="nav-item" [ngClass]="selected===category.category ? 'selected' : ''" *ngFor="let category of categories">
       <div (click)="selectedPostCategory(category.category)">{{ category.category }}</div>
     </a>

@@ -52,6 +52,7 @@ export class CardListComponent implements OnInit {
     };
     this.router.navigate(['/register'], navigationExtras);
   }
+  @HostListener('change')
   ngOnChanges(change: SimpleChange) {
     if(this.postCategory === 'All') {
       this._filterservice.getAllData().subscribe({
@@ -60,30 +61,26 @@ export class CardListComponent implements OnInit {
         },
         error: (e) => console.log(e)
       });
-    } else if(this.postCategory) {
+      if(this.searchText) {
+        this._searchservice.searchCard(this.searchText).subscribe(res => {
+          this.bagels = res;
+          this.noResult = res.length === 0 ? true : false;
+        });
+        //this.router.navigate(['search']);
+      }
+    } else if(this.postCategory && !this.searchText) {
       this._filterservice.findByCategory(this.postCategory).subscribe(res => {
         this.bagels = res;
       });
     }
-    // if(this.searchText && !this.postCategory) {
-    //   this._searchservice.searchCard(this.searchText).subscribe(res => {
-    //     this.bagels = res;
-    //     this.noResult = res.length === 0 ? true : false;
-    //   });
-    //   this.router.navigate(['search']);
-    // } else if(this.searchText && this.postCategory) {
-    //   this._filterservice.findBySearchCategory(this.searchText, this.postCategory)
-    //     .subscribe(res => { 
-    //       this.bagels = res;
-    //       this.noResult = res.length === 0;
-    //   });
-      
-    // }
-    // if(this.postCategory && !this.searchText) {
-    //   this._filterservice.findByCategory(this.postCategory).subscribe(res => {
-    //     this.bagels = res;
-    //   });
-    // }
+  
+    else if(this.searchText && this.postCategory) {
+      this._filterservice.findBySearchCategory(this.searchText, this.postCategory)
+        .subscribe(res => { 
+          this.bagels = res;
+          this.noResult = res.length === 0;
+      });
+    }
   } 
   showDetail(id: string) {
     this.router.navigate(['/card',id], { skipLocationChange: true });

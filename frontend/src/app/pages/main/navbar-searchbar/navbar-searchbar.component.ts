@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CATEGORIES } from '../../../models/post-category';
 import { SearchService } from '../../../services/search.service';
@@ -9,6 +9,8 @@ import { SearchService } from '../../../services/search.service';
   styleUrls: ['./navbar-searchbar.component.scss']
 })
 export class NavbarSearchbarComponent implements OnInit {
+  
+  @Input() isSearch: boolean;
   @Output() SelectedCategory = new EventEmitter<string>();
   @Output() InputtedText = new EventEmitter<string>();
   
@@ -29,6 +31,7 @@ export class NavbarSearchbarComponent implements OnInit {
   }
 
   searchCard() {
+    console.log('navbar ok');
     this.InputtedText.emit(this.searchInput);
     if(this.searchInput === undefined) {
       return console.log("Input some keyword...")
