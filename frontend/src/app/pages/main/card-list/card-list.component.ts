@@ -13,6 +13,7 @@ export class CardListComponent implements OnInit {
   @Input() postCategory: string;
   @Input() searchText: string;
   @Input() isSearch: boolean;
+  @Input() getCourse: string;
   @Output() currentBagelId: string;
   bagels: BagelCard[]; 
   bagel: BagelCard = {};
@@ -91,6 +92,13 @@ export class CardListComponent implements OnInit {
           this.noResult = res.length === 0;
         });
       }
+    }
+    if(this.getCourse) {
+      console.log(this.getCourse); // 여기까지 된다. 
+      // this._cardservice.findByCourse(this.getCourse).subscribe(res => {
+      //   console.log(this.getCourse);
+      //   this.bagels = res;
+      // })
     }
   } 
   showDetail(id: string) {
