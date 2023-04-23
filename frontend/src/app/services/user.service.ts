@@ -33,4 +33,15 @@ export class UserService {
     return this.http.get<any>(`${this.authUrl}/login/google`);
   }
 
+  // 4. Bagel signup
+  /**
+ *  (after google login)
+ *  signup user for bagel
+ *  @param - googleID, username, avataURL
+ */
+  bagelSignup(googleID: string, username: string, avatarUrl: string) {
+    const body = { googleID, username, avatarUrl };
+    return this.http.post<any>(`${this.authUrl}/signup/google`, body, { observe: 'response' })
+  }
+
 }
