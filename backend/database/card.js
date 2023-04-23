@@ -46,3 +46,7 @@ export async function update(id, title, text, category, term, course) {
 export async function remove(id) {
   return Card.findByIdAndDelete(id);
 }
+
+export async function searchCards(keyword) { 
+  return Card.find({$or: [{ title: keyword }, { text: keyword }]});
+}

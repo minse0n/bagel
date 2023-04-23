@@ -47,15 +47,12 @@ export class CardService {
   }
   
   findBySearchCategory(searchText: string, postCategory: string): Observable<BagelCard[]> {
-    if(postCategory==='ALL') {
-      console.log('ok');
-      return this.getAllData();
-    } else {
     return this.searchCard(searchText).pipe(map((items: any[]) => 
       items.filter((item: { category: string; }) => 
         item.category === postCategory)))
-    }
   }
-
-
+  
+  findByCourse(_course: string): Observable<BagelCard[]> {
+    return this._http.get<BagelCard[]>(`http://localhost:8080/category/${_course}`);
+  }
 }
