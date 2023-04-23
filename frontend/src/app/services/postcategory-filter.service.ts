@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { BagelCard } from '../models/bagelCard';
-import { SearchService } from './search.service';
+import { CardService } from './card.service';
 
 @Injectable({ providedIn: 'root' })
 export class PostcategoryFilterService {
@@ -11,7 +11,7 @@ export class PostcategoryFilterService {
   
   constructor(
     private _http: HttpClient,
-    private _searchservice: SearchService,  
+    private _cardservice: CardService,  
   ) { }
 
   getAllData(): Observable<BagelCard[]> {
@@ -25,7 +25,7 @@ export class PostcategoryFilterService {
   }
   
   findBySearchCategory(searchText: string, postCategory: string): Observable<BagelCard[]> {
-    return this._searchservice.searchCard(searchText).pipe(map((items: any[]) => 
+    return this._cardservice.searchCard(searchText).pipe(map((items: any[]) => 
       items.filter((item: { category: string; }) => 
         item.category === postCategory)))
   }
