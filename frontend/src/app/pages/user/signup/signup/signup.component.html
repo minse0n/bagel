@@ -8,21 +8,33 @@
   </div>
   <div class="email-wrapper">
     <div class="input-container">
-      <input *ngIf="!sentCode" class="email-input" type="text" name="email" autocomplete="off" [(ngModel)]="rwthEmail" required>
-      <input *ngIf="sentCode" class="email-input" type="text" name="email" autocomplete="off" [(ngModel)]="verificationCode" required>
+      <!-- 메일 인증 이전 -->
+      <input *ngIf="!sentCode && !verified && !googleLoggedin" class="email-input" type="text" name="email" autocomplete="off" [(ngModel)]="rwthEmail" required>
+      <!-- 메일 코드 발송 후 -->
+      <input *ngIf="sentCode && !verified && !googleLoggedin" class="email-input" type="text" name="email" autocomplete="off" spellcheck="false" [(ngModel)]="verificationCode" required>
+      <!-- 구글 로그인 후 -->
+      <input *ngIf="sentCode && verified && googleLoggedin" class="email-input" type="text" name="email" autocomplete="off" spellcheck="false" [(ngModel)]="username" required>
       <label for="text" class="label-name">
-        <!-- RWTH-Email 입력 -->
-        <span *ngIf="!sentCode" class="content-name">RWTH Email</span>
-        <!-- Verfication code 입력 -->
-        <span *ngIf="sentCode" class="content-name">Verification code</span>
+        <!-- 메일 인증 이전 - RWTH-Email 입력 -->
+        <span *ngIf="!sentCode && !verified && !googleLoggedin" class="content-name">RWTH Email</span>
+        <!-- 메일 코드 발송 후 - Verfication code 입력 -->
+        <span *ngIf="sentCode && !verified && !googleLoggedin" class="content-name">Verification code</span>
+        <!-- 구글 로그인 후 - 원하는 id 입력 -->
+        <span *ngIf="sentCode && verified && googleLoggedin" class="content-name">User ID</span>
       </label>
     </div>
     
 
 
     <div class="email-btn-container">
-     <button *ngIf="!sentCode" class="email-btn" type="submit" name="action" (click)="verificationEmail(rwthEmail)">Send</button>
-     <button *ngIf="sentCode" class="email-btn" type="submit" name="action" (click)="validateCode(verificationCode)">Continue</button>
+      <!-- 메일 인증 이전 - 메일 발송 버튼-->
+     <button *ngIf="!sentCode && !verified && !googleLoggedin" class="email-btn" type="submit" name="action" (click)="verificationEmail(rwthEmail)">Send</button>
+     <!-- 메일 코드 발송 후 - 코드 확인 버튼-->
+     <button *ngIf="sentCode && !verified && !googleLoggedin" class="email-btn" type="submit" name="action" (click)="validateCode(verificationCode)">Continue</button>
+     <!-- 구글 로그인 후 - id 제출 버튼-->
+     <button *ngIf="sentCode && verified && googleLoggedin" class="email-btn" type="submit" name="action" (click)="bagelSignup(username)">Sign up</button>
     </div>
+
+
   </div>
 </div>
