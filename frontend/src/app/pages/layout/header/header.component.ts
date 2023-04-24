@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit{
   @Output() SideNavToggle = new EventEmitter();
 
   headerFixed: boolean = false;
-  isLoggedIn: boolean = true;
+  isLoggedIn: boolean = false;
   screenMode: string;
 
   constructor(
@@ -30,31 +30,18 @@ export class HeaderComponent implements OnInit{
   openSidenav() {
     this.SideNavToggle.emit();
   }
-  openModal() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.id = "signup-component";
-    dialogConfig.height = "600px";
-    dialogConfig.width = "800px";
-    const modalDialog = this.matDialog.open(SignupComponent, dialogConfig);
-  }
-  openLoginModal() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.id = "login-component";
-    dialogConfig.height = "600px";
-    dialogConfig.width = "800px";
-    const modalDialog = this.matDialog.open(LoginComponent, dialogConfig);
-  }
+  
   ngOnInit(): void {  
     let screenWidth = window.innerWidth;
     (screenWidth > 767) ? this.screenMode = "W" : this.screenMode = "M";
   }
+
   @HostListener ('window:resize', ['$event'])
   onResize(event: any) {
     let screenWidth = window.innerWidth;
     (screenWidth > 767) ? this.screenMode = "W" : this.screenMode = "M";
   }
+  
   @HostListener('window:scroll', ['$event']) onscroll() {
     if(window.scrollY > 1) {
       this.headerFixed = true;
