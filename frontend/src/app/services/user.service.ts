@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
   private verificationUrl = 'http://localhost:8080/verification';
   private authUrl = 'http://localhost:8080/auth';
+
 
   constructor(private http: HttpClient) { }
 
@@ -30,7 +33,7 @@ export class UserService {
   }
 
   googleLogin() {
-    return this.http.get<any>(`${this.authUrl}/login/google`);
+    return this.http.get<any>(`${this.authUrl}/login/google`, { observe: 'response' });
   }
 
   // 4. Bagel signup
