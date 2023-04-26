@@ -56,7 +56,6 @@ export class CardListComponent implements OnInit {
     if (this.searchText) {
       console.log(this.searchText);
       this._cardservice.searchCard(this.searchText).subscribe(res => {
-        console.log(this.searchText);
         this.bagels = res;
         this.noResult = res.length === 0 ? true : false;
       });
@@ -82,7 +81,6 @@ export class CardListComponent implements OnInit {
     if(this.postCategory && this.searchText) {
       if(this.postCategory === 'All') {
         this._cardservice.searchCard(this.searchText).subscribe(res => {
-          console.log(this.searchText);
           this.bagels = res;
           this.noResult = res.length === 0 ? true : false;
         });
@@ -94,9 +92,10 @@ export class CardListComponent implements OnInit {
       }
     }
     if(this.getCourse) {
-      this._cardservice.findByCourse(this.getCourse).subscribe(res => {
+      this._cardservice.findByCourse(this.getCourse).subscribe({next: (res) => {
         this.bagels = res;
-      })
+      },
+      error: (e) => console.log(e)})
     }
   } 
   showDetail(id: string) {
