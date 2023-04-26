@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
       [{ 'header': 1 }, { 'header': 2 }],
       [{ 'list': 'ordered' }, { 'list': 'bullet' }],
       [{ 'script': 'sub' }, { 'script': 'super' }],
-      ['image'] 
+      // ['image'] 
     ],
   }; 
   courses = COURSES;
