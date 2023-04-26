@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class MainPageComponent implements OnInit {
   
   selectedCategory: string;
+  selectedCourse: string;
   inputtedText: string;
   searched: boolean;
   screenMode: string;
@@ -32,6 +33,9 @@ export class MainPageComponent implements OnInit {
   searchText(text: string) {
     this.inputtedText = text;
     this.searched = this.inputtedText!=='';
+  }
+  getCourseBagel(course: string) {
+    this.selectedCourse = course;
   }
   @HostListener ('window:resize', ['$event'])
   onResize(event: any) {
