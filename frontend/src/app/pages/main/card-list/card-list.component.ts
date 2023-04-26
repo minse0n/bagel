@@ -13,6 +13,7 @@ export class CardListComponent implements OnInit {
   @Input() postCategory: string;
   @Input() searchText: string;
   @Input() isSearch: boolean;
+  @Input() getCourse: string;
   @Output() currentBagelId: string;
   bagels: BagelCard[]; 
   bagel: BagelCard = {};
@@ -55,7 +56,6 @@ export class CardListComponent implements OnInit {
     if (this.searchText) {
       console.log(this.searchText);
       this._cardservice.searchCard(this.searchText).subscribe(res => {
-        console.log(this.searchText);
         this.bagels = res;
         this.noResult = res.length === 0 ? true : false;
       });
@@ -81,7 +81,6 @@ export class CardListComponent implements OnInit {
     if(this.postCategory && this.searchText) {
       if(this.postCategory === 'All') {
         this._cardservice.searchCard(this.searchText).subscribe(res => {
-          console.log(this.searchText);
           this.bagels = res;
           this.noResult = res.length === 0 ? true : false;
         });
@@ -91,6 +90,12 @@ export class CardListComponent implements OnInit {
           this.noResult = res.length === 0;
         });
       }
+    }
+    if(this.getCourse) {
+      this._cardservice.findByCourse(this.getCourse).subscribe({next: (res) => {
+        this.bagels = res;
+      },
+      error: (e) => console.log(e)})
     }
   } 
   showDetail(id: string) {
