@@ -30,6 +30,7 @@ import { CommentsComponent } from './pages/post/comments/comments.component';
 import { PlusButtonComponent } from './pages/layout/plus-button/plus-button.component';
 import { QuillModule, QuillEditorComponent } from 'ngx-quill';
 import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 
@@ -54,6 +55,7 @@ import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toas
     SignupComponent,
     TopButtonComponent,
     PlusButtonComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,
