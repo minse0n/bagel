@@ -12,8 +12,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RoundedBtnComponent } from './components/rounded-btn/rounded-btn.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './pages/user/signup/signup/signup.component';
+import { SignupComponent } from './pages/user/signup/signup.component';
 import { NavbarSearchbarComponent } from './pages/main/navbar-searchbar/navbar-searchbar.component';
 import { HeaderComponent } from './pages/layout/header/header.component';
 import { FooterComponent } from './pages/layout/footer/footer.component';
@@ -30,8 +29,8 @@ import { CommentsComponent } from './pages/post/comments/comments.component';
 import { PlusButtonComponent } from './pages/layout/plus-button/plus-button.component';
 import { QuillModule, QuillEditorComponent } from 'ngx-quill';
 import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-
 
 
 @NgModule({
@@ -51,7 +50,6 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     CommentFormComponent,
     CommentsComponent,
     MainPageComponent,
-    LoginComponent,
     SignupComponent,
     TopButtonComponent,
     PlusButtonComponent,
@@ -73,7 +71,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     ToastrModule.forRoot(),
     HttpClientModule,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

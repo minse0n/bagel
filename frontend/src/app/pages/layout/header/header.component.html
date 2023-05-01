@@ -3,7 +3,8 @@
     <a href=""><img class="logo" src="../../assets/logos/Bagel.svg"/></a>
     <div *ngIf="screenMode==='W'">
       <div *ngIf="!isLoggedIn" class="btn-container">
-        <button (click)="signup()" class="btn-signup">LOG IN</button>
+        <!-- <button (click)="login()" class="btn-login">LOG IN</button> -->
+        <button (click)="signup()" class="btn-signup">Log In</button>
       </div>
       <div *ngIf="isLoggedIn" class="btn-container">
         <button mat-button class="avatar-btn" (click)="openSidenav()"><img class="avatar-img" src="../../assets/images/Avatar_1.png"/></button>
@@ -11,7 +12,8 @@
     </div>
     <div *ngIf="screenMode==='M'">
       <div *ngIf="!isLoggedIn">
-        <button (click)="signup()" class="btn-item">LOG IN</button>
+        <!-- <button (click)="login()" class="btn-login">LOG IN</button> -->
+        <button (click)="signup()" class="btn-item">SIGN UP</button>
       </div>
       <div *ngIf="isLoggedIn">
         <button mat-button class="avatar-btn" (click)="openSidenav()"><img class="avatar-img" src="../../assets/images/Avatar_1.png"/></button>

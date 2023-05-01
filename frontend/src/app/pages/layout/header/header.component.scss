@@ -37,6 +37,14 @@
   border-radius: 50%;
   height: 50px;
 }
+.btn-signup, .btn-login {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.btn-login {
+  margin-right: 25px;
+}
+
 
 @media only screen and (max-width: 1200px) {
   /* For mobile: */
