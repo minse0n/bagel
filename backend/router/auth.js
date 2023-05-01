@@ -18,16 +18,8 @@ router.get('/signup/google', (req, res) => {
    }
  });
 
- // Bagel 회원가입
-/**
- *  (after google login)
- *  signup user for bagel
- *  @param - googleID, username, avatarUrl
- */
+
 router.post('/signup/google', async (req, res) => {
-  // const profile = JSON.parse(req.query.profile);
-  // console.log('받아온 정보: ', profile.googleID);
-  console.log('받음');
    const { username, googleID, avatarUrl } = req.body;
 
    if (googleID == 'undefined') {
@@ -43,23 +35,22 @@ router.post('/signup/google', async (req, res) => {
    }
 });
 
+// google OAuth2 callback function
 router.get('/login/google/callback',
    passport.authenticate('googleLogin', { failureRedirect: '/auth/signup/google' }),
    async (req, res) => {
       if (req.sessionID) {
-        //  res.status(200).json(req.session);
-        console.log(req.session.passport.user);
         res.status(200);
 
         const userPassport = await req.session.passport.user;
-        // const userPassportJson = JSON.stringify(userPassport);
 
         const user = await userRepository.findUser(userPassport.googleID);
 
         if (!user.rwthVerified) {
+          res.cookie("googlID", userPassport.googleID);
           // TODO: 수정할 것 - paramteter가 주소에 노출되는 보안 문제 - 다른 방법을 찾아야 함!!!
-          return res.redirect(`http://localhost:4200/signup/?googleID=${userPassport.googleID}`);
-          // return res.redirect(`/auth/login/google/verification?googleID=${userPassport.googleID}`);
+          // return res.redirect(`http://localhost:4200/login/?googleID=${userPassport.googleID}`);
+          return res.redirect(`http://localhost:4200/login`);
         } 
         return res.redirect(`http://localhost:4200/?username=${userPassport.username}&googleID=${userPassport.googleID}`);
         
@@ -89,8 +80,6 @@ router.put('/google/update', async (req, res) => {
    }
    res.status(200);
 });
-
-
 
 router.get('/logout', (req, res) => {
    req.session.destroy((err) => {
