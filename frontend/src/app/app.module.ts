@@ -30,7 +30,7 @@ import { PlusButtonComponent } from './pages/layout/plus-button/plus-button.comp
 import { QuillModule, QuillEditorComponent } from 'ngx-quill';
 import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
-
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -53,6 +53,7 @@ import { CookieService } from 'ngx-cookie-service';
     SignupComponent,
     TopButtonComponent,
     PlusButtonComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,

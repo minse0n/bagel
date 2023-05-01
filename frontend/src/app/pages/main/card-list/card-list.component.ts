@@ -93,6 +93,7 @@ export class CardListComponent implements OnInit {
     }
     if(this.getCourse) {
       this._cardservice.findByCourse(this.getCourse).subscribe({next: (res) => {
+        console.log(this.getCourse);
         this.bagels = res;
       },
       error: (e) => console.log(e)})
