@@ -81,13 +81,28 @@ app.get('/cards', async (req, res, next) => {
     } else {
       res.status(404).json({ message: 'No card match that query, please try again.' });
     }
-  }
-  else {
+  } else if(req.query.category) {
+    const category = req.query.category;
+    const categoryCard = await cardRepository.categoryCards(category);
+    if(categoryCard) {
+      res.status(200).json(categoryCard);
+    } else {
+      res.status(404).json({ message: 'No card match the category, please try again.' });
+    }
+  } else if(req.query.course) {
+    const course = req.query.course;
+    const courseCard = await cardRepository.courseCards(course);
+    if(courseCard) {
+      res.status(200).json(courseCard);
+    } else {
+     res.status(404).json({ message: 'No card match the course, please try again.' });
+    }
+  } else {
     next();
   }
 })
 
-app.get('/cards', async (req, res) => {
+app.get('/cards/', async (req, res) => {
   const cards = await cardRepository.getAll();
   if(cards) {
     res.status(200).json(cards);
@@ -143,7 +158,7 @@ app.delete('/card/:id', isAuth, async (req, res) => {
   const id = req.params.id;
   const card = await cardRepository.getCard(id);
 
-  if(!card){
+if(!card){
     res.status(404).json({ message: `card not found :${id}` });
   } else if(card.username != req.user.username){
     res.status(403).json({ message: 'user is not author' });

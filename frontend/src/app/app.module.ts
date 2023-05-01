@@ -26,7 +26,6 @@ import { PostPageComponent } from './pages/post/post-page/post-page.component';
 import { CommentComponent } from './pages/post/comments/comment/comment.component';
 import { CommentFormComponent } from './pages/post/comments/comment-form/comment-form.component';
 import { CommentsComponent } from './pages/post/comments/comments.component';
-import { AfterSearchComponent } from './pages/after-search/after-search.component';
 import { PlusButtonComponent } from './pages/layout/plus-button/plus-button.component';
 import { QuillModule, QuillEditorComponent } from 'ngx-quill';
 import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
@@ -53,7 +52,6 @@ import { CookieService } from 'ngx-cookie-service';
     MainPageComponent,
     SignupComponent,
     TopButtonComponent,
-    AfterSearchComponent,
     PlusButtonComponent,
   ],
   imports: [
