@@ -47,7 +47,7 @@ router.get('/login/google/callback',
         const user = await userRepository.findUser(userPassport.googleID);
 
         if (!user.rwthVerified) {
-          res.cookie("googlID", userPassport.googleID);
+          res.cookie("googleID", userPassport.googleID);
           // TODO: 수정할 것 - paramteter가 주소에 노출되는 보안 문제 - 다른 방법을 찾아야 함!!!
           // return res.redirect(`http://localhost:4200/login/?googleID=${userPassport.googleID}`);
           return res.redirect(`http://localhost:4200/login`);

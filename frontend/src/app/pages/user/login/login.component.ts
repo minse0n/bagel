@@ -4,11 +4,11 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class SignupComponent implements OnInit{
+export class LoginComponent implements OnInit{
   // Google - google id / google OAuth logged in or not
   googleId: string = '';
   googleLoggedin: boolean = false;
@@ -27,6 +27,7 @@ export class SignupComponent implements OnInit{
     private cookieService: CookieService
     ) {
       this.userService.setGoogleLoggedIn('true');
+
   }
 
   ngOnInit(): void {
@@ -39,15 +40,19 @@ export class SignupComponent implements OnInit{
   }
 
   // 가입 상태 확인하는 fucntion
-  loginCheck() {
+  async loginCheck() {
     // 기존 회원이 로그인한 경우 = 구글 로그인 성공 && rwth email 인증
     if (this.googleLoggedin && this.sentCode && this.verified) {
       this.router.navigate(['/']);
     }
     // 구글 로그인 성공 && rwth email 미인증 경우
-    const googleID = this.route.snapshot.queryParamMap.get('googleID');
+    // const googleID = this.route.snapshot.queryParamMap.get('googleID');
+    const googleID = await this.cookieService.get('googleID')
+    console.log(googleID, this.googleId);
     this.googleId = googleID;
   }
+
+ 
 
 
   // Verification rwth email

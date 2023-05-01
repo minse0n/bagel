@@ -32,26 +32,10 @@ export class UserService {
   }
 
 
-
-  
-  private googleLoggedin: boolean;
-  
-  private sentCode: boolean;  // verification code sent successfully or not
-  private verified: boolean;  // Verification of RWTH email successfully or not 
-
-  private cookieValue: string;
-
-
   constructor(
     private http: HttpClient,
     private cookieService: CookieService
   ) { }
-
-  async getCookieValue(): Promise<string> {
-    this.cookieValue = await this.cookieService.get('connect.sid');
-    console.log('cookie value: ', this.cookieValue);
-    return this.cookieValue
-  }
 
 
   // 1. Verification rwth email
@@ -73,24 +57,5 @@ export class UserService {
     const body = rwthVerified;
     return this.http.post<any>(`${this.verificationUrl}/google/update/verified`, body, { observe: 'response' });
   }
-
-  // 3. Google login
-  // googleLogin() {
-  //   window.location.href = `${this.authUrl}/login/google`;
-  // }
-
-  // 4. Bagel signup
-  /**
- *  (after google login)
- *  signup user for bagel
- *  @param - googleID, username, avataURL
- */
-  // bagelSignup(googleID: string, username: string, avatarUrl: string) {
-  //   const body = { googleID, username, avatarUrl };
-  //   return this.http.post<any>(`${this.authUrl}/signup/google`, body, { observe: 'response' })
-  // }
-
-
-
 
 }
