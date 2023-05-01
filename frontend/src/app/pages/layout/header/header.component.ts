@@ -1,8 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
-import { SignupComponent } from '../../../pages/user/signup/signup.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { LoginComponent } from '../../../components/login/login.component';
-import { Router } from '@angular/router';
+import { User } from 'src/app/models/user.model';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -18,27 +17,22 @@ export class HeaderComponent implements OnInit{
 
   constructor(
     public matDialog: MatDialog,
-    private router: Router,
-  ) {
-  }
+  ) {}
   
-  // route to singup page
+  ngOnInit(): void {  
+    let screenWidth = window.innerWidth;
+    (screenWidth > 767) ? this.screenMode = "W" : this.screenMode = "M";
+  }
+
+  // Function for google login 
   signup(): void {
-    this.router.navigate(['/signup']);
-  }  
-  // route to login page
-  login(): void {
-    this.router.navigate(['/login']);
+      window.location.href = 'http://localhost:8080/auth/login/google';
   }  
 
   openSidenav() {
     this.SideNavToggle.emit();
   }
   
-  ngOnInit(): void {  
-    let screenWidth = window.innerWidth;
-    (screenWidth > 767) ? this.screenMode = "W" : this.screenMode = "M";
-  }
 
   @HostListener ('window:resize', ['$event'])
   onResize(event: any) {

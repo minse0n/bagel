@@ -13,7 +13,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RoundedBtnComponent } from './components/rounded-btn/rounded-btn.component';
 import { SignupComponent } from './pages/user/signup/signup.component';
-import { LoginComponent } from './pages/user/login/login.component';
 import { NavbarSearchbarComponent } from './pages/main/navbar-searchbar/navbar-searchbar.component';
 import { HeaderComponent } from './pages/layout/header/header.component';
 import { FooterComponent } from './pages/layout/footer/footer.component';
@@ -31,6 +30,7 @@ import { AfterSearchComponent } from './pages/after-search/after-search.componen
 import { PlusButtonComponent } from './pages/layout/plus-button/plus-button.component';
 import { QuillModule, QuillEditorComponent } from 'ngx-quill';
 import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -51,7 +51,6 @@ import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toas
     CommentFormComponent,
     CommentsComponent,
     MainPageComponent,
-    LoginComponent,
     SignupComponent,
     TopButtonComponent,
     AfterSearchComponent,
@@ -73,7 +72,7 @@ import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toas
     ToastrModule.forRoot(),
     HttpClientModule,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
