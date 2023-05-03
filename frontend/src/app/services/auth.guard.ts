@@ -7,7 +7,7 @@ export const authGuard: CanMatchFn|CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.isLoggedIn) {
+  if (authService.getLoggedIn()) {
     return true;
   }
 

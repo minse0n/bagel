@@ -1,6 +1,7 @@
 import { ViewportScroller } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-main-page',
@@ -17,12 +18,15 @@ export class MainPageComponent implements OnInit {
 
   constructor(
     private scroller: ViewportScroller,
+    private cookieService: CookieService,
+    private authService: AuthService
   ) {}
   
   ngOnInit(): void {
     let screenWidth = window.innerWidth;
     (screenWidth > 767) ? this.screenMode = "W" : this.screenMode = "M";
   }
+
   
   scrollToTop() {
     this.scroller.scrollToPosition([0, 0]);

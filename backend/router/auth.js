@@ -41,21 +41,22 @@ router.get('/login/google/callback',
    async (req, res) => {
       if (req.sessionID) {
         res.status(200);
-
         const userPassport = await req.session.passport.user;
-
         const user = await userRepository.findUser(userPassport.googleID);
-
+        // rwth email 미인증 user -> email 인증 페이지로 이동
         if (!user.rwthVerified) {
           res.cookie("googleID", userPassport.googleID);
-          // TODO: 수정할 것 - paramteter가 주소에 노출되는 보안 문제 - 다른 방법을 찾아야 함!!!
-          // return res.redirect(`http://localhost:4200/login/?googleID=${userPassport.googleID}`);
+          res.cookie("avatarUrl", user.avatarUrl);
           return res.redirect(`http://localhost:4200/login`);
-        } 
-        return res.redirect(`http://localhost:4200/?username=${userPassport.username}&googleID=${userPassport.googleID}`);
+        }
+        // 가입 완료된 user -> 로그인 완료 후 main 페이지로 이동
+        res.cookie("googleID", userPassport.googleID);
+        res.cookie("avatarUrl", user.avatarUrl);
+        res.cookie("loggedIn", 'true');
+        return res.redirect(`http://localhost:4200/`);
         
       } else {
-         return res.status(404).json({ message: 'login failed'});
+         return res.status(404).json({ message: 'login failed' });
       }
    },
 );

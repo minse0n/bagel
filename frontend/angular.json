@@ -33,7 +33,8 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "quill"
+              "quill",
+              "crypto-js"
             ]
           },
           "configurations": {

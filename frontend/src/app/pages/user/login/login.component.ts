@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../services/user.service';
+import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit{
   // Google - google id / google OAuth logged in or not
   googleId: string = '';
   googleLoggedin: boolean = false;
+  avatarUrl: string = '';
   // RWTH Email Verification - rwth email / verification code / email verified or not  
   rwthEmail: string = '';  // email-address from the input
   verificationCode: string = '';  // verification code received in email
@@ -22,19 +23,20 @@ export class LoginComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService,
+    private authService: AuthService,
     private toastr: ToastrService,
     private cookieService: CookieService
-    ) {
-      this.userService.setGoogleLoggedIn('true');
-
-  }
+    ) {}
 
   ngOnInit(): void {
+    this.authService.setGoogleLoggedIn();
+
     // Check the status of singup
-    this.googleLoggedin = Boolean(this.userService.getGoogleLoggedIn());
-    this.sentCode = Boolean(this.userService.getSentCode());
-    this.verified = Boolean(this.userService.getVerified());
+    this.googleLoggedin = this.authService.getGoogleLoggedIn();
+    this.googleId = this.authService.getGoogleID();
+    this.sentCode = this.authService.getSentCode();
+    this.verified = this.authService.getVerified();
+    this.avatarUrl = this.authService.getAvatarUrl();
 
     this.loginCheck();
   }
@@ -42,27 +44,22 @@ export class LoginComponent implements OnInit{
   // 가입 상태 확인하는 fucntion
   async loginCheck() {
     // 기존 회원이 로그인한 경우 = 구글 로그인 성공 && rwth email 인증
-    if (this.googleLoggedin && this.sentCode && this.verified) {
+    if (this.authService.getLoggedIn()) {
       this.router.navigate(['/']);
+      return
     }
-    // 구글 로그인 성공 && rwth email 미인증 경우
-    // const googleID = this.route.snapshot.queryParamMap.get('googleID');
-    const googleID = await this.cookieService.get('googleID')
-    console.log(googleID, this.googleId);
-    this.googleId = googleID;
+    return
   }
-
- 
 
 
   // Verification rwth email
   verificationEmail(email: string) {
-    const verifyEmail$ = this.userService.verificationEmail(email);
+    const verifyEmail$ = this.authService.verificationEmail(email);
     
     verifyEmail$.subscribe(res => {
       if (res.status === 200) {
         this.sentCode = true;
-        this.userService.setSentCode('true');
+        this.authService.setSentCode();
         // pop up msg for success
         this.toastr.info('', 'Verification code has been sent.', {
           timeOut: 60000,  // pop up displayed time
@@ -82,16 +79,17 @@ export class LoginComponent implements OnInit{
 
   // Validate verification code
   validateCode(code: string) {
-    const validateCode$ = this.userService.validateCode(this.rwthEmail, code);
+    const validateCode$ = this.authService.validateCode(this.rwthEmail, code);
 
     validateCode$.subscribe(res => {
       if (res.status === 200) {
 
         // rwth verification 인증됨 update
         this.verified = true;
-        this.userService.setVerified('true');
+        this.authService.setVerified();
+        this.authService.setLoggedIn();
         // rwth verification 인증됨 DB user information update
-        this.userService.updateDBVerified(true);
+        this.authService.updateDBVerified(true);
 
         // remove popup for verification code previously triggered
         this.toastr.clear();
