@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit{
        return
     } 
     // 구글 로그인 성공 && !rwth email 인증
-    else if (this.authService.getGoogleLoggedIn && !this.authService.getVerified()){
+    else if (this.authService.getGoogleLoggedIn() && !this.authService.getVerified()){
       this.router.navigate(['/login']);
       return
     } 

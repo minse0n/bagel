@@ -65,6 +65,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('googleLoggedIn', trueEncrypt.toString());
     this.googleLoggedInSubject.next(true);
+    this.cookieService.delete('googleLoggedIn');
   }
   getGoogleLoggedIn(): boolean {
     const googleLoggedIn = localStorage.getItem('googleLoggedIn');  
@@ -87,6 +88,12 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('sentCode', trueEncrypt.toString());
     this.sentCodeSubject.next(true);
+    this.cookieService.delete('sentCode');
+
+    // verification code는 1분 후에 소멸되므로 localStorage에서도 자동 소멸되게 함
+    setTimeout(() => {
+      localStorage.removeItem('sentCode');
+    }, 60000);
   }
   getSentCode(): boolean {
     const sentCode = localStorage.getItem('sentCode');  
@@ -109,6 +116,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('verified', trueEncrypt.toString());
     this.verifiedSubject.next(true);
+    this.cookieService.delete('verified');
   }
   getVerified(): boolean {
     const verified = localStorage.getItem('verified');  
@@ -161,8 +169,8 @@ export class AuthService {
   }
 
   // 2. Validate verification code
-  validateCode(email: string, verifiCode: string) {
-    const body = { email, verifiCode };
+  validateCode(email: string, verifiCode: string, googleID: string) {
+    const body = { email, verifiCode, googleID };
     return this.http.post<any>(`${this.verificationUrl}/check`, body, { observe: 'response' });
     }
 
