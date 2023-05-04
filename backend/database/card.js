@@ -66,10 +66,6 @@ export async function searchCards(keyword) {
   return Card.find({$or: [{ title: keyword }, { text: keyword }]});
 }
 
-export async function searchCards(keyword) {
-  return Card.find({$or: [{ title: keyword }, { text: keyword }]});
-}
-
 export async function update(id, title, text, category, term, course) {
   return Card.findByIdAndUpdate(id, { title, text, category, term, course }, { returnOriginal: false });
 }
