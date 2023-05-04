@@ -36,16 +36,18 @@ const googleLogin = new Strategy(
 
       // IF: existing user && rwthVerified -> log in
       if (exUser && exUser.rwthVerified) {
-        
-        return done(null, exUser);
+      console.log('user is:', exUser);
+      return done(null, exUser);
       } 
 
-      // IF: new user(!exUser && !exUser.rwthVeried) -> sign up + log in
-      else if (!exUser){ 
+      // IF: new user -> sign up + log in
+      else { 
         console.log(profile);
         // 구글 profile 정보에서 parameters 가져옴 - username, googleIDm, avatarUrl 초기화 + (rwthVerified: false)
         userRepository.create(profile.displayName, profile.id, profile._json.picture, false)
         .then((newUser) => {
+          // TODO: console.log 지울것
+          // console.log('created new user: ', newUser);
           return newUser.save();
         })
         .then((savedUser) => {
