@@ -35,11 +35,10 @@ const googleLogin = new Strategy(
       const exUser = await userRepository.findUser(profile.id);
 
       // IF: existing user && rwthVerified -> log in
-      if (exUser && exUser.rwthVerified) {
-        
+      // if (exUser && exUser.rwthVerified) {
+        if (exUser) {
         return done(null, exUser);
       } 
-
       // IF: new user(!exUser && !exUser.rwthVeried) -> sign up + log in
       else if (!exUser){ 
         console.log(profile);

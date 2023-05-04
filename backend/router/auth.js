@@ -45,6 +45,7 @@ router.get('/login/google/callback',
         const user = await userRepository.findUser(userPassport.googleID);
         // rwth email 미인증 user -> email 인증 페이지로 이동
         if (!user.rwthVerified) {
+          res.cookie("googleLoggedIn", 'true');
           res.cookie("googleID", userPassport.googleID);
           res.cookie("avatarUrl", user.avatarUrl);
           return res.redirect(`http://localhost:4200/login`);
