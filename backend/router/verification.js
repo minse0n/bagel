@@ -19,14 +19,12 @@ router.post('/send', async (req, res) => {
 });
 
 router.post('/check', async (req, res) => {
-  const { email, verifiCode, googleID } = req.body;
+  const { email, verifiCode, userID } = req.body;
   const result = await verifiEmail.checkVerifiCode(email, verifiCode);
 
   if (result == '1') {
     // DB user data update (rwthVerified)
-    // TODO: 콘솔로그 지울 것
-    console.log('verification 유저 인식: ', googleID);
-    userRepository.updateVerfied(googleID);
+    userRepository.updateVerfied(userID);
 
     // const googlID = req.session.passport.user.googleID;
     // userRepository.updateVerfied(googlID);

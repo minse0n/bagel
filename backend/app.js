@@ -131,7 +131,7 @@ app.get('/card/:id', isAuth, async (req, res) => {
 });
 
 app.post('/card', isAuth, async (req, res) => {
-  const { title, text, category, term, course } = req.body;
+  const { title, text, category, username, avatarUrl, term, course } = req.body;
   const card = await cardRepository.create(title, text, category, term, course );
   res.status(201).json(card);
 });

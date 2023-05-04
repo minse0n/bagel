@@ -10,7 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LoginComponent implements OnInit{
   // Google - google id / google OAuth logged in or not
-  googleId: string = '';
+  userID: string = '';
   googleLoggedin: boolean = false;
   avatarUrl: string = '';
   // RWTH Email Verification - rwth email / verification code / email verified or not  
@@ -39,11 +39,11 @@ export class LoginComponent implements OnInit{
     }
     else if (this.authService.getGoogleLoggedIn() && !this.authService.getVerified()) {
       const googleLoggedInPassport = await this.cookieService.get('googleLoggedIn');
-      const googleIDPasport = await this.cookieService.get('googleID');
+      const userIDPasport = await this.cookieService.get('_id');
       const avatarUrl = await this.cookieService.get('avatarUrl');
 
       if (googleLoggedInPassport)  this.authService.setGoogleLoggedIn();
-      if (googleIDPasport) this.authService.setGoogleID(googleIDPasport);
+      if (userIDPasport) this.authService.setUserID(userIDPasport);
       if (avatarUrl) this.authService.setAvatarUrl(avatarUrl);
 
 
@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit{
 
   // Validate verification code
   validateCode(code: string) {
-    const validateCode$ = this.authService.validateCode(this.rwthEmail, code, this.authService.getGoogleID());
+    const validateCode$ = this.authService.validateCode(this.rwthEmail, code, this.authService.getUserID());
 
     validateCode$.subscribe(res => {
       if (res.status === 200) {

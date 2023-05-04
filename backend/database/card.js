@@ -5,7 +5,7 @@ const commentSchema = new Mongoose.Schema(
     cardId : { type: String, require: true },
     text: { type: String, require: true },
     username: { type: String, require: true },
-    avataUrl: { type: String },
+    avatarUrl: { type: String },
   }, { timestamps: true, versionKey: false }
 );
 const Comment = new Mongoose.model('comments', commentSchema);
@@ -16,7 +16,7 @@ const cardSchema = new Mongoose.Schema(
     text: { type: String, requierd: true },
     category: { type: String, requierd: true },
     username: { type: String, requierd: true },
-    avataUrl: { type: String },
+    avatarUrl: { type: String },
     term: { type: String, requierd: true },
     course: { type: String, requierd: true },
     views: { type: Number, required: true },
@@ -46,7 +46,7 @@ export async function getCard(id){
   return Card.findById(id);
 }
 
-export async function create(title, text, category, term, course, username){
+export async function create(title, text, category, username, avatarUrl,term, course){
   return new Card({
     title,
     text,
@@ -55,6 +55,7 @@ export async function create(title, text, category, term, course, username){
     term,
     course,
     views: 0,
+    comments: []
   }).save();
 }
 
@@ -62,8 +63,8 @@ export async function searchCards(keyword) {
   return Card.find({$or: [{ title: keyword }, { text: keyword }]});
 }
 
-export async function update(id, title, text, category, term, course) {
-  return Card.findByIdAndUpdate(id, { title, text, category, term, course }, { returnOriginal: false });
+export async function update(id, title, text, username, category, term, course, views) {
+  return Card.findByIdAndUpdate(id, { title, title, text, username, category, term, course, views }, { returnOriginal: false });
 }
 
 export async function remove(id) {

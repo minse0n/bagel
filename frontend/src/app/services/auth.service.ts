@@ -15,25 +15,47 @@ export class AuthService {
 
   // Setter, Getter for Auth-data
   // google id from user
-  private googleIDSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getGoogleID());
+  private userIDSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getUserID());
 
-  setGoogleID(googleID: string) {
-    const googleIDEncrypt = CryptoJS.AES.encrypt(googleID, environment.CRYPTOKEY);
-    localStorage.setItem('googleID', googleIDEncrypt.toString());
-    this.googleIDSubject.next(googleIDEncrypt.toString());
-    this.cookieService.delete('googleID');
+  setUserID(_id: string) {
+    const userIDEncrypt = CryptoJS.AES.encrypt(_id, environment.CRYPTOKEY);
+    localStorage.setItem('userID', userIDEncrypt.toString());
+    this.userIDSubject.next(userIDEncrypt.toString());
+    this.cookieService.delete('_id');
   }
-  getGoogleID(): string {
-    const googleID = localStorage.getItem('googleID');  
+  getUserID(): string {
+    const userID = localStorage.getItem('userID');  
     
-    if (googleID) {
-      const decryptValue = CryptoJS.AES.decrypt(googleID, environment.CRYPTOKEY).toString(CryptoJS.enc.Utf8);
+    if (userID) {
+      const decryptValue = CryptoJS.AES.decrypt(userID, environment.CRYPTOKEY).toString(CryptoJS.enc.Utf8);
     return decryptValue;
     }
     return null;
   }
-  googleID(): Observable<string> {
-    return this.googleIDSubject.asObservable();
+  userID(): Observable<string> {
+    return this.userIDSubject.asObservable();
+  }
+
+  // username from user
+  private usernameSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getUsername());
+
+  setUsername(username: string) {
+    const usernameEncrypt = CryptoJS.AES.encrypt(username, environment.CRYPTOKEY);
+    localStorage.setItem('username', usernameEncrypt.toString());
+    this.usernameSubject.next(usernameEncrypt.toString());
+    this.cookieService.delete('username');
+  }
+  getUsername(): string {
+    const username = localStorage.getItem('username');  
+    
+    if (username) {
+      const decryptValue = CryptoJS.AES.decrypt(username, environment.CRYPTOKEY).toString(CryptoJS.enc.Utf8);
+    return decryptValue;
+    }
+    return null;
+  }
+  username(): Observable<string> {
+    return this.usernameSubject.asObservable();
   }
 
   // user avatar url
@@ -160,7 +182,7 @@ export class AuthService {
   ) { }
 
 
-  // 1. Verification rwth email
+  // Verification rwth email
   // send the verification code to the email user entered in input
   verificationEmail (email: string) {
     const body = { email };
@@ -168,16 +190,22 @@ export class AuthService {
     return this.http.post<any>(`${this.verificationUrl}/send`, body, { observe: 'response' }); 
   }
 
-  // 2. Validate verification code
-  validateCode(email: string, verifiCode: string, googleID: string) {
-    const body = { email, verifiCode, googleID };
+  // Validate verification code
+  validateCode(email: string, verifiCode: string, userID: string) {
+    const body = { email, verifiCode, userID };
     return this.http.post<any>(`${this.verificationUrl}/check`, body, { observe: 'response' });
     }
 
-  // 3. Update DB for User information  - rwthVerified: true
+  // Update DB for User information  - rwthVerified: true
   updateDBVerified(rwthVerified: boolean) {
     const body = rwthVerified;
     return this.http.post<any>(`${this.verificationUrl}/google/update/verified`, body, { observe: 'response' });
+  }
+
+  // Get AvatarUrl via username
+  getAvatar(username: string) {
+    const body = username;
+    return this.http.get<any>(`${this.authUrl}/avatar`);
   }
 
 }

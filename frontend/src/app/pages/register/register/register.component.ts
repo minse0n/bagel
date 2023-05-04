@@ -6,6 +6,7 @@ import { COURSES } from 'src/app/models/courses';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 import { ToastrService } from 'ngx-toastr';
 import { filter, take } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +14,7 @@ import { filter, take } from 'rxjs/operators';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  avatarUrl: string;
 
   saveType: string = '';
   isMy: boolean = true;
@@ -29,11 +31,11 @@ export class RegisterComponent implements OnInit {
   }; 
   courses = COURSES;
   bagelCard: BagelCard = {
-    _id: '',
     title: '', 
     text: '',
     category: '',
     username: '',
+    avatarUrl: '',
     term: '',
     course: ''
   };
@@ -43,6 +45,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private _cardservice: CardService,
+    private authService: AuthService
     ) {
   }
   
@@ -53,6 +56,9 @@ export class RegisterComponent implements OnInit {
     this.saveType = this.bagelCard._id && 'EDIT' || 'REGISTER';
     console.log(this.bagelCard._id);
     console.log(state);
+
+    // user 정보 불러오기
+    this.userData();
   }
   
   selectCategory() {
@@ -103,6 +109,15 @@ export class RegisterComponent implements OnInit {
   
   changedEditor(event: EditorChangeContent | EditorChangeSelection) {
     console.log('editor got changed', event);
+  }
+
+  async userData() {
+    const username = await this.authService.getUsername();
+    this.bagelCard.username = username;
+
+    const avatarUrl = await this.authService.getAvatarUrl()
+    this.bagelCard.avatarUrl = avatarUrl;
+    return
   }
 }
 

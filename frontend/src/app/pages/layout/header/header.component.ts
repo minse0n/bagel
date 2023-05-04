@@ -39,7 +39,6 @@ export class HeaderComponent implements OnInit{
     await this.authService.avatarUrl().subscribe(avtarUrl => {
       this.avatarUrl = avtarUrl;
     })
-    console.log('로그인 됨?: ', this.isLoggedIn, ' 아바타는?: ', this.avatarUrl);
     return
   }
 
