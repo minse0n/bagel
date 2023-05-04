@@ -52,6 +52,7 @@ export class CardService {
         item.category === postCategory)))
   }
   findByCourse(_course: string): Observable<BagelCard[]> {
+    console.log(_course);
     return this._http.get<BagelCard[]>("http://localhost:8080/cards", {
       params: new HttpParams().set('course', _course)
     });

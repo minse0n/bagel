@@ -4,7 +4,9 @@ import * as userRepository from '../database/user.js'
 
 const router = express.Router();
 
-router.get('/login/google', passport.authenticate('googleLogin', { scope: ['profile'] }));
+// google login (Google OAuth2)
+router.get('/login/google', 
+  passport.authenticate('googleLogin', { scope: ['profile'] }));
 
 router.get('/signup/google', (req, res) => {
    const googleID = req.flash('googleID');
@@ -16,12 +18,7 @@ router.get('/signup/google', (req, res) => {
    }
  });
 
- // Bagel 회원가입
-/**
- *  (after google login)
- *  signup user for bagel
- *  @param - googleID, username, avatarUrl
- */
+
 router.post('/signup/google', async (req, res) => {
    const { username, googleID, avatarUrl } = req.body;
 
@@ -38,17 +35,41 @@ router.post('/signup/google', async (req, res) => {
    }
 });
 
+// google OAuth2 callback function
 router.get('/login/google/callback',
    passport.authenticate('googleLogin', { failureRedirect: '/auth/signup/google' }),
-   (req, res) => {
+   async (req, res) => {
       if (req.sessionID) {
-         res.status(200).json(req.session);
+        res.status(200);
+        const userPassport = await req.session.passport.user;
+        const user = await userRepository.findUser(userPassport.googleID);
+        // rwth email 미인증 user -> email 인증 페이지로 이동
+        if (!user.rwthVerified) {
+          res.cookie("googleID", userPassport.googleID);
+          res.cookie("avatarUrl", user.avatarUrl);
+          return res.redirect(`http://localhost:4200/login`);
+        }
+        // 가입 완료된 user -> 로그인 완료 후 main 페이지로 이동
+        res.cookie("googleID", userPassport.googleID);
+        res.cookie("avatarUrl", user.avatarUrl);
+        res.cookie("loggedIn", 'true');
+        return res.redirect(`http://localhost:4200/`);
+        
       } else {
-         res.status(404).json({ message: 'login failed'});
+         return res.status(404).json({ message: 'login failed' });
       }
    },
 );
 
+router.put('google/update/verified', async (req, res) => {
+  const rwthVerified = req.body;
+  const update = await userRepository.updateVerfied(rwthVerified);
+  if (update) {
+    res.status(200);
+  } else {
+    res.status(404).json({ message: 'user not found' });
+  }
+})
 
 router.put('/google/update', async (req, res) => {
    const { googleID, username, avatarUrl } = req.body;
@@ -61,12 +82,10 @@ router.put('/google/update', async (req, res) => {
    res.status(200);
 });
 
-
 router.get('/logout', (req, res) => {
    req.session.destroy((err) => {
       res.status(200).redirect('/');
    });
 });
-
 
 export default router;

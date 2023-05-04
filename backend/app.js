@@ -22,12 +22,16 @@ const port = 8080;
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin:"http://localhost:4200",
+  credentials: true
+}));
 app.use(morgan('tiny'));
 app.use(session({ 
   secret: 'SECRET',
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: { httpOnly: false }
 }));
 app.use(flash());
 
@@ -119,9 +123,6 @@ app.get('/cards/list', async (req, res) => {
 app.get('/card/:id', isAuth, async (req, res) => {
   const id = req.params.id;
   const card = await cardRepository.getCard(id);
-  card.views = card.views + 1;
-  card.save();
-
   if(card) {
     res.status(200).json(card);
   } else {
@@ -139,7 +140,7 @@ app.put('/card/:id', isAuth, async (req, res) => {
   const { title, text, category, term, course } = req.body;
   const id = req.params.id;
   const card = await cardRepository.getCard(id);
-
+  
   if(!card){
     res.status(404).json({ message: `card not found :${id}` });
   } else if(card.username != req.user.username){
@@ -153,8 +154,8 @@ app.put('/card/:id', isAuth, async (req, res) => {
 app.delete('/card/:id', isAuth, async (req, res) => {
   const id = req.params.id;
   const card = await cardRepository.getCard(id);
-
-if(!card){
+  
+  if(!card){
     res.status(404).json({ message: `card not found :${id}` });
   } else if(card.username != req.user.username){
     res.status(403).json({ message: 'user is not author' });
