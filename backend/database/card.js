@@ -1,5 +1,7 @@
 import Mongoose from 'mongoose';
 
+import * as userRepasitory from './user.js';
+
 const commentSchema = new Mongoose.Schema(
   {
     cardId : { type: String, require: true },
@@ -57,6 +59,8 @@ export async function create(title, text, category, username, avatarUrl,term, co
     views: 0,
     comments: []
   }).save();
+  await userRepasitory.updatePostCards(googleID, card._id);
+  return card;
 }
 
 export async function searchCards(keyword) {
@@ -66,14 +70,23 @@ export async function searchCards(keyword) {
 export async function update(id, title, text, username, category, term, course, views) {
   return Card.findByIdAndUpdate(id, { title, title, text, username, category, term, course, views }, { returnOriginal: false });
 }
+export async function updateUsername(id, username){
+  await Card.findByIdAndUpdate(id, { username });
+}
 
-export async function remove(id) {
+export async function updateAvatarUrl(id, avatarUrl){
+  await Card.findByIdAndUpdate(id, { avatarUrl });
+}
+
+export async function remove(id, googleID) {
+  await userRepasitory.deletePostCards(googleID, id);
   return Card.findByIdAndDelete(id);
 }
 
-export async function commentCreate(cardId, text, username) {
+export async function commentCreate(cardId, text, username, googleID) {
   const comment = await new Comment({ cardId, text, username }).save();
   await Card.findByIdAndUpdate(cardId, { $push : { comments: comment._id } }, { returnOriginal: false });
+  await userRepasitory.updatePostComments(googleID, comment._id);
   return comment;
 }
 
@@ -83,6 +96,15 @@ export async function getComment(id) {
 
 export async function commentUpdate(id, text) {
   return Comment.findByIdAndUpdate(id, { text }, { returnOriginal: false });
+}
+
+export async function commentUpdateUsername(id, username){
+  await Comment.findByIdAndUpdate(id, { username });
+}
+
+export async function commentUpdateAvatarUrl(id, avatarUrl){
+  await Comment.findByIdAndUpdate(id, { avatarUrl });
+
 }
 
 export async function commentRemove(id) {
