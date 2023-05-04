@@ -53,9 +53,15 @@ export async function update(googleID, username, avatarUrl){
   return user;
 }
 
-export async function updateVerfied(googleID) {
-  return User.findOneAndUpdate({googleID: googleID}
+export async function updateVerfied(userID) {
+  return User.findOneAndUpdate({ _id: userID }
     , { rwthVerified: true });
+}
+
+export async function getAvatar(username) {
+  const user = await User.findOne({ username: username });
+  if (!user) throw new Error("User not found");
+  return user.avatarUrl;
 }
 
 export async function remove(id) {

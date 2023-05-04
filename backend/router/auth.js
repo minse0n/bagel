@@ -59,12 +59,15 @@ router.get('/login/google/callback',
         const user = await userRepository.findUser(userPassport.googleID);
         // rwth email 미인증 user -> email 인증 페이지로 이동
         if (!user.rwthVerified) {
-          res.cookie("googleID", userPassport.googleID);
+          res.cookie("googleLoggedIn", 'true');
+          res.cookie("_id", user.id.toString());
+          res.cookie("username", user.username);
           res.cookie("avatarUrl", user.avatarUrl);
           return res.redirect(`http://localhost:4200/login`);
         }
         // 가입 완료된 user -> 로그인 완료 후 main 페이지로 이동
-        res.cookie("googleID", userPassport.googleID);
+        res.cookie("_id", user._id.toString());
+        res.cookie("username", user.username);
         res.cookie("avatarUrl", user.avatarUrl);
         res.cookie("loggedIn", 'true');
         return res.redirect(`http://localhost:4200/`);
@@ -100,6 +103,12 @@ router.put('/google/update', isAuth, usernameRules(), validate, async (req, res)
    } else {
       res.status(404).json({ message: 'user not found'});
    }
+});
+
+router.get('/avatar', async (req, res) => {
+  const username = req.body;
+  const avatarUrl = await userRepository.getAvatar(username);
+  res.status(200).json({ avatarUrl});
 });
 
 router.get('/logout', (req, res) => {
