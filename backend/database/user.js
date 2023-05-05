@@ -1,6 +1,6 @@
 import Mongoose from 'mongoose';
 
-import * as cardRepasitory from './card.js';
+import * as cardRepository from './card.js';
 
 const userSchema = new Mongoose.Schema(
   {
@@ -36,18 +36,18 @@ export async function update(googleID, username, avatarUrl){
   const user = await User.findOneAndUpdate({ googleID }, { username, avatarUrl });
   user.postCards.map(async (cardId) => {
     if(username){
-      await cardRepasitory.updateUsername(cardId, username);
+      await cardRepository.updateUsername(cardId, username);
     }
     if(avatarUrl){
-      await cardRepasitory.updateAvatarUrl(cardId, avatarUrl);
+      await cardRepository.updateAvatarUrl(cardId, avatarUrl);
     }
   });
   user.postComments.map(async (cardId) => {
     if(username){
-      await cardRepasitory.commentUpdateUsername(cardId, username);
+      await cardRepository.commentUpdateUsername(cardId, username);
     }
     if(avatarUrl){
-      await cardRepasitory.commentUpdateAvatarUrl(cardId, avatarUrl);
+      await cardRepository.commentUpdateAvatarUrl(cardId, avatarUrl);
     }
   });
   return user;

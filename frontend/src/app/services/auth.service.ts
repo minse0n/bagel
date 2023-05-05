@@ -65,7 +65,7 @@ export class AuthService {
     this.avatarUrlSubject.next(avatarUrl);
     const avatarUrlEncrypt = CryptoJS.AES.encrypt(avatarUrl, environment.CRYPTOKEY);
     localStorage.setItem('avatarUrl', avatarUrlEncrypt.toString());
-    this.cookieService.delete('avatarUrl');
+    // this.cookieService.delete('avatarUrl');
   }
   getAvatarUrl(): string {
     const avatarUrl = localStorage.getItem('avatarUrl');  
@@ -160,7 +160,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('bagelLoggedIn', trueEncrypt.toString());
     this.loggedInSubject.next(true);
-    this.cookieService.delete('loggedIn');
+    // this.cookieService.delete('loggedIn');
   }
   getLoggedIn(): boolean {
     const logggedIn = localStorage.getItem('bagelLoggedIn');  
@@ -207,5 +207,12 @@ export class AuthService {
     const body = username;
     return this.http.get<any>(`${this.authUrl}/avatar`);
   }
-
+  updateUser(data: any): Observable<any> {
+    console.log(data);
+    const options = { withCredentials: true };
+    return this.http.put(`${this.authUrl}/google/update`, data, options);
+  }
+  logoutUser() {
+    return this.http.get(`${this.authUrl}/logout`);
+  }
 }
