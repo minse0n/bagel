@@ -17,6 +17,17 @@ export class AuthService {
   // google id from user
   private userIDSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getUserID());
 
+  getGoogleID(): string {
+    const googleID = localStorage.getItem('googleID');  
+
+    if (googleID) {
+      const decryptValue = CryptoJS.AES.decrypt(googleID, environment.CRYPTOKEY).toString(CryptoJS.enc.Utf8);
+    return decryptValue;
+    }
+    return null;
+  }
+  
+  
   setUserID(_id: string) {
     const userIDEncrypt = CryptoJS.AES.encrypt(_id, environment.CRYPTOKEY);
     localStorage.setItem('userID', userIDEncrypt.toString());
