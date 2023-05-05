@@ -14,19 +14,8 @@ export class AuthService {
   private authUrl = 'http://localhost:8080/auth';
 
   // Setter, Getter for Auth-data
-  // google id from user
+  // user id from DB
   private userIDSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getUserID());
-
-  getGoogleID(): string {
-    const googleID = localStorage.getItem('googleID');  
-
-    if (googleID) {
-      const decryptValue = CryptoJS.AES.decrypt(googleID, environment.CRYPTOKEY).toString(CryptoJS.enc.Utf8);
-    return decryptValue;
-    }
-    return null;
-  }
-  
   
   setUserID(_id: string) {
     const userIDEncrypt = CryptoJS.AES.encrypt(_id, environment.CRYPTOKEY);
@@ -47,6 +36,29 @@ export class AuthService {
     return this.userIDSubject.asObservable();
   }
 
+  // google id of user
+  private googleIDSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getGoogleID());
+  
+  setGoogleID(googleID: string) {
+    const googleIDEncrypt = CryptoJS.AES.encrypt(googleID, environment.CRYPTOKEY);
+    localStorage.setItem('googleID', googleIDEncrypt.toString());
+    this.googleIDSubject.next(googleIDEncrypt.toString());
+    // this.cookieService.delete('googleID');
+  }
+  getGoogleID(): string {
+    const googleID = localStorage.getItem('googleID');  
+    
+    if (googleID) {
+      const decryptValue = CryptoJS.AES.decrypt(googleID, environment.CRYPTOKEY).toString(CryptoJS.enc.Utf8);
+    return decryptValue;
+    }
+    return null;
+  }
+  googleID(): Observable<string> {
+    return this.googleIDSubject.asObservable();
+  }
+
+
   // username from user
   private usernameSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getUsername());
 
@@ -54,7 +66,7 @@ export class AuthService {
     const usernameEncrypt = CryptoJS.AES.encrypt(username, environment.CRYPTOKEY);
     localStorage.setItem('username', usernameEncrypt.toString());
     this.usernameSubject.next(usernameEncrypt.toString());
-    this.cookieService.delete('username');
+    // this.cookieService.delete('username');
   }
   getUsername(): string {
     const username = localStorage.getItem('username');  
@@ -76,7 +88,7 @@ export class AuthService {
     this.avatarUrlSubject.next(avatarUrl);
     const avatarUrlEncrypt = CryptoJS.AES.encrypt(avatarUrl, environment.CRYPTOKEY);
     localStorage.setItem('avatarUrl', avatarUrlEncrypt.toString());
-    // this.cookieService.delete('avatarUrl');
+    this.cookieService.delete('avatarUrl');
   }
   getAvatarUrl(): string {
     const avatarUrl = localStorage.getItem('avatarUrl');  
@@ -171,7 +183,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('bagelLoggedIn', trueEncrypt.toString());
     this.loggedInSubject.next(true);
-    // this.cookieService.delete('loggedIn');
+    this.cookieService.delete('loggedIn');
   }
   getLoggedIn(): boolean {
     const logggedIn = localStorage.getItem('bagelLoggedIn');  
