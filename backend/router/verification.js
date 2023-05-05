@@ -20,13 +20,15 @@ router.post('/send', emailRules(), validate, async (req, res) => {
 });
 
 router.post('/check', async (req, res) => {
-  const { email, verifiCode } = req.body;
+  const { email, verifiCode, userID } = req.body;
   const result = await verifiEmail.checkVerifiCode(email, verifiCode);
 
   if (result == '1') {
     // DB user data update (rwthVerified)
-    const googlID = req.session.passport.user.googleID;
-    userRepository.updateVerfied(googlID);
+    userRepository.updateVerfied(userID);
+
+    // const googlID = req.session.passport.user.googleID;
+    // userRepository.updateVerfied(googlID);
 
     res.status(200).json({ message: '인증에 성공 했습니다.' });
   } else if (result == '2') {

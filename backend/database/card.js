@@ -64,8 +64,8 @@ export async function getCard(id){
   return Card.findById(id);
 }
 
-export async function create(title, text, category, term, course, username, googleID){
-  const card = await new Card({
+export async function create(title, text, category, username, avatarUrl,term, course){
+  return new Card({
     title,
     text,
     username,
@@ -73,6 +73,7 @@ export async function create(title, text, category, term, course, username, goog
     term,
     course,
     views: 0,
+    comments: []
   }).save();
   await userRepasitory.updatePostCards(googleID, card._id);
   return card;
@@ -86,11 +87,20 @@ export async function searchCards(keyword, page) {
               .limit(9);
 }
 
-export async function update(id, title, text, category, term, course) {
-  return Card.findByIdAndUpdate(id, { title, text, category, term, course }, { returnOriginal: false });
+export async function update(id, title, text, username, category, term, course, views) {
+  return Card.findByIdAndUpdate(id, { title, title, text, username, category, term, course, views }, { returnOriginal: false });
 }
+
 export async function updateUsername(id, username){
   await Card.findByIdAndUpdate(id, { username });
+}
+
+export async function updateUsername(id, username){
+  await Card.findByIdAndUpdate(id, { username });
+}
+
+export async function updateAvatarUrl(id, avatarUrl){
+  await Card.findByIdAndUpdate(id, { avatarUrl });
 }
 
 export async function updateAvatarUrl(id, avatarUrl){
