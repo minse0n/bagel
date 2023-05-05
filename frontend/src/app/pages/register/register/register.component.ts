@@ -105,8 +105,6 @@ export class RegisterComponent implements OnInit {
         error: (e) => console.error(e)
       });  
   }
-  
-  
   changedEditor(event: EditorChangeContent | EditorChangeSelection) {
     console.log('editor got changed', event);
   }
@@ -120,12 +118,3 @@ export class RegisterComponent implements OnInit {
     return
   }
 }
-
-      // closeButton: true,
-      // disableTimeOut: true,
-      // tapToDismiss: false,
-      // onActivateTick: true,
-      // progressAnimation: 'increasing',
-      // positionClass: 'toast-top-right',
-      // titleClass: 'toast-title',
-      // messageClass: 'toast-message'

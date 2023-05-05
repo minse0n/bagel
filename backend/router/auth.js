@@ -1,6 +1,8 @@
 import express from 'express';
 import passport from 'passport';
 import * as userRepository from '../database/user.js'
+import { isAuth } from '../middleware/auth.js';
+import { usernameRules, validate } from '../middleware/validate.js';
 
 const router = express.Router();
 
@@ -18,20 +20,32 @@ router.get('/signup/google', (req, res) => {
    }
  });
 
-
-router.post('/signup/google', async (req, res) => {
+ // Bagel 회원가입
+/**
+ *  (after google login)
+ *  signup user for bagel
+ *  @param - googleID, username, avatarUrl
+ */
+router.post('/signup/google', usernameRules(), validate, async (req, res) => {
+  // const profile = JSON.parse(req.query.profile);
+  // console.log('받아온 정보: ', profile.googleID);
+  console.log('받음');
    const { username, googleID, avatarUrl } = req.body;
 
    if (googleID == 'undefined') {
       res.status(404).json({ message: 'no googleID' });
    } else {
-      const newUser = await userRepository.create(username, googleID, avatarUrl);
-      if (newUser) {
-         req.session.passport = { user: googleID, username: username };
-         res.status(200).json(req.session);
-      } else {
-         res.status(404).json({ message: 'signup failed' });
-      }
+      if (await userRepository.findUsername(username)) {
+         res.status(404).json({ message: 'username이 존재합니다.' });
+       } else {
+         const newUser = await userRepository.create(username, googleID, avatarUrl);
+         if (newUser) {
+            req.session.passport = { user: googleID, username: username };
+            res.status(200).json(req.session);
+         } else {
+            res.status(404).json({ message: '새로운 유저를 만들지 못했습니다.' });
+         }
+       }
    }
 });
 
@@ -65,30 +79,37 @@ router.get('/login/google/callback',
 );
 
 router.put('google/update/verified', async (req, res) => {
-  const rwthVerified = req.body;
-  const update = await userRepository.updateVerfied(rwthVerified);
+   const rwthVerified = req.body;
+   const update = await userRepository.updateVerfied(rwthVerified);
   if (update) {
     res.status(200);
   } else {
     res.status(404).json({ message: 'user not found' });
   }
-})
-
-router.put('/google/update', async (req, res) => {
+});
+ 
+router.put('/google/update', isAuth, usernameRules(), validate, async (req, res) => {
    const { googleID, username, avatarUrl } = req.body;
-   const update = await userRepository.update(googleID, username, avatarUrl);
-   if (update) {
-      res.status(200).json(update);
+   if(googleID == req.user.googleID){
+      if (username && !(await userRepository.findUsername(username))) {
+         res.status(404).json({ message: 'username이 존재합니다.' });
+       }
+      const update = await userRepository.update(googleID, username, avatarUrl);
+      if (update) {
+         res.status(200).json(update);
+      } else {
+         res.status(404).json({ message: 'user not found' });
+      }
    } else {
-      res.status(404).json({ message: 'user not found' });
+      res.status(404).json({ message: 'user not found'});
    }
-   res.status(200);
 });
 
 router.get('/avatar', async (req, res) => {
   const username = req.body;
   const avatarUrl = await userRepository.getAvatar(username);
   res.status(200).json({ avatarUrl});
+
 });
 
 router.get('/logout', (req, res) => {
