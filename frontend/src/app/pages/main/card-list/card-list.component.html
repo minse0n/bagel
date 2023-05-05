@@ -25,7 +25,7 @@
         <div class="cardItemF-left">{{ bagel.username }}</div> 
         <div class="cardItemF-right">
           <div id="view"><img id="view" src="../../../../assets/icons/eye.svg">{{ bagel.views }}</div>
-          <div id="chat"><img id="chat" src="../../../../assets/icons/chat.svg">0</div>
+          <div id="chat"><img id="chat" src="../../../../assets/icons/chat.svg">{{ bagel.comments?.length.toString() || '0' }}</div>
         </div>
       </div>
     </a>
