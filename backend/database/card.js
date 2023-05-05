@@ -50,8 +50,9 @@ export async function create(title, text, category, username, avatarUrl,term, co
   return new Card({
     title,
     text,
-    username,
     category,
+    username,
+    avatarUrl,
     term,
     course,
     views: 0,
@@ -63,8 +64,13 @@ export async function searchCards(keyword) {
   return Card.find({$or: [{ title: keyword }, { text: keyword }]});
 }
 
-export async function update(id, title, text, username, category, term, course, views) {
-  return Card.findByIdAndUpdate(id, { title, title, text, username, category, term, course, views }, { returnOriginal: false });
+export async function update(id, title, text, username, avatarUrl, category, term, course, views) {
+  return Card.findByIdAndUpdate(id, { title, text, username, avatarUrl, category, term, course, views }, { returnOriginal: false }
+  );
+}
+
+export async function viewsUpdate(id, views) {
+  return Card.findByIdAndUpdate(id, views, { returnOriginal: false }, { new: true });
 }
 
 export async function remove(id) {
