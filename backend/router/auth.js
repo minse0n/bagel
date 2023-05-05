@@ -109,6 +109,7 @@ router.get('/avatar', async (req, res) => {
   const username = req.body;
   const avatarUrl = await userRepository.getAvatar(username);
   res.status(200).json({ avatarUrl});
+
 });
 
 router.get('/logout', (req, res) => {
