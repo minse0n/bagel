@@ -8,13 +8,14 @@ import { BagelCard } from '../models/bagelCard';
 })
 export class CardService {
 
-  private cardsUrl = 'http://localhost:8080/cards/list';
+  private cardListUrl = 'http://localhost:8080/cards/list';
+  private cardsUrl = 'http://localhost:8080/cards';
   private cardUrl = 'http://localhost:8080/card';
   
   constructor(private _http: HttpClient) { }
   
   getAllData(): Observable<BagelCard[]> {
-    return this._http.get<BagelCard[]>(this.cardsUrl);
+    return this._http.get<BagelCard[]>(this.cardListUrl);
    }
   
   get(_id: string): Observable<object> {
@@ -35,19 +36,16 @@ export class CardService {
   
   searchCard (search: string): Observable<BagelCard[]> {
     console.log(search);
-    return this._http.get<BagelCard[]>("http://localhost:8080/cards", {
+    return this._http.get<BagelCard[]>(this.cardsUrl, {
       params: new HttpParams().set('search', search)
     });
   }
   
   findByCategory(postCategory: string): Observable<BagelCard[]> {
     console.log(postCategory);
-    return this._http.get<BagelCard[]>("http://localhost:8080/cards", {
+    return this._http.get<BagelCard[]>(this.cardsUrl, {
       params: new HttpParams().set('category', postCategory)
     });
-    // return this.getAllData().pipe(map((items: any[]) => 
-    //   items.filter((item: { category: string; }) => 
-    //     item.category === postCategory)))
   }
 
   findBySearchCategory(searchText: string, postCategory: string): Observable<BagelCard[]> {
@@ -55,9 +53,10 @@ export class CardService {
       items.filter((item: { category: string; }) => 
         item.category === postCategory)))
   }
+  
   findByCourse(_course: string): Observable<BagelCard[]> {
     console.log(_course);
-    return this._http.get<BagelCard[]>("http://localhost:8080/cards", {
+    return this._http.get<BagelCard[]>(this.cardsUrl, {
       params: new HttpParams().set('course', _course)
     });
   }

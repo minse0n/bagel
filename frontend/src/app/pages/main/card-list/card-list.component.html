@@ -6,7 +6,7 @@
       <span class="info-text">We can’t find any item matching your search</span>
     </div>
     <div class="has-result" *ngIf="!noResult">
-      <span class="res-text">We’ve found 3 post!</span>
+      <span class="res-text">We’ve found {{ numResult }} post!</span>
     </div>
   </div>
   <ul class="cardList-wrapper">

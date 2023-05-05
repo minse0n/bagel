@@ -18,6 +18,7 @@ export class CardListComponent implements OnInit {
   bagels: BagelCard[]; 
   bagel: BagelCard = {};
   noResult: boolean;
+  numResult: number;
   screenMode: string;
   category: string;
   
@@ -43,27 +44,25 @@ export class CardListComponent implements OnInit {
     (screenWidth > 576) ? this.screenMode = "W" : this.screenMode = "M";
   }
 
-  newBagel() {
-    const navigationExtras: NavigationExtras = {
-      state: {
-        currentBagel: this.bagel
-      }
-    };
-    this.router.navigate(['/register'], navigationExtras);
+  searchBagel() {
+    this._cardservice.searchCard(this.searchText).subscribe(res => {
+      this.bagels = res;
+      this.noResult = res.length === 0 ? true : false;
+      this.numResult = res.length;
+    });
   }
+  
   @HostListener('change')
   ngOnChanges(change: SimpleChange) {
     if (this.searchText) {
       console.log(this.searchText);
-      this._cardservice.searchCard(this.searchText).subscribe(res => {
-        this.bagels = res;
-        this.noResult = res.length === 0 ? true : false;
-      });
+      this.searchBagel();
     } else {
       switch (this.postCategory) {
         case null:
         case undefined:
         case 'All':
+          this.searchText = '';
           this._cardservice.getAllData().subscribe({
             next: (data) => {
               this.bagels = data;
@@ -80,10 +79,7 @@ export class CardListComponent implements OnInit {
     }
     if(this.postCategory && this.searchText) {
       if(this.postCategory === 'All') {
-        this._cardservice.searchCard(this.searchText).subscribe(res => {
-          this.bagels = res;
-          this.noResult = res.length === 0 ? true : false;
-        });
+        this.searchBagel();
       } else {
         this._cardservice.findBySearchCategory(this.searchText, this.postCategory).subscribe(res => { 
           this.bagels = res;
@@ -99,6 +95,15 @@ export class CardListComponent implements OnInit {
       error: (e) => console.log(e)})
     }
   } 
+  newBagel() {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        currentBagel: this.bagel
+      }
+    };
+    this.router.navigate(['/register'], navigationExtras);
+  }
+
   showDetail(id: string) {
     this.router.navigate(['/card',id], { skipLocationChange: true });
   }
