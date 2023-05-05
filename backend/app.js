@@ -73,7 +73,7 @@ function escapeRegex(text) {
 
 app.get('/cards', async (req, res, next) => {
   const page = req.query.page;
-
+  console.log(req.query.page);
   if(req.query.search) {
     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
 
