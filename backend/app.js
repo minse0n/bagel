@@ -138,7 +138,7 @@ app.get('/card/:id', isAuth, async (req, res) => {
 });
 
 app.post('/card', isAuth, async (req, res) => {
-  const { title, text, category, username, avatarUrl, term, course } = req.body;
+  const { title, text, category, avatarUrl, term, course } = req.body;
   const { googleID, username } = req.user;
   const card = await cardRepository.create(title, text, category, term, course, username, googleID);
   res.status(201).json(card);

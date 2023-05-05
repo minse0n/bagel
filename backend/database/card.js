@@ -95,14 +95,6 @@ export async function updateUsername(id, username){
   await Card.findByIdAndUpdate(id, { username });
 }
 
-export async function updateUsername(id, username){
-  await Card.findByIdAndUpdate(id, { username });
-}
-
-export async function updateAvatarUrl(id, avatarUrl){
-  await Card.findByIdAndUpdate(id, { avatarUrl });
-}
-
 export async function updateAvatarUrl(id, avatarUrl){
   await Card.findByIdAndUpdate(id, { avatarUrl });
 }
@@ -133,7 +125,6 @@ export async function commentUpdateUsername(id, username){
 
 export async function commentUpdateAvatarUrl(id, avatarUrl){
   await Comment.findByIdAndUpdate(id, { avatarUrl });
-
 }
 
 export async function commentRemove(id) {
