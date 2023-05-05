@@ -21,14 +21,11 @@ export class HeaderComponent implements OnInit{
     public matDialog: MatDialog,
     private router: Router,
     private authService: AuthService
-  ) {
-    
-  }
+  ) { }
   
   ngOnInit(): void {  
     let screenWidth = window.innerWidth;
     (screenWidth > 767) ? this.screenMode = "W" : this.screenMode = "M";
-
     this.userData();
   }
 
@@ -60,7 +57,6 @@ export class HeaderComponent implements OnInit{
   openSidenav() {
     this.SideNavToggle.emit();
   }
-  
 
   @HostListener ('window:resize', ['$event'])
   onResize(event: any) {
@@ -69,7 +65,7 @@ export class HeaderComponent implements OnInit{
   }
   
   @HostListener('window:scroll', ['$event']) onscroll() {
-    if(window.scrollY > 1) {
+    if(window.scrollY > 10) {
       this.headerFixed = true;
     } else {
       this.headerFixed = false;

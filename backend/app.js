@@ -73,7 +73,7 @@ function escapeRegex(text) {
 
 app.get('/cards', async (req, res, next) => {
   const page = req.query.page;
-
+  console.log(req.query.page);
   if(req.query.search) {
     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
 
@@ -137,15 +137,17 @@ app.get('/card/:id', isAuth, async (req, res) => {
   }
 });
 
+
 app.post('/card', isAuth, async (req, res) => {
-  const { title, text, category, username, avatarUrl, term, course } = req.body;
+
+  const { title, text, category, avatarUrl, term, course } = req.body;
   const { googleID, username } = req.user;
   const card = await cardRepository.create(title, text, category, term, course, username, googleID);
   res.status(201).json(card);
 });
 
 app.put('/card/:id', isAuth, async (req, res) => {
-  const { title, text, category, term, course } = req.body;
+  const { title, text, username, avatarUrl, category, term, course, views } = req.body;
   const id = req.params.id;
   const card = await cardRepository.getCard(id);
   
@@ -154,10 +156,22 @@ app.put('/card/:id', isAuth, async (req, res) => {
   } else if(card.username != req.user.username){
     res.status(403).json({ message: 'user is not author' });
   } else {
-    const updated = await cardRepository.update(id, title, text, category, term, course);
+    const updated = await cardRepository.update(id, title, text, username, avatarUrl, category, term, course, views);
     res.status(200).json(updated);
   }
 });
+
+app.put('/card/views/:id', async (req, res) => {
+  const id = req.params.id;
+  const views = req.body;
+  
+  const newCard = cardRepository.viewsUpdate(id, views);
+
+  if (!newCard) {
+    res.status(404).json({ message: `card not found :${id}` });
+  } 
+  res.status(200).json;
+})
 
 app.delete('/card/:id', isAuth, async (req, res) => {
   const id = req.params.id;
@@ -215,6 +229,7 @@ app.delete('/comment/:id', isAuth, async (req, res) => {
     res.status(200).json(remove);
   }
 });
+
 
 app.use((req, res, next) => {
   res.sendStatus(404);

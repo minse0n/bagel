@@ -68,8 +68,9 @@ export async function create(title, text, category, username, avatarUrl,term, co
   return new Card({
     title,
     text,
-    username,
     category,
+    username,
+    avatarUrl,
     term,
     course,
     views: 0,
@@ -87,20 +88,17 @@ export async function searchCards(keyword, page) {
               .limit(9);
 }
 
-export async function update(id, title, text, username, category, term, course, views) {
-  return Card.findByIdAndUpdate(id, { title, title, text, username, category, term, course, views }, { returnOriginal: false });
+export async function update(id, title, text, username, avatarUrl, category, term, course, views) {
+  return Card.findByIdAndUpdate(id, { title, text, username, avatarUrl, category, term, course, views }, { returnOriginal: false }
+  );
+}
+
+export async function viewsUpdate(id, views) {
+  return Card.findByIdAndUpdate(id, views, { returnOriginal: false }, { new: true });
 }
 
 export async function updateUsername(id, username){
   await Card.findByIdAndUpdate(id, { username });
-}
-
-export async function updateUsername(id, username){
-  await Card.findByIdAndUpdate(id, { username });
-}
-
-export async function updateAvatarUrl(id, avatarUrl){
-  await Card.findByIdAndUpdate(id, { avatarUrl });
 }
 
 export async function updateAvatarUrl(id, avatarUrl){
@@ -133,7 +131,6 @@ export async function commentUpdateUsername(id, username){
 
 export async function commentUpdateAvatarUrl(id, avatarUrl){
   await Comment.findByIdAndUpdate(id, { avatarUrl });
-
 }
 
 export async function commentRemove(id) {
