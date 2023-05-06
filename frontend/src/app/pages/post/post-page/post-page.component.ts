@@ -3,10 +3,13 @@ import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import { BagelCard } from '../../../models/bagelCard';
 import { CardService } from '../../../services/card.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { CommentService } from 'src/app/services/comment.service';
 import { ToastrService } from 'ngx-toastr';
 import { filter, take } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
+import { Card } from 'src/app/models/card.model';
+import { Comment } from 'src/app/models/comment.model';
 
 @Component({
   selector: 'app-post-page',
@@ -15,6 +18,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class PostPageComponent implements OnInit {
   bagel: BagelCard = {};
+  comments: Comment[] = [];
   isMy: boolean = true;
 
   constructor(
@@ -22,7 +26,8 @@ export class PostPageComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private _getCardService:CardService,
-    private authService: AuthService
+    private authService: AuthService,
+    private commentService: CommentService
   ) { }
 
   ngOnInit(): void {
@@ -31,10 +36,11 @@ export class PostPageComponent implements OnInit {
     
   }
 
+  // 작성자와 현재 user가 일치하는지 검사
   async isMyCard() {
     const cardUsername = await this.bagel.username;
     const username = await this.authService.getUsername();
-    // console.log('카드의 유저네임',cardUsername, '현재 유저네임',username, '일치?',cardUsername === username);
+
     return this.isMy = (cardUsername === username);
   }
   
@@ -58,7 +64,13 @@ export class PostPageComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.bagel = data;
-
+          // card id 저장
+          this.commentService.getAllComments(this.bagel._id).subscribe({
+            next: (res) => {
+              this.comments.push(...res);
+              console.log(this.comments);
+            }
+          })
           this.isMyCard();
         },
         error: (e) => console.error(e)

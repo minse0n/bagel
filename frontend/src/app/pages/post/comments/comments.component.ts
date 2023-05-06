@@ -17,6 +17,11 @@ export class CommentsComponent implements OnInit {
   constructor(private commentService: CommentService) {}
 
   ngOnInit(): void {
-    this.comments$ = this.commentService.getAllComments();
+    
+  }
+
+  commentsInit(cardId: string) {
+    this.comments$ = this.commentService.getAllComments(cardId);
   }
 }
+

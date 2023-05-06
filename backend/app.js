@@ -189,6 +189,28 @@ app.delete('/card/:id', isAuth, async (req, res) => {
 });
 
 // comment create
+app.get('/card/:cardId/comments', isAuth, async (req, res) => {
+  const cardId = req.params.cardId;
+  const card = await cardRepository.getCard(cardId);
+  if (!card) {
+    res.status(404).json({ message: `card not found :${id}` });
+  }
+  const commentIds = card.comments;
+  const comments = await cardRepository.getComments(commentIds);
+  if (!comments) {
+    res.status(404).json({ message: 'comment not found :${cardId}'});
+  }
+  return res.status(200).json(comments);
+})
+
+// app.post('/card/:id/comment', isAuth, async (req, res) => {
+//   const cardId = req.params.id;
+//   const { username, avatarUrl, text } = req.body;
+//   // const { googleID, username } = req.user;
+
+//   const comment = await cardRepository.commentCreate(cardId, username, avatarUrl, text);
+//   res.status(201).json(comment);
+// });
 app.post('/card/:id/comment', isAuth, async (req, res) => {
   const cardId = req.params.id;
   const text = req.body.text;

@@ -112,8 +112,8 @@ export async function remove(id, googleID) {
 }
 
 // Comment
-export async function commentCreate(cardId, text, username, avatarUrl, googleID) {
-  const comment = await new Comment({ cardId, text, username, avatarUrl }).save();
+export async function commentCreate(cardId, text, username, googleID) {
+  const comment = await new Comment({ cardId, text, username }).save();
   await Card.findByIdAndUpdate(cardId, { $push : { comments: comment._id } }, { returnOriginal: false });
   await userRepasitory.updatePostComments(googleID, comment._id);
   return comment;

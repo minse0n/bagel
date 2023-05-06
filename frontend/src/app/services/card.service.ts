@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, BehaviorSubject } from 'rxjs';
 import { BagelCard } from '../models/bagelCard';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardService {
-
   private cardsUrl = 'http://localhost:8080/cards/list';
   private cardUrl = 'http://localhost:8080/card';
-  
-  constructor(private _http: HttpClient) { }
+
+  constructor(private _http: HttpClient){}
   
   getAllData(): Observable<BagelCard[]> {
     return this._http.get<BagelCard[]>(this.cardsUrl);
@@ -61,18 +60,4 @@ export class CardService {
       params: new HttpParams().set('course', _course)
     });
   }
-
-  // COMMENT
-  // commentCreate(text: string, )
-
-
-  // app.post('/card/:id/comment', isAuth, async (req, res) => {
-  //   const cardId = req.params.id;
-  //   const text = req.body.text;
-  //   const { googleID, username } = req.user;
-  
-  //   const comment = await cardRepository.commentCreate(cardId, text, username, googleID);
-  //   res.status(201).json(comment);
-  // });
-  
 }

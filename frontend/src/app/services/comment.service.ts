@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 import { Comment } from '../models/comment.model';
 
@@ -8,23 +9,41 @@ import { Comment } from '../models/comment.model';
 })
 
 export class CommentService {
+  private commentUrl = "http://localhost:8080/card"
+
   comments: Comment[] = [
     {
-      id: 1,
+      cardId: 1,
       text: "This is the first comment",
+      username: "",
       avatarUrl: ""
     },
   ];
 
-  getAllComments(): Observable<Comment[]> {
-    return of(this.comments);
+  constructor(
+    private _http: HttpClient
+  ){}
+
+  // get all comment via cardID
+  getAllComments(cardId:string): Observable<any> {
+    return this._http.get(`${this.commentUrl}/${cardId}/comment`);
   }
 
-  postComment(commentId: number, commentText: string, commentAvatarUrl: string): Observable<Comment | undefined> {
+  // create comment
+  createComment(comment: Comment) {
+    return this._http.post(`${this.commentUrl}/${comment.cardId}/comment`, comment, { withCredentials: true });
+  }
+
+  // getAllComments(): Observable<Comment[]> {
+  //   return of(this.comments);
+  // }
+
+  postComment(commentId: number, commentText: string, username: string, commentAvatarUrl: string): Observable<Comment | undefined> {
     const isNewComment: boolean = commentId === null || commentId === undefined;
     const newComment: Comment = {
-      id: this.comments.length + 1,
+      cardId: this.comments.length + 1,
       text: commentText,
+      username: username,
       avatarUrl: commentAvatarUrl
     };
 
@@ -34,9 +53,9 @@ export class CommentService {
       return of(newComment); //'of' operator from RxJS convert comments data to an obseverble
     } else { // edit exist Comment (find and edit)
       this.comments = this.comments.map((comment) => 
-        comment.id === commentId ? { ...comment, text: commentText} : comment
+        comment.cardId === commentId ? { ...comment, text: commentText} : comment
       );
-      const updatedComment = this.comments.find((comment) => comment.id === commentId);
+      const updatedComment = this.comments.find((comment) => comment.cardId === commentId);
       return of(updatedComment);
     }
   }
