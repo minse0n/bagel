@@ -21,7 +21,7 @@ export class AuthService {
     const userIDEncrypt = CryptoJS.AES.encrypt(_id, environment.CRYPTOKEY);
     localStorage.setItem('userID', userIDEncrypt.toString());
     this.userIDSubject.next(userIDEncrypt.toString());
-    this.cookieService.delete('_id');
+    // this.cookieService.delete('_id');
   }
   getUserID(): string {
     const userID = localStorage.getItem('userID');  
@@ -43,7 +43,6 @@ export class AuthService {
     const googleIDEncrypt = CryptoJS.AES.encrypt(googleID, environment.CRYPTOKEY);
     localStorage.setItem('googleID', googleIDEncrypt.toString());
     this.googleIDSubject.next(googleIDEncrypt.toString());
-    // this.cookieService.delete('googleID');
   }
   getGoogleID(): string {
     const googleID = localStorage.getItem('googleID');  
@@ -66,7 +65,6 @@ export class AuthService {
     const usernameEncrypt = CryptoJS.AES.encrypt(username, environment.CRYPTOKEY);
     localStorage.setItem('username', usernameEncrypt.toString());
     this.usernameSubject.next(usernameEncrypt.toString());
-    // this.cookieService.delete('username');
   }
   getUsername(): string {
     const username = localStorage.getItem('username');  
@@ -88,7 +86,7 @@ export class AuthService {
     this.avatarUrlSubject.next(avatarUrl);
     const avatarUrlEncrypt = CryptoJS.AES.encrypt(avatarUrl, environment.CRYPTOKEY);
     localStorage.setItem('avatarUrl', avatarUrlEncrypt.toString());
-    this.cookieService.delete('avatarUrl');
+    // this.cookieService.delete('avatarUrl');
   }
   getAvatarUrl(): string {
     const avatarUrl = localStorage.getItem('avatarUrl');  
@@ -110,7 +108,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('googleLoggedIn', trueEncrypt.toString());
     this.googleLoggedInSubject.next(true);
-    this.cookieService.delete('googleLoggedIn');
+    // this.cookieService.delete('googleLoggedIn');
   }
   getGoogleLoggedIn(): boolean {
     const googleLoggedIn = localStorage.getItem('googleLoggedIn');  
@@ -133,7 +131,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('sentCode', trueEncrypt.toString());
     this.sentCodeSubject.next(true);
-    this.cookieService.delete('sentCode');
+    // this.cookieService.delete('sentCode');
 
     // verification code는 1분 후에 소멸되므로 localStorage에서도 자동 소멸되게 함
     setTimeout(() => {
@@ -161,7 +159,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('verified', trueEncrypt.toString());
     this.verifiedSubject.next(true);
-    this.cookieService.delete('verified');
+    // this.cookieService.delete('verified');
   }
   getVerified(): boolean {
     const verified = localStorage.getItem('verified');  
@@ -183,7 +181,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('bagelLoggedIn', trueEncrypt.toString());
     this.loggedInSubject.next(true);
-    this.cookieService.delete('loggedIn');
+    // this.cookieService.delete('loggedIn');
   }
   getLoggedIn(): boolean {
     const logggedIn = localStorage.getItem('bagelLoggedIn');  

@@ -108,6 +108,7 @@ app.get('/cards/', async (req, res) => {
   const page = req.query.page;
   const cards = await cardRepository.getPages(page);
   if(cards) {
+    const { googleID, username } = req.user;
     res.status(200).json(cards);
   } else {
     res.status(404).json({ message: 'cards not found' });
@@ -187,6 +188,7 @@ app.delete('/card/:id', isAuth, async (req, res) => {
   }
 });
 
+// comment create
 app.post('/card/:id/comment', isAuth, async (req, res) => {
   const cardId = req.params.id;
   const text = req.body.text;

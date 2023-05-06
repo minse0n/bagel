@@ -5,6 +5,7 @@ import { BagelCard } from '../../../models/bagelCard';
 import { CardService } from '../../../services/card.service';
 import { ToastrService } from 'ngx-toastr';
 import { filter, take } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 
 @Component({
@@ -16,6 +17,19 @@ export class PostPageComponent implements OnInit {
     
   bagel: BagelCard = {};
   isMy: boolean = true;
+  
+  private cardIDSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getCardID());
+
+  setCardID(cardID: string) {
+    this.cardIDSubject.next(cardID);
+  }
+  getCardID() {
+    return '';
+  }
+  cardID(): Observable<string> {
+    return this.cardIDSubject.asObservable();
+  }
+
   
   constructor(
     private toastr: ToastrService,
@@ -37,6 +51,9 @@ export class PostPageComponent implements OnInit {
         next: (data) => {
           this.bagel = data;
           console.log(data);
+
+          console.log(this.bagel._id);
+          this.setCardID(this.bagel._id);
         },
         error: (e) => console.error(e)
       });

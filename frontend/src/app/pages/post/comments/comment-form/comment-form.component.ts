@@ -1,10 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  OnDestroy,
-} from '@angular/core';
+import { Component, EventEmitter, Input,Output, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -18,8 +12,10 @@ import { CommentService } from 'src/app/services/comment.service';
   styleUrls: ['./comment-form.component.scss'],
 })
 
-export class CommentFormComponent implements OnDestroy {
+export class CommentFormComponent implements OnInit, OnDestroy  {
   private postCommentSubscription: Subscription = new Subscription();
+  // parent card id
+  cardID: string;
 
   @Output() commentEditModeChanged: EventEmitter<boolean> =
     new EventEmitter<boolean>();
@@ -32,6 +28,9 @@ export class CommentFormComponent implements OnDestroy {
     private commentService: CommentService,
     private authService: AuthService
   ) {}
+  ngOnInit(): void {
+    
+  }
 
   ngOnDestroy(): void {
     this.postCommentSubscription.unsubscribe();
