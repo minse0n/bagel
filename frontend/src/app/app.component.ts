@@ -45,6 +45,7 @@ export class AppComponent implements OnInit{
     // !로그인 -> 쿠키 확인
     const loggedInPassport = await Boolean(this.cookieService.get('loggedIn'));
     const googleLoggedInPassport = await Boolean(this.cookieService.get('googleLoggedIn'));
+    const googleIDPassport = await this.cookieService.get('googleID');
     const userIDPassport = await this.cookieService.get('_id');
     const usernamePassport = await this.cookieService.get('username');
     const avatarUrlPassport = await this.cookieService.get('avatarUrl');
@@ -53,17 +54,19 @@ export class AppComponent implements OnInit{
     if (loggedInPassport) {
       this.authService.setLoggedIn();
       if (userIDPassport) this.authService.setUserID(userIDPassport);
+      if (googleIDPassport) this.authService.setGoogleID(googleIDPassport);
       if (usernamePassport) this.authService.setUsername(usernamePassport);
       if (avatarUrlPassport) this.authService.setAvatarUrl(avatarUrlPassport);
 
       console.log('로그인 성공')
-      console.log(this.authService.getLoggedIn(), this.authService.getUserID(), this.authService.getUsername(), this.authService.getAvatarUrl());
+      console.log(this.authService.getLoggedIn(), this.authService.getUserID(), this.authService.googleID(), this.authService.getUsername(), this.authService.getAvatarUrl());
       return
     }
     //
     else if (!loggedInPassport && googleLoggedInPassport) {
       this.authService.setGoogleLoggedIn();
       if (userIDPassport) this.authService.setUserID(userIDPassport);
+      if (googleIDPassport) this.authService.setGoogleID(googleIDPassport);
       if (usernamePassport) this.authService.setUsername(usernamePassport);
       if (avatarUrlPassport) this.authService.setAvatarUrl(avatarUrlPassport);
       this.router.navigate(['/login']);
@@ -72,11 +75,12 @@ export class AppComponent implements OnInit{
     else if (!this.authService.getLoggedIn() && loggedInPassport) {
       this.authService.setLoggedIn();
       if (userIDPassport) this.authService.setUserID(userIDPassport);
+      if (googleIDPassport) this.authService.setGoogleID(googleIDPassport);
       if (usernamePassport) this.authService.setUsername(usernamePassport);
       if (avatarUrlPassport) this.authService.setAvatarUrl(avatarUrlPassport);
       console.log('로그인으로 바꿨어')
 
-      console.log(this.authService.getLoggedIn(), this.authService.getUserID(), this.authService.getUsername(), this.authService.getAvatarUrl());
+      console.log(this.authService.getLoggedIn(), this.authService.getUserID(), this.authService.googleID(), this.authService.getUsername(), this.authService.getAvatarUrl());
       return
     } 
   }

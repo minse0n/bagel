@@ -14,25 +14,14 @@ export class AuthService {
   private authUrl = 'http://localhost:8080/auth';
 
   // Setter, Getter for Auth-data
-  // google id from user
+  // user id from DB
   private userIDSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getUserID());
-
-  getGoogleID(): string {
-    const googleID = localStorage.getItem('googleID');  
-
-    if (googleID) {
-      const decryptValue = CryptoJS.AES.decrypt(googleID, environment.CRYPTOKEY).toString(CryptoJS.enc.Utf8);
-    return decryptValue;
-    }
-    return null;
-  }
-  
   
   setUserID(_id: string) {
     const userIDEncrypt = CryptoJS.AES.encrypt(_id, environment.CRYPTOKEY);
     localStorage.setItem('userID', userIDEncrypt.toString());
     this.userIDSubject.next(userIDEncrypt.toString());
-    this.cookieService.delete('_id');
+    // this.cookieService.delete('_id');
   }
   getUserID(): string {
     const userID = localStorage.getItem('userID');  
@@ -47,6 +36,28 @@ export class AuthService {
     return this.userIDSubject.asObservable();
   }
 
+  // google id of user
+  private googleIDSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getGoogleID());
+  
+  setGoogleID(googleID: string) {
+    const googleIDEncrypt = CryptoJS.AES.encrypt(googleID, environment.CRYPTOKEY);
+    localStorage.setItem('googleID', googleIDEncrypt.toString());
+    this.googleIDSubject.next(googleIDEncrypt.toString());
+  }
+  getGoogleID(): string {
+    const googleID = localStorage.getItem('googleID');  
+    
+    if (googleID) {
+      const decryptValue = CryptoJS.AES.decrypt(googleID, environment.CRYPTOKEY).toString(CryptoJS.enc.Utf8);
+    return decryptValue;
+    }
+    return null;
+  }
+  googleID(): Observable<string> {
+    return this.googleIDSubject.asObservable();
+  }
+
+
   // username from user
   private usernameSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getUsername());
 
@@ -54,7 +65,6 @@ export class AuthService {
     const usernameEncrypt = CryptoJS.AES.encrypt(username, environment.CRYPTOKEY);
     localStorage.setItem('username', usernameEncrypt.toString());
     this.usernameSubject.next(usernameEncrypt.toString());
-    this.cookieService.delete('username');
   }
   getUsername(): string {
     const username = localStorage.getItem('username');  
@@ -98,7 +108,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('googleLoggedIn', trueEncrypt.toString());
     this.googleLoggedInSubject.next(true);
-    this.cookieService.delete('googleLoggedIn');
+    // this.cookieService.delete('googleLoggedIn');
   }
   getGoogleLoggedIn(): boolean {
     const googleLoggedIn = localStorage.getItem('googleLoggedIn');  
@@ -121,7 +131,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('sentCode', trueEncrypt.toString());
     this.sentCodeSubject.next(true);
-    this.cookieService.delete('sentCode');
+    // this.cookieService.delete('sentCode');
 
     // verification code는 1분 후에 소멸되므로 localStorage에서도 자동 소멸되게 함
     setTimeout(() => {
@@ -149,7 +159,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('verified', trueEncrypt.toString());
     this.verifiedSubject.next(true);
-    this.cookieService.delete('verified');
+    // this.cookieService.delete('verified');
   }
   getVerified(): boolean {
     const verified = localStorage.getItem('verified');  

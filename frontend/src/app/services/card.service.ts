@@ -26,11 +26,11 @@ export class CardService {
   }
 
   update(id: any, data: any): Observable<any> {
-    return this._http.put(`${this.cardUrl}/${id}`, data);
+    return this._http.put(`${this.cardUrl}/${id}`, data, { withCredentials: true });
   }
 
   delete(id: any): Observable<any> {
-    return this._http.delete(`${this.cardUrl}/${id}`);
+    return this._http.delete(`${this.cardUrl}/${id}`, { withCredentials: true });
   }
   
   searchCard (search: string): Observable<BagelCard[]> {
@@ -61,5 +61,18 @@ export class CardService {
       params: new HttpParams().set('course', _course)
     });
   }
+
+  // COMMENT
+  // commentCreate(text: string, )
+
+
+  // app.post('/card/:id/comment', isAuth, async (req, res) => {
+  //   const cardId = req.params.id;
+  //   const text = req.body.text;
+  //   const { googleID, username } = req.user;
+  
+  //   const comment = await cardRepository.commentCreate(cardId, text, username, googleID);
+  //   res.status(201).json(comment);
+  // });
   
 }

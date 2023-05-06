@@ -64,19 +64,21 @@ export async function getCard(id){
   return Card.findById(id);
 }
 
-export async function create(title, text, category, username, avatarUrl,term, course){
-  return new Card({
+export async function create(title, text, category, term, course, username, avatarUrl ){
+  return await new Card({
     title,
     text,
-    username,
     category,
     term,
     course,
+    username,
+    avatarUrl,
     views: 0,
     comments: []
   }).save();
-  await userRepasitory.updatePostCards(googleID, card._id);
-  return card;
+
+  // await userRepasitory.updatePostCards(googleID, card._id);
+  // return card;
 }
 
 export async function searchCards(keyword, page) {
@@ -87,8 +89,13 @@ export async function searchCards(keyword, page) {
               .limit(9);
 }
 
-export async function update(id, title, text, username, category, term, course, views) {
-  return Card.findByIdAndUpdate(id, { title, title, text, username, category, term, course, views }, { returnOriginal: false });
+export async function update(id, title, text, username, avatarUrl, category, term, course, views) {
+  return Card.findByIdAndUpdate(id, { title, text, username, avatarUrl, category, term, course, views }, { returnOriginal: false }
+  );
+}
+
+export async function viewsUpdate(id, views) {
+  return Card.findByIdAndUpdate(id, views, { returnOriginal: false }, { new: true });
 }
 
 export async function updateUsername(id, username){
@@ -104,8 +111,9 @@ export async function remove(id, googleID) {
   return Card.findByIdAndDelete(id);
 }
 
-export async function commentCreate(cardId, text, username, googleID) {
-  const comment = await new Comment({ cardId, text, username }).save();
+// Comment
+export async function commentCreate(cardId, text, username, avatarUrl, googleID) {
+  const comment = await new Comment({ cardId, text, username, avatarUrl }).save();
   await Card.findByIdAndUpdate(cardId, { $push : { comments: comment._id } }, { returnOriginal: false });
   await userRepasitory.updatePostComments(googleID, comment._id);
   return comment;
