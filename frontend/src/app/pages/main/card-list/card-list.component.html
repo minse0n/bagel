@@ -1,15 +1,14 @@
 <div class="container-fluid">
-  <div class="aboutSearch" *ngIf="isSearch" >
+  <section class="aboutSearch" *ngIf="isSearch" >
     <div class="no-result" *ngIf="noResult" >
       <span class="info-text">검색어 관련 게시글이 없습니다. 다른 검색어를 넣어주세요 :D</span>
       <span class="info-text">No Result Found</span>
-      <span class="info-text">We can’t find any item matching your search</span>
     </div>
     <div class="has-result" *ngIf="!noResult">
       <span class="res-text">We’ve found {{ numResult }} post!</span>
     </div>
-  </div>
-  <ul class="cardList-wrapper">
+  </section>
+  <section class="cardList-wrapper">
     <a (click)="newBagel()" class="cardItem" id="newBagel" *ngIf="!isSearch && screenMode === 'W'">
       <div>+ new card</div>      
     </a>
@@ -33,5 +32,5 @@
         </div>
       </div>
     </a>
-  </ul>
+  </section>
 </div>
