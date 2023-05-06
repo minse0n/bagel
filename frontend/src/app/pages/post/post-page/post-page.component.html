@@ -9,7 +9,7 @@
   </div>
   <div class="user-info">
     <div>
-      <img src="../../assets/user-photo/tigger.png" alt="">
+      <img [src]="bagel.avatarUrl" alt="">
       <span id="username">{{ bagel.username }}</span>
     </div>
     <span id="created-date">{{ bagel.createdAt | date:'mediumDate'}}</span>

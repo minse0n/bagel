@@ -31,6 +31,7 @@
 }
 .cardItem:hover, #newBagel:hover {
   box-shadow: 0 14px 28px rgba(93,67,58,0.25), 0 10px 10px rgba(93,67,58,0.22);
+  cursor: pointer;
 }
 .cardItem-header {
   font-size: 0.75rem;

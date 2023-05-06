@@ -6,7 +6,7 @@ import { CardService } from '../../../services/card.service';
 import { ToastrService } from 'ngx-toastr';
 import { filter, take } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
-
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-post-page',
@@ -14,9 +14,29 @@ import { Observable, BehaviorSubject } from 'rxjs';
   styleUrls: ['./post-page.component.scss']
 })
 export class PostPageComponent implements OnInit {
-    
   bagel: BagelCard = {};
   isMy: boolean = true;
+
+  constructor(
+    private toastr: ToastrService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private _getCardService:CardService,
+    private authService: AuthService
+  ) { }
+
+  ngOnInit(): void {
+    this.getBagel(this.route.snapshot.params['cardId']);
+
+    
+  }
+
+  async isMyCard() {
+    const cardUsername = await this.bagel.username;
+    const username = await this.authService.getUsername();
+    // console.log('카드의 유저네임',cardUsername, '현재 유저네임',username, '일치?',cardUsername === username);
+    return this.isMy = (cardUsername === username);
+  }
   
   private cardIDSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getCardID());
 
@@ -30,18 +50,6 @@ export class PostPageComponent implements OnInit {
     return this.cardIDSubject.asObservable();
   }
 
-  
-  constructor(
-    private toastr: ToastrService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private _getCardService:CardService,
-  ) { }
-
-  ngOnInit(): void {
-    this.getBagel(this.route.snapshot.params['cardId']);
-  }
-  
   gotoCards() {
     this.router.navigate(['/home']);
   }
@@ -50,10 +58,8 @@ export class PostPageComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.bagel = data;
-          console.log(data);
 
-          console.log(this.bagel._id);
-          this.setCardID(this.bagel._id);
+          this.isMyCard();
         },
         error: (e) => console.error(e)
       });
