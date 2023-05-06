@@ -57,7 +57,7 @@ export async function courseCards(course, page) {
 }
 
 export async function getList(){
-  return Card.find({}, { id: 1, title: 1, category: 1, username: 1, term: 1, course: 1, views: 1 }).sort({ "_id": -1 });
+  return Card.find({}, { id: 1, title: 1, category: 1, username: 1, term: 1, course: 1, views: 1, comments: 1 }).sort({ "_id": -1 });
 }
 
 export async function getCard(id){
@@ -119,8 +119,8 @@ export async function commentCreate(cardId, text, username, googleID) {
   return comment;
 }
 
-export async function getComment(id) {
-  return Comment.findById(id);
+export async function getComment(_id) {
+  return Comment.findById(_id);
 }
 
 export async function commentUpdate(id, text) {

@@ -189,19 +189,20 @@ app.delete('/card/:id', isAuth, async (req, res) => {
 });
 
 // comment create
-app.get('/card/:cardId/comments', isAuth, async (req, res) => {
-  const cardId = req.params.cardId;
-  const card = await cardRepository.getCard(cardId);
+app.get('/card/:id/comments', isAuth, async (req, res) => {
+  const id = req.params.id;
+  const card = await cardRepository.getCard(id);
   if (!card) {
-    res.status(404).json({ message: `card not found :${id}` });
+    return res.status(404).json({ message: `card not found card :${id}`});
   }
   const commentIds = card.comments;
   const comments = await cardRepository.getComments(commentIds);
   if (!comments) {
-    res.status(404).json({ message: 'comment not found :${cardId}'});
+    return res.status(404).json({ message: 'comment not found :${cardId}'});
   }
   return res.status(200).json(comments);
 })
+
 
 // app.post('/card/:id/comment', isAuth, async (req, res) => {
 //   const cardId = req.params.id;
@@ -219,6 +220,16 @@ app.post('/card/:id/comment', isAuth, async (req, res) => {
   const comment = await cardRepository.commentCreate(cardId, text, username, googleID);
   res.status(201).json(comment);
 });
+
+app.get('/comment/:id',isAuth, async (req, res) => {
+  const id = req.params.id;
+  const comment = await cardRepository.getComment(id);
+  
+  if (!comment) {
+    res.status(404).send('Not found')
+  }
+  res.status(200).json(comment);
+})
 
 app.put('/comment/:id', async (req, res) => {
   const id = req.params.id;

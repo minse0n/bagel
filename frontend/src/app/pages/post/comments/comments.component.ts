@@ -11,17 +11,15 @@ import { Comment } from "../../../models/comment.model";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentsComponent implements OnInit {
-  comments$: Observable<Comment[]>;
+  comments: Comment[];
   avatarUrl: string;
 
   constructor(private commentService: CommentService) {}
 
   ngOnInit(): void {
-    
-  }
-
-  commentsInit(cardId: string) {
-    this.comments$ = this.commentService.getAllComments(cardId);
+    this.commentService.followComments().subscribe((comments => {
+      this.comments = comments;
+    }));
   }
 }
 

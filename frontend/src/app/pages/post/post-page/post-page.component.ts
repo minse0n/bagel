@@ -33,7 +33,9 @@ export class PostPageComponent implements OnInit {
   ngOnInit(): void {
     this.getBagel(this.route.snapshot.params['cardId']);
 
-    
+    this.commentService.followComments().subscribe((comments => {
+      this.comments = comments;
+    }));
   }
 
   // 작성자와 현재 user가 일치하는지 검사
@@ -64,10 +66,10 @@ export class PostPageComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.bagel = data;
-          // card id 저장
+          // card id에 따른 comments get + assigns to this.comments
           this.commentService.getAllComments(this.bagel._id).subscribe({
             next: (res) => {
-              this.comments.push(...res);
+              this.commentService.setComments(res);
               console.log(this.comments);
             }
           })
