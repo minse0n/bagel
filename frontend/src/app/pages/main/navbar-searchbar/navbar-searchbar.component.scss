@@ -11,6 +11,10 @@
   &.jc-end{
     justify-content: flex-end;
   }
+  &.disable { 
+    opacity: 0.1;
+    pointer-events: none;
+  }
 }
 .navbar{
   flex-basis: max-content;
@@ -57,42 +61,49 @@ a:hover{
 @media only screen and (max-width: 992px) {
   /* For Pad */
   .nav-search-bar{
-    width: min(100% - 2rem, 1180px);
+    width: min(100% - 2rem, 992px);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    .navbar {
+      grid-column: 1 / 3;
+      justify-content: start;
+      .nav-item{
+        font-size: 0.9rem;
+      }
+    }
+    .searchbar {
+      grid-column: 3 / 4;
+      height: 2.5rem;
+    }
   }  
-  .nav-search-bar{
-    grid-gap: 10%;
-  }  
-  .nav-item{
-    font-size: 1.2rem;
-  }
+  
 }
 @media only screen and (max-width: 576px) {
   /* For mobile: */
   .nav-search-bar{
-    width: min(100% - 1rem, 576px);
+    width: min(100% - 2rem, 576px);
+    margin-inline: auto;
     padding: 16px 0;
-    // display: flex;
-    // flex-direction: column;
-    align-items: center;
-  }
-  .navbar{
-    width: 100%;
-    
     display: flex;
-    justify-content: space-between;
-    padding: 0 8px 8px 8px;
-  }
-  .searchbar {
-    width: 100%;
-  }
-  .nav-item {
-    font-size: 1rem;
-    padding: 0;
-    margin: 0;
-  }
-  .searchbar input {
-    padding: 4px 8px;
-    border: 0.5px solid $bagel-dark;
-    width: 100%;
+    flex-direction: column;
+    .navbar{
+      width: 95%;
+      margin-bottom: 0.8rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .nav-item{
+        margin-right: 0;
+        font-size: 0.75rem;
+      }
+    }
+    .searchbar {
+      width: 100%;
+      & input {
+        padding: 4px 8px;
+        border: 0.5px solid $bagel-dark;
+        width: 100%;
+      }
+    } 
   }
 }

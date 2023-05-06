@@ -5,7 +5,7 @@
   margin-inline: auto;
   margin-bottom: 3.75rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2.5rem;
   justify-content: center;
 }
@@ -113,17 +113,21 @@
 .res-text {
   font-size: 1rem;
 }
+
 @media only screen and (max-width: 992px) {
   /* For pad: */
   .cardList-wrapper {
     width: min(100% - 2rem, 992px);
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
   }
-
 }
 @media only screen and (max-width: 576px) {
   /* For mobile: */
+  .aboutSearch {
+    width: min(100% - 1rem, 576px);
+    margin-inline: auto;
+  }
   .cardList-wrapper {
     width: min(100% - 1rem, 576px);
     margin-inline: auto;
