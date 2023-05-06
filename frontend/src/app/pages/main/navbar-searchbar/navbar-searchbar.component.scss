@@ -11,6 +11,10 @@
   &.jc-end{
     justify-content: flex-end;
   }
+  &.disable { 
+    opacity: 0.1;
+    pointer-events: none;
+  }
 }
 .navbar{
   flex-basis: max-content;
