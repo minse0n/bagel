@@ -29,10 +29,8 @@ export class CommentService {
   }
   pullComment(id: string): void {
     const commentToUpdate = this.comments.find(comment => comment._id === id);
-
     if (commentToUpdate) {
-      commentToUpdate.text = "삭제 되었습니다.";
-
+      commentToUpdate.text = '삭제 되었습니다.';
       const updatedComments = this.comments.map(comment => {
         if (comment._id === id) {
           return commentToUpdate;
@@ -40,6 +38,7 @@ export class CommentService {
         return comment;
       });
       this.comments = updatedComments;
+      this.commentsSubject.next(this.comments);
       // TODO: consol 지울 것
       console.log(this.comments);
     }

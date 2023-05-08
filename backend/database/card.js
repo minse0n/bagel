@@ -119,8 +119,8 @@ export async function commentCreate(cardId, text, username, avatarUrl,  googleID
   return comment;
 }
 
-export async function getComment(_id) {
-  return Comment.findById(_id);
+export async function getComment(id) {
+  return Comment.findById(id);
 }
 
 export async function commentUpdate(id, text) {
