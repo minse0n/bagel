@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input,Output, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input,Output, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { CardService } from 'src/app/services/card.service';
+import { CommentService } from 'src/app/services/comment.service';
 
 import { Comment } from 'src/app/models/comment.model';
-import { CommentService } from 'src/app/services/comment.service';
 
 @Component({
   selector: 'app-comment-form',
@@ -12,52 +13,38 @@ import { CommentService } from 'src/app/services/comment.service';
   styleUrls: ['./comment-form.component.scss'],
 })
 
-export class CommentFormComponent implements OnInit, OnDestroy  {
+export class CommentFormComponent implements OnInit {
   private postCommentSubscription: Subscription = new Subscription();
-  // parent card id
-  cardID: string;
+  newComment: Comment = {};
+  comments: Comment[] = [];
+
 
   @Output() commentEditModeChanged: EventEmitter<boolean> =
     new EventEmitter<boolean>();
   @Input() isCommentInEditMode: boolean = false;
-  @Input() comment: Comment;
-  @Input() comments: Comment[];
-  @Input() index: number;
+  
 
   constructor(
-    private commentService: CommentService,
-    private authService: AuthService
+    private authService: AuthService,
+    private cardService: CardService,
+    private commentService: CommentService
   ) {}
   ngOnInit(): void {
     
   }
 
-  ngOnDestroy(): void {
-    this.postCommentSubscription.unsubscribe();
-  }
+  async postComment(form: NgForm) {
+    this.newComment.cardId = await this.cardService.getCardID();
+    this.newComment.username = await this.authService.getUsername();
+    this.newComment.avatarUrl = await this.authService.getAvatarUrl();
+    this.newComment.text = form.value.commentBox;
 
-  postComment(form: NgForm, commentId?: number) {
-    const commentText: string = form.value.commentBox;
-    const avatarUrl: string = this.authService.getAvatarUrl();
-
-    if (
-      form.valid &&
-      commentText !== '' &&
-      commentText !== undefined &&
-      commentText !== null
-    ) {
-      this.postCommentSubscription.add(
-        this.commentService.postComment(commentId, commentText, avatarUrl).subscribe({
-          next: (updatedComment) => {
-            if (this.index) {
-              this.comments[this.index].text = updatedComment?.text;
-            }
-            form.resetForm();
-          },
-        })
-      );
-    }
-    this.isCommentInEditMode = false;
-    this.commentEditModeChanged.emit(false);
+    const newComments: Comment[] = [this.newComment]
+    this.commentService.setComments(newComments);
+    
+    this.commentService.createComment(this.newComment).subscribe(() => {
+      form.reset();
+      this.newComment.text = '';
+    });
   }
 }

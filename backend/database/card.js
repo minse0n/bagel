@@ -1,6 +1,6 @@
 import Mongoose from 'mongoose';
 
-import * as userRepasitory from './user.js';
+import * as userRepository from './user.js';
 
 const commentSchema = new Mongoose.Schema(
   {
@@ -57,15 +57,15 @@ export async function courseCards(course, page) {
 }
 
 export async function getList(){
-  return Card.find({}, { id: 1, title: 1, category: 1, username: 1, term: 1, course: 1, views: 1 }).sort({ "_id": -1 });
+  return Card.find({}, { id: 1, title: 1, category: 1, username: 1, term: 1, course: 1, views: 1, comments: 1 }).sort({ "_id": -1 });
 }
 
 export async function getCard(id){
   return Card.findById(id);
 }
 
-export async function create(title, text, category, term, course, username, avatarUrl ){
-  return await new Card({
+export async function create(title, text, category, term, course, username, avatarUrl, googleID ){
+  const card = await new Card({
     title,
     text,
     category,
@@ -77,8 +77,8 @@ export async function create(title, text, category, term, course, username, avat
     comments: []
   }).save();
 
-  // await userRepasitory.updatePostCards(googleID, card._id);
-  // return card;
+  await userRepository.updatePostCards(googleID, card._id);
+  return card;
 }
 
 export async function searchCards(keyword, page) {
@@ -90,7 +90,7 @@ export async function searchCards(keyword, page) {
 }
 
 export async function update(id, title, text, username, avatarUrl, category, term, course, views) {
-  return Card.findByIdAndUpdate(id, { title, text, username, avatarUrl, category, term, course, views }, { returnOriginal: false }
+  return Card.findByIdAndUpdate(id, { title, text, category, username, avatarUrl, term, course, views }, { returnOriginal: false }
   );
 }
 
@@ -107,20 +107,20 @@ export async function updateAvatarUrl(id, avatarUrl){
 }
 
 export async function remove(id, googleID) {
-  await userRepasitory.deletePostCards(googleID, id);
+  await userRepository.deletePostCards(googleID, id);
   return Card.findByIdAndDelete(id);
 }
 
 // Comment
-export async function commentCreate(cardId, text, username, avatarUrl, googleID) {
+export async function commentCreate(cardId, text, username, avatarUrl,  googleID) {
   const comment = await new Comment({ cardId, text, username, avatarUrl }).save();
   await Card.findByIdAndUpdate(cardId, { $push : { comments: comment._id } }, { returnOriginal: false });
-  await userRepasitory.updatePostComments(googleID, comment._id);
+  await userRepository.updatePostComments(googleID, comment._id);
   return comment;
 }
 
-export async function getComment(id) {
-  return Comment.findById(id);
+export async function getComment(_id) {
+  return Comment.findById(_id);
 }
 
 export async function commentUpdate(id, text) {

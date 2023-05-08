@@ -1,19 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, BehaviorSubject } from 'rxjs';
 import { BagelCard } from '../models/bagelCard';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardService {
-
   private cardListUrl = 'http://localhost:8080/cards/list';
   private cardsUrl = 'http://localhost:8080/cards';
   private cardUrl = 'http://localhost:8080/card';
+  private cardId: string;
+
+  constructor(private _http: HttpClient){}
+
+  // card id
+  private cardIDSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getCardID());
+
+  setCardID(cardID: string) {
+    this.cardId = cardID;
+    this.cardIDSubject.next(cardID);
+  }
+  getCardID() {
+    return this.cardId;
+  }
+  cardID(): Observable<string> {
+    return this.cardIDSubject.asObservable();
+  }
   
-  constructor(private _http: HttpClient) { }
-  
+  // http mehtods for card data
   getAllData(): Observable<BagelCard[]> {
     return this._http.get<BagelCard[]>(this.cardListUrl);
    }
@@ -22,8 +37,9 @@ export class CardService {
     return this._http.get(`${this.cardUrl}/${_id}`);
   }
 
-  create(data: any): Observable<any> {
-    return this._http.post(this.cardUrl, data);
+  create(data: BagelCard): Observable<any> {
+    const body = { title: data.title, text: data.text, category: data.category, avatarUrl: data.avatarUrl, term: data.term, course: data.course }
+    return this._http.post(this.cardUrl, body, { withCredentials: true });
   }
 
   update(id: any, data: any): Observable<any> {
@@ -63,21 +79,7 @@ export class CardService {
       return true;
     })
   }
-
-  // COMMENT
-  // commentCreate(text: string, )
-
-
-  // app.post('/card/:id/comment', isAuth, async (req, res) => {
-  //   const cardId = req.params.id;
-  //   const text = req.body.text;
-  //   const { googleID, username } = req.user;
-  
-  //   const comment = await cardRepository.commentCreate(cardId, text, username, googleID);
-  //   res.status(201).json(comment);
-  // });
-  
-  // 지금은 사용안하지만 추가 어떤 문제가 나올지 모르니까 일단 삭제 보류
+// 지금은 사용안하지만 추가 어떤 문제가 나올지 모르니까 일단 삭제 보류
   // findBySearchCategory(searchText: string, postCategory: string): Observable<BagelCard[]> {
   //   return this.searchCard(searchText).pipe(map((items: any[]) => 
   //     items.filter((item: { category: string; }) => 
@@ -101,4 +103,6 @@ export class CardService {
   //     params: new HttpParams().set('course', _course)
   //   });
   // } 
+
 }
+

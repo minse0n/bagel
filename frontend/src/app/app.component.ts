@@ -58,8 +58,8 @@ export class AppComponent implements OnInit{
       if (usernamePassport) this.authService.setUsername(usernamePassport);
       if (avatarUrlPassport) this.authService.setAvatarUrl(avatarUrlPassport);
 
-      console.log('로그인 성공')
-      console.log(this.authService.getLoggedIn(), this.authService.getUserID(), this.authService.googleID(), this.authService.getUsername(), this.authService.getAvatarUrl());
+      console.log('로그인 성공');
+      console.log('아바타',this.authService.getAvatarUrl());
       return
     }
     //

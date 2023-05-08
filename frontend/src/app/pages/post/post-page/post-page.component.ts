@@ -3,10 +3,12 @@ import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import { BagelCard } from '../../../models/bagelCard';
 import { CardService } from '../../../services/card.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { CommentService } from 'src/app/services/comment.service';
 import { ToastrService } from 'ngx-toastr';
 import { filter, take } from 'rxjs/operators';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
+import { Card } from 'src/app/models/card.model';
+import { Comment } from 'src/app/models/comment.model';
 
 @Component({
   selector: 'app-post-page',
@@ -15,50 +17,52 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class PostPageComponent implements OnInit {
   bagel: BagelCard = {};
+  comments: Comment[] = [];
   isMy: boolean = true;
 
   constructor(
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
-    private _getCardService:CardService,
-    private authService: AuthService
+    private cardService:CardService,
+    private authService: AuthService,
+    private commentService: CommentService
   ) { }
 
   ngOnInit(): void {
     this.getBagel(this.route.snapshot.params['cardId']);
 
-    
+    this.commentService.followComments().subscribe((comments => {
+      this.comments = comments;
+    }));
   }
 
+  // 작성자와 현재 user가 일치하는지 검사
   async isMyCard() {
     const cardUsername = await this.bagel.username;
     const username = await this.authService.getUsername();
-    // console.log('카드의 유저네임',cardUsername, '현재 유저네임',username, '일치?',cardUsername === username);
-    return this.isMy = (cardUsername === username);
-  }
-  
-  private cardIDSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getCardID());
 
-  setCardID(cardID: string) {
-    this.cardIDSubject.next(cardID);
-  }
-  getCardID() {
-    return '';
-  }
-  cardID(): Observable<string> {
-    return this.cardIDSubject.asObservable();
+    return this.isMy = (cardUsername === username);
   }
 
   gotoCards() {
     this.router.navigate(['/home']);
   }
   getBagel(_id: string): void {
-    this._getCardService.get(_id)
+    this.cardService.setCardID(_id);
+
+    this.cardService.get(_id)
       .subscribe({
         next: (data) => {
           this.bagel = data;
-
+          // card id에 따른 comments get + assigns to this.comments
+          this.commentService.getAllComments(this.bagel._id).subscribe({
+            next: (res) => {
+              this.commentService.setComments(res);
+              // TODO: console.log 지울것
+              console.log('처음 로드한 comments: ',this.comments);
+            }
+          })
           this.isMyCard();
         },
         error: (e) => console.error(e)
@@ -80,12 +84,19 @@ export class PostPageComponent implements OnInit {
     );
   }
   trueDelete() {
-    this._getCardService.delete(this.bagel._id).subscribe({
+    this.cardService.delete(this.bagel._id).subscribe({
         next: (res) => {
           this.toastr.success('', 'Post has been deleted.');
           this.router.navigate(['']);
         },
         error: (e) => console.error(e)
-      });  
+      });
+  }
+
+  // Comment관련 함수들
+  addComment(newComment: Comment) {
+    this.comments.push(newComment);
+    // TODO: console.log 지울것
+    console.log('새 comment 추가 후 리스트',this.comments);
   }
 }
