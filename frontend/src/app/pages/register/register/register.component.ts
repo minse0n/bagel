@@ -54,8 +54,7 @@ export class RegisterComponent implements OnInit {
     // 위의 코드에서는 window.history.state에 값이 있을 경우, currentBagel 또는 newBagel 속성 중 하나의 값을 bagelCard에 할당합니다. 만약 window.history.state가 undefined인 경우, this.bagelCard의 초기값을 사용합니다.
     this.saveType = this.bagelCard._id && 'EDIT' || 'REGISTER';
 
-    // username, avatarUrl 불러오기
-    // bagelCard에 각각 할당
+    // username, avatarUrl 불러오기 + bagelCard에 각각 할당
     this.userData();
   }
   

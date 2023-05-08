@@ -10,9 +10,25 @@ export class CardService {
   private cardListUrl = 'http://localhost:8080/cards/list';
   private cardsUrl = 'http://localhost:8080/cards';
   private cardUrl = 'http://localhost:8080/card';
+  private cardId: string;
 
   constructor(private _http: HttpClient){}
+
+  // card id
+  private cardIDSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getCardID());
+
+  setCardID(cardID: string) {
+    this.cardId = cardID;
+    this.cardIDSubject.next(cardID);
+  }
+  getCardID() {
+    return this.cardId;
+  }
+  cardID(): Observable<string> {
+    return this.cardIDSubject.asObservable();
+  }
   
+  // http mehtods for card data
   getAllData(): Observable<BagelCard[]> {
     return this._http.get<BagelCard[]>(this.cardListUrl);
    }
@@ -21,8 +37,9 @@ export class CardService {
     return this._http.get(`${this.cardUrl}/${_id}`);
   }
 
-  create(data: any): Observable<any> {
-    return this._http.post(this.cardUrl, data);
+  create(data: BagelCard): Observable<any> {
+    const body = { title: data.title, text: data.text, category: data.category, avatarUrl: data.avatarUrl, term: data.term, course: data.course }
+    return this._http.post(this.cardUrl, body, { withCredentials: true });
   }
 
   update(id: any, data: any): Observable<any> {
@@ -86,5 +103,6 @@ export class CardService {
   //     params: new HttpParams().set('course', _course)
   //   });
   // } 
+
 }
 

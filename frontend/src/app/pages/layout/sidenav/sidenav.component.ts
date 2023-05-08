@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AVATARS } from './avatar';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service';
 import { take } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
@@ -28,8 +29,9 @@ export class SidenavComponent implements OnInit{
   constructor( 
     private _authService: AuthService, 
     private toastr: ToastrService,
-    private router: Router ) { 
-  }
+    private router: Router,
+    private cookieService: CookieService
+  ) {}
   
   ngOnInit(): void {
     this.curUser.googleID = this._authService.getGoogleID();
@@ -68,8 +70,14 @@ export class SidenavComponent implements OnInit{
     this.toastr.warning('please here click', 'If you really want to sign out,')
       .onTap
       .pipe(take(1))
-      .subscribe(() => this._authService.logoutUser()
+      .subscribe(() => {
+        this._authService.logoutUser();
+        this.onToggleClose();
+      }
     );
+    this._authService.setLoggedOut();
+    this.cookieService.deleteAll();
+    localStorage.clear();
     this.router.navigate(['/']);
   }
 }

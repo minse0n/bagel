@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit{
   ngOnInit(): void {  
     let screenWidth = window.innerWidth;
     (screenWidth > 767) ? this.screenMode = "W" : this.screenMode = "M";
+    // get user data
     this.userData();
   }
 

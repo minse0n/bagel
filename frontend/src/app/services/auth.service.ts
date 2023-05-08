@@ -183,6 +183,10 @@ export class AuthService {
     this.loggedInSubject.next(true);
     // this.cookieService.delete('loggedIn');
   }
+  setLoggedOut() {
+    this.loggedInSubject.next(false);
+    console.log('로그아웃 되었습니다.')
+  }
   getLoggedIn(): boolean {
     const logggedIn = localStorage.getItem('bagelLoggedIn');  
     

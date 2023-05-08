@@ -7,7 +7,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { ToastrService } from 'ngx-toastr';
 import { filter, take } from 'rxjs/operators';
-import { Observable, BehaviorSubject } from 'rxjs';
 import { Card } from 'src/app/models/card.model';
 import { Comment } from 'src/app/models/comment.model';
 
@@ -25,7 +24,7 @@ export class PostPageComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
-    private _getCardService:CardService,
+    private cardService:CardService,
     private authService: AuthService,
     private commentService: CommentService
   ) { }
@@ -45,24 +44,14 @@ export class PostPageComponent implements OnInit {
 
     return this.isMy = (cardUsername === username);
   }
-  
-  private cardIDSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getCardID());
-
-  setCardID(cardID: string) {
-    this.cardIDSubject.next(cardID);
-  }
-  getCardID() {
-    return '';
-  }
-  cardID(): Observable<string> {
-    return this.cardIDSubject.asObservable();
-  }
 
   gotoCards() {
     this.router.navigate(['/home']);
   }
   getBagel(_id: string): void {
-    this._getCardService.get(_id)
+    this.cardService.setCardID(_id);
+
+    this.cardService.get(_id)
       .subscribe({
         next: (data) => {
           this.bagel = data;
@@ -70,7 +59,8 @@ export class PostPageComponent implements OnInit {
           this.commentService.getAllComments(this.bagel._id).subscribe({
             next: (res) => {
               this.commentService.setComments(res);
-              console.log(this.comments);
+              // TODO: console.log 지울것
+              console.log('처음 로드한 comments: ',this.comments);
             }
           })
           this.isMyCard();
@@ -94,12 +84,19 @@ export class PostPageComponent implements OnInit {
     );
   }
   trueDelete() {
-    this._getCardService.delete(this.bagel._id).subscribe({
+    this.cardService.delete(this.bagel._id).subscribe({
         next: (res) => {
           this.toastr.success('', 'Post has been deleted.');
           this.router.navigate(['']);
         },
         error: (e) => console.error(e)
-      });  
+      });
+  }
+
+  // Comment관련 함수들
+  addComment(newComment: Comment) {
+    this.comments.push(newComment);
+    // TODO: console.log 지울것
+    console.log('새 comment 추가 후 리스트',this.comments);
   }
 }

@@ -31,7 +31,7 @@ export class CardListComponent implements OnInit {
   
   loadInitBagel() {
     this._cardservice.getAllData().subscribe({
-      next: (data) => { this.bagels = data; console.log(this.bagels)},
+      next: (data) => { this.bagels = data; },
       error: (e) => console.log(e)
     });
   }

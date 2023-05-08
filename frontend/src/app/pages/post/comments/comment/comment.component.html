@@ -14,16 +14,16 @@
         </svg>
       </a>
       <div class="dropdown-menu" style="max-width: 100px;"aria-labelledby="dropdownMenuLink">
-        <a class="dropdown-item" (click)="editComment()">Edit</a>
+        <!-- <a class="dropdown-item" (click)="editComment()">Edit</a> -->
         <a class="dropdown-item" (click)="deleteComment()">Delete</a>
       </div>
   </div>
-  <app-comment-form
+  <!-- <app-comment-form
     *ngIf="isCommentInEditMode"
     [comment]="comment"
     [comments]="comments"
     [index]="index"
     [isCommentInEditMode]="isCommentInEditMode"
     (commentEditModeChanged)="disableCommentEditMode($event)">
-  </app-comment-form>
+  </app-comment-form> -->
 </div>

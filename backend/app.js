@@ -140,10 +140,10 @@ app.get('/card/:id', isAuth, async (req, res) => {
 
 // card create
 app.post('/card', isAuth, async (req, res) => {
-  const { title, text, category, term, course, username, avatarUrl } = req.body;
-  // const { googleID } = req.user;
-  const card = await cardRepository.create(title, text, category, term, course, username, avatarUrl);
-  res.status(201).json(card);
+  const { title, text, category ,avatarUrl, term, course } = req.body;
+  const { googleID, username } = req.user;
+  const card = await cardRepository.create(title, text, category, term, course, username, avatarUrl, googleID);
+  res.status(201).json(card); 
 });
 
 app.put('/card/:id', isAuth, async (req, res) => {
@@ -156,7 +156,7 @@ app.put('/card/:id', isAuth, async (req, res) => {
   } else if(card.username != req.user.username){
     res.status(403).json({ message: 'user is not author' });
   } else {
-    const updated = await cardRepository.update(id, title, text, username, avatarUrl, category, term, course, views);
+    const updated = await cardRepository.update(id, title, text, category, username, avatarUrl, term, course, views);
     res.status(200).json(updated);
   }
 });
@@ -173,6 +173,7 @@ app.put('/card/views/:id', async (req, res) => {
   res.status(200).json;
 })
 
+// delete card
 app.delete('/card/:id', isAuth, async (req, res) => {
   const id = req.params.id;
   const { googleID, username } = req.user;
@@ -183,12 +184,13 @@ app.delete('/card/:id', isAuth, async (req, res) => {
   } else if(card.username != username){
     res.status(403).json({ message: 'user is not author' });
   } else {
-    await cardRepository.remove(id);
+    await cardRepository.remove(id, googleID);
     res.sendStatus(204);
   }
+  
 });
 
-// comment create
+// get comment
 app.get('/card/:id/comments', isAuth, async (req, res) => {
   const id = req.params.id;
   const card = await cardRepository.getCard(id);
@@ -203,23 +205,16 @@ app.get('/card/:id/comments', isAuth, async (req, res) => {
   return res.status(200).json(comments);
 })
 
-
-// app.post('/card/:id/comment', isAuth, async (req, res) => {
-//   const cardId = req.params.id;
-//   const { username, avatarUrl, text } = req.body;
-//   // const { googleID, username } = req.user;
-
-//   const comment = await cardRepository.commentCreate(cardId, username, avatarUrl, text);
-//   res.status(201).json(comment);
-// });
+// create comment
 app.post('/card/:id/comment', isAuth, async (req, res) => {
   const cardId = req.params.id;
-  const text = req.body.text;
+  const { text, avatarUrl } = req.body;
   const { googleID, username } = req.user;
 
-  const comment = await cardRepository.commentCreate(cardId, text, username, googleID);
+  const comment = await cardRepository.commentCreate(cardId, text, username, avatarUrl,  googleID);
   res.status(201).json(comment);
 });
+
 
 app.get('/comment/:id',isAuth, async (req, res) => {
   const id = req.params.id;
@@ -250,15 +245,17 @@ app.put('/comment/:id', async (req, res) => {
 
 app.delete('/comment/:id', isAuth, async (req, res) => {
   const id = req.params.id;
-  const username = req.user.username;
+  // const username = req.user;
 
-  const comment = await cardRepository.getComment(req.params.id);
+  const comment = await cardRepository.getComment(id);
 
   if(!comment){
     res.status(404).json({ message: `comment not found: ${id}` });
-  } else if(username != comment.username) {
-    res.status(403).json({ message: `user is not autor`});
-  } else {
+  } 
+  // else if(username != comment.username) {
+  //   res.status(403).json({ message: `user is not autor`});
+  // } 
+  else {
     const remove = await cardRepository.commentRemove(id);
     res.status(200).json(remove);
   }
