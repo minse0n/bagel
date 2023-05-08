@@ -89,7 +89,7 @@ export async function searchCards(keyword, page) {
               .limit(9);
 }
 
-export async function update(id, title, text, username, avatarUrl, category, term, course, views) {
+export async function update(id, title, text, category, avatarUrl, username, term, course, views) {
   return Card.findByIdAndUpdate(id, { title, text, category, username, avatarUrl, term, course, views }, { returnOriginal: false }
   );
 }
