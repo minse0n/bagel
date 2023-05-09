@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, Input } from "@angular/core";
-import { Observable } from "rxjs";
+import { Component, OnInit, Input } from "@angular/core";
 
 import { CommentService } from "../../../services/comment.service";
 import { Comment } from "../../../models/comment.model";
@@ -8,7 +7,6 @@ import { Comment } from "../../../models/comment.model";
   selector: "app-comments",
   templateUrl: "./comments.component.html",
   styleUrls: ["./comments.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentsComponent implements OnInit {
   @Input() comments: Comment[];
@@ -17,9 +15,9 @@ export class CommentsComponent implements OnInit {
   constructor(private commentService: CommentService) {}
 
   ngOnInit(): void {
-    // this.commentService.followComments().subscribe((comments => {
-    //   this.comments = comments;
-    // }));
+    this.commentService.followComments().subscribe((comments => {
+      this.comments = comments;
+    }));
   }
 }
 

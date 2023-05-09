@@ -68,7 +68,7 @@ export class RegisterComponent implements OnInit {
     if(this.saveType === 'REGISTER') {
     this._cardservice.create(this.bagelCard).subscribe({
         next: (res) => {
-          this.toastr.success('saved successfully :D', 'new Post');
+          this.toastr.success('saved successfully :D', 'New Post');
           this.router.navigate(['']);
         },
         error: (e) => console.error(e)
@@ -86,7 +86,7 @@ export class RegisterComponent implements OnInit {
     }
   }
   bagelDelete() {
-    this.toastr.warning('please here click', 'If you really want to delete it,')
+    this.toastr.warning('여기를 클릭해주세요 !', '삭제를 원하면')
       .onTap
       .pipe(take(1))
       .subscribe(() => this.trueDelete()
