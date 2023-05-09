@@ -34,7 +34,7 @@ export class SidenavComponent implements OnInit{
   ) {}
   
   ngOnInit(): void {
-    this.curUser.googleID = this._authService.getGoogleID();
+    this.curUser.username = this._authService.getUsername();
     this.curUser.avatarUrl = this._authService.getAvatarUrl();
     this.curUser.rwthVerified = this._authService.getVerified();
     console.log(this.curUser);
@@ -58,7 +58,7 @@ export class SidenavComponent implements OnInit{
       next: (updatedUser) => {
         this.curUser = updatedUser;    
         this._authService.setAvatarUrl(updatedUser.avatarUrl);
-        // todo: googleId, username도 update()
+        // todo: username도 update()
       },
       error: (err) => {
         console.error('Failed to update user:', err);
@@ -67,7 +67,7 @@ export class SidenavComponent implements OnInit{
     this.navMode = 'default';
   }
   signOut() {
-    this.toastr.warning('please here click', 'If you really want to sign out,')
+    this.toastr.warning('여기를 클릭해주세요 !', 'Log out을 원하면')
       .onTap
       .pipe(take(1))
       .subscribe(() => {
