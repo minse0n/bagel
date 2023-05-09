@@ -34,11 +34,24 @@
 }
 .singup-guideInit {
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   width: 350px;
   margin: auto;
   padding: 30px 5px;
   font-size: 1.3rem;
+}
+.login-guide1 {
+  margin-top: 10px;
+}
+.login-guide2 {
+  margin-top: 30px;
+}
+.guide-instruction1 {
+  color: $bagel-primary;
+}
+.guide-instruction2 {
+  color: $bagel-warn;
 }
 .singup-guide2 {
   display: flex;
@@ -127,4 +140,23 @@
   color: $bagel-W-text;
   font-size: 1.2rem;
   border-radius: 3px;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .signup-container {
+    width: 100%;
+  }
+  
+  .signup-title {
+    font-size: 1.9rem;
+  }
+  .welcome-title {
+    font-size: 2.1rem;
+  }
+  .singup-guideInit {
+    margin-top: 30px;
+    padding: 0 18px;
+  }
+
 }
