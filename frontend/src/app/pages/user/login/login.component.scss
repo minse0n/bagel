@@ -141,3 +141,22 @@
   font-size: 1.2rem;
   border-radius: 3px;
 }
+
+
+@media only screen and (max-width: 768px) {
+  .signup-container {
+    width: 100%;
+  }
+  
+  .signup-title {
+    font-size: 1.9rem;
+  }
+  .welcome-title {
+    font-size: 2.1rem;
+  }
+  .singup-guideInit {
+    margin-top: 30px;
+    padding: 0 18px;
+  }
+
+}

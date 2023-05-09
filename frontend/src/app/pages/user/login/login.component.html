@@ -9,11 +9,15 @@
   <div class="singup-guideInit"*ngIf="!googleLoggedin || !sentCode || !verified">
     <div class="login-guide1">
       <div class="guide-option1">Welcome back !</div>
-      <div class="guide-instruction1">Log in</div>
+      <a [href]="loginhref">
+        <div class="guide-instruction1">Log in</div>
+      </a>
     </div>
     <div class="login-guide2">
       <div class="guide-option2">Don't have an account ?</div>
-      <div class="guide-instruction2">Sign up</div>
+      <a [href]="loginhref">
+        <div class="guide-instruction2">Sign up</div>
+      </a>
     </div>
   </div>
   <div class="singup-guide2"*ngIf="googleLoggedin && !sentCode && !verified">

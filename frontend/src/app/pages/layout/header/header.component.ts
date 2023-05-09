@@ -66,7 +66,7 @@ export class HeaderComponent implements OnInit{
   }
   
   @HostListener('window:scroll', ['$event']) onscroll() {
-    if(window.scrollY > 10) {
+    if(window.scrollY > 1) {
       this.headerFixed = true;
     } else {
       this.headerFixed = false;
