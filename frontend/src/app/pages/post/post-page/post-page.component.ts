@@ -59,8 +59,6 @@ export class PostPageComponent implements OnInit {
           this.commentService.getAllComments(this.bagel._id).subscribe({
             next: (res) => {
               this.commentService.setComments(res);
-              // TODO: console.log 지울것
-              console.log('처음 로드한 comments: ',this.comments);
             }
           })
           this.isMyCard();
@@ -77,7 +75,7 @@ export class PostPageComponent implements OnInit {
     this.router.navigate(['/register'], navigationExtras);
   }
   bagelDelete() {
-    this.toastr.warning('please here click', 'If you really want to delete it,')
+    this.toastr.warning('여기를 클릭해주세요 !', '삭제를 원하면')
       .onTap
       .pipe(take(1))
       .subscribe(() => this.trueDelete()
@@ -93,10 +91,8 @@ export class PostPageComponent implements OnInit {
       });
   }
 
-  // Comment관련 함수들
+  // Comment관련 함수
   addComment(newComment: Comment) {
     this.comments.push(newComment);
-    // TODO: console.log 지울것
-    console.log('새 comment 추가 후 리스트',this.comments);
   }
 }

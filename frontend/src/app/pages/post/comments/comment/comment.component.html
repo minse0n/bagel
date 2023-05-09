@@ -1,11 +1,9 @@
 <div class="comment-container">
-
   <div *ngIf="!isCommentInEditMode"  class="content-container">
     <p class="comment">
       {{ comment.text }}
     </p>
   </div>
-
   <!-- Comment 수정 버튼 -->
   <div *ngIf="!isCommentInEditMode" class="dropup kebab-menu"> 
       <a  href="#" data-bs-toggle="dropdown" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false">
@@ -14,16 +12,7 @@
         </svg>
       </a>
       <div class="dropdown-menu" style="max-width: 100px;"aria-labelledby="dropdownMenuLink">
-        <!-- <a class="dropdown-item" (click)="editComment()">Edit</a> -->
         <a class="dropdown-item" (click)="deleteComment()">Delete</a>
       </div>
   </div>
-  <!-- <app-comment-form
-    *ngIf="isCommentInEditMode"
-    [comment]="comment"
-    [comments]="comments"
-    [index]="index"
-    [isCommentInEditMode]="isCommentInEditMode"
-    (commentEditModeChanged)="disableCommentEditMode($event)">
-  </app-comment-form> -->
 </div>

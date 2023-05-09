@@ -42,7 +42,7 @@ export class CardService {
     return this._http.post(this.cardUrl, body, { withCredentials: true });
   }
 
-  update(id: any, data: any): Observable<any> {
+  update(id: string, data: any): Observable<any> {
     return this._http.put(`${this.cardUrl}/${id}`, data, { withCredentials: true });
   }
 

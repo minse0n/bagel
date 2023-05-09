@@ -147,7 +147,7 @@ app.post('/card', isAuth, async (req, res) => {
 });
 
 app.put('/card/:id', isAuth, async (req, res) => {
-  const { title, text, username, avatarUrl, category, term, course, views } = req.body;
+  const { title, text, category, avatarUrl, username, term, course, views } = req.body;
   const id = req.params.id;
   const card = await cardRepository.getCard(id);
   
@@ -156,7 +156,7 @@ app.put('/card/:id', isAuth, async (req, res) => {
   } else if(card.username != req.user.username){
     res.status(403).json({ message: 'user is not author' });
   } else {
-    const updated = await cardRepository.update(id, title, text, category, username, avatarUrl, term, course, views);
+    const updated = await cardRepository.update(id, title, text, category, avatarUrl, username, term, course, views);
     res.status(200).json(updated);
   }
 });

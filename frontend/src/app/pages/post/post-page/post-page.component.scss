@@ -13,6 +13,7 @@
 
 .post-page-container {
   width: min(100% - 4rem, 1024px);
+  min-height: 1vh;
   margin-inline: auto;
   margin: 40px auto 60px;
 }
@@ -21,13 +22,16 @@
   display: flex;
   align-items: center;
 }
+.back-btn-container a {
+  cursor: pointer;
+}
 .post-info {
   display: flex;
   flex-direction: column;
   margin: 32px 0;
 }
 #course {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   margin-bottom: 32px;
 }
 #title {
@@ -64,7 +68,12 @@
     margin: 0 0.25rem;
   }  
 }
-
+.bi:hover {
+  cursor: pointer;
+}
+.post-content {
+  min-height: 1vh;
+}
 
 @media only screen and (max-width: 768px) {
   /* For mobile: */

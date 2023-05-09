@@ -21,33 +21,11 @@ export class CommentComponent implements OnInit{
     this.myComment = this.comment;
   }
 
-
-  // editComment(): void {
-  //   this.isCommentInEditMode = true;
-  // }
-
-  //TODO: 제대로 작동하지 않음
   async deleteComment() {
-    console.log('삭제할 때 아이디: ',this.myComment._id);
     this.commentService.deleteComment(this.myComment._id).subscribe({
       next: (res) => {
         this.commentService.pullComment(this.myComment._id);
-        console.log(res);
       }
     })
   }
-
-  disableCommentEditMode(isEditMode: boolean) {
-    this.isCommentInEditMode = isEditMode;
-    
-  }
-
-  // dropdownClick(): void {
-  //   this.isDropdowClick = !this.isDropdowClick;
-  //   console.log(this.isDropdowClick);
-  // }
-
-
-
-
 }
