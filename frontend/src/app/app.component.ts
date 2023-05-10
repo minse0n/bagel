@@ -26,6 +26,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.authSet();
+    this.loginCheck();
   }
 
   
@@ -43,7 +44,6 @@ export class AppComponent implements OnInit{
 
   async authSet() {
     // 로그인 정보 설정 - 오직 첫 로그인 때만
-    // if (!this.loggedInFinished) {
       // !로그인 -> 쿠키 확인
       const loggedInPassport = await Boolean(this.cookieService.get('loggedIn'));
       const googleLoggedInPassport = await Boolean(this.cookieService.get('googleLoggedIn'));
@@ -87,6 +87,16 @@ export class AppComponent implements OnInit{
       } 
     }
     
-  // }
-
+    // seesion이 만료된 경우 logout 실행
+    loginCheck() {
+      const stillLoggedIn = this.authService.checkSid();
+      if (!stillLoggedIn) {
+        this.authService.logoutUser();
+        this.authService.setLoggedOut();
+        this.cookieService.deleteAll();
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
+      return
+    }
 }
