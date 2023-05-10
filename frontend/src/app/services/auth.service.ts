@@ -13,6 +13,17 @@ export class AuthService {
   private verificationUrl = 'http://localhost:8080/verification';
   private authUrl = 'http://localhost:8080/auth';
 
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService
+  ) {}
+
+  checkSid(): boolean {
+    const sid = this.cookieService.get('connect.sid');
+    if (sid) return true;
+    return false;
+  }
+
   // Setter, Getter for Auth-data
   // user id from DB
   private userIDSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getUserID());
@@ -204,11 +215,6 @@ export class AuthService {
     return this.loggedInSubject.asObservable();
   }
 
-
-  constructor(
-    private http: HttpClient,
-    private cookieService: CookieService
-  ) { }
 
 
   // Verification rwth email
