@@ -8,15 +8,16 @@
   <div class="signup-guide1" *ngIf="googleLoggedin && !sentCode && !verified">Authentication via RWTH email is required.</div>
   <div class="singup-guideInit"*ngIf="!googleLoggedin || !sentCode || !verified">
     <div class="login-guide1">
-      <div class="guide-option1">Welcome back !</div>
+      <div class="guide-option1">Don't have an account ?</div>
       <a [href]="loginhref">
-        <div class="guide-instruction1">Log in</div>
+        <div class="guide-instruction1">Sign up</div>
       </a>
     </div>
+    <div class="divider"></div>
     <div class="login-guide2">
-      <div class="guide-option2">Don't have an account ?</div>
+      <div class="guide-option2">Welcome back !</div>
       <a [href]="loginhref">
-        <div class="guide-instruction2">Sign up</div>
+        <div class="guide-instruction2">Log in</div>
       </a>
     </div>
   </div>
