@@ -20,8 +20,8 @@ export class AuthService {
   setUserID(_id: string) {
     const userIDEncrypt = CryptoJS.AES.encrypt(_id, environment.CRYPTOKEY);
     localStorage.setItem('userID', userIDEncrypt.toString());
-    this.userIDSubject.next(userIDEncrypt.toString());
-    // this.cookieService.delete('_id');
+    this.userIDSubject.next(_id);
+    this.cookieService.delete('_id');
   }
   getUserID(): string {
     const userID = localStorage.getItem('userID');  
@@ -42,7 +42,8 @@ export class AuthService {
   setGoogleID(googleID: string) {
     const googleIDEncrypt = CryptoJS.AES.encrypt(googleID, environment.CRYPTOKEY);
     localStorage.setItem('googleID', googleIDEncrypt.toString());
-    this.googleIDSubject.next(googleIDEncrypt.toString());
+    this.googleIDSubject.next(googleID);
+    this.cookieService.delete('googleID');
   }
   getGoogleID(): string {
     const googleID = localStorage.getItem('googleID');  
@@ -64,7 +65,9 @@ export class AuthService {
   setUsername(username: string) {
     const usernameEncrypt = CryptoJS.AES.encrypt(username, environment.CRYPTOKEY);
     localStorage.setItem('username', usernameEncrypt.toString());
-    this.usernameSubject.next(usernameEncrypt.toString());
+    this.usernameSubject.next(username);
+    console.log('서비스의 새로운 username', username, this.getUsername());
+    this.cookieService.delete('username');
   }
   getUsername(): string {
     const username = localStorage.getItem('username');  
@@ -83,10 +86,11 @@ export class AuthService {
   private avatarUrlSubject: BehaviorSubject<string> = new BehaviorSubject<string>(this.getAvatarUrl());
 
   setAvatarUrl(avatarUrl: string) {
-    this.avatarUrlSubject.next(avatarUrl);
     const avatarUrlEncrypt = CryptoJS.AES.encrypt(avatarUrl, environment.CRYPTOKEY);
     localStorage.setItem('avatarUrl', avatarUrlEncrypt.toString());
-    // this.cookieService.delete('avatarUrl');
+    this.avatarUrlSubject.next(avatarUrl);
+    console.log('서비스의 새로운 avatar', avatarUrl, this.getAvatarUrl());
+    this.cookieService.delete('avatarUrl');
   }
   getAvatarUrl(): string {
     const avatarUrl = localStorage.getItem('avatarUrl');  
@@ -108,7 +112,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('googleLoggedIn', trueEncrypt.toString());
     this.googleLoggedInSubject.next(true);
-    // this.cookieService.delete('googleLoggedIn');
+    this.cookieService.delete('googleLoggedIn');
   }
   getGoogleLoggedIn(): boolean {
     const googleLoggedIn = localStorage.getItem('googleLoggedIn');  
@@ -131,7 +135,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('sentCode', trueEncrypt.toString());
     this.sentCodeSubject.next(true);
-    // this.cookieService.delete('sentCode');
+    this.cookieService.delete('sentCode');
 
     // verification code는 1분 후에 소멸되므로 localStorage에서도 자동 소멸되게 함
     setTimeout(() => {
@@ -159,7 +163,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('verified', trueEncrypt.toString());
     this.verifiedSubject.next(true);
-    // this.cookieService.delete('verified');
+    this.cookieService.delete('verified');
   }
   getVerified(): boolean {
     const verified = localStorage.getItem('verified');  
@@ -181,7 +185,7 @@ export class AuthService {
     const trueEncrypt = CryptoJS.AES.encrypt('true', environment.CRYPTOKEY);
     localStorage.setItem('bagelLoggedIn', trueEncrypt.toString());
     this.loggedInSubject.next(true);
-    // this.cookieService.delete('loggedIn');
+    this.cookieService.delete('loggedIn');
   }
   setLoggedOut() {
     this.loggedInSubject.next(false);
@@ -232,11 +236,13 @@ export class AuthService {
     const body = username;
     return this.http.get<any>(`${this.authUrl}/avatar`);
   }
+  // Update user information - username, avatarUrl
   updateUser(data: any): Observable<any> {
     console.log(data);
     const options = { withCredentials: true };
     return this.http.put(`${this.authUrl}/google/update`, data, options);
   }
+  // Log out
   logoutUser() {
     return this.http.get(`${this.authUrl}/logout`);
   }

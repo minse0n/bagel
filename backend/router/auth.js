@@ -91,20 +91,22 @@ router.put('google/update/verified', async (req, res) => {
 });
  
 router.put('/google/update', isAuth, usernameRules(), validate, async (req, res) => {
-   const { googleID, username, avatarUrl } = req.body;
-   if(googleID == req.user.googleID){
-      if (username && !(await userRepository.findUsername(username))) {
-         res.status(404).json({ message: 'username이 존재합니다.' });
-       }
+  const { googleID }  = req.user;
+   const { username, avatarUrl } = req.body;
+  //  if(googleID == req.user.googleID){
+      // if (username && !(await userRepository.findUsername(username))) {
+      //    res.status(404).json({ message: 'username이 존재합니다.' });
+      //  }
       const update = await userRepository.update(googleID, username, avatarUrl);
       if (update) {
-         res.status(200).json(update);
+         return res.status(200).json(update);
       } else {
-         res.status(404).json({ message: 'user not found' });
+         return res.status(404).json({ message: 'user not found' });
       }
-   } else {
-      res.status(404).json({ message: 'user not found'});
-   }
+  //  } 
+  //  else {
+  //     res.status(404).json({ message: 'user not found'});
+  //  }
 });
 
 router.get('/avatar', async (req, res) => {
