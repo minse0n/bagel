@@ -9,9 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit{
-
   @Output() SideNavToggle = new EventEmitter();
-
   headerFixed: boolean = false;
   screenMode: string;
   isLoggedIn: boolean;
@@ -37,7 +35,7 @@ export class HeaderComponent implements OnInit{
     await this.authService.avatarUrl().subscribe(avtarUrl => {
       this.avatarUrl = avtarUrl;
     })
-    return
+    console.log('헤더의 유저 정보', this.avatarUrl);
   }
 
   // google login Button(OAuth2) 

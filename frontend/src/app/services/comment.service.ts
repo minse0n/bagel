@@ -25,7 +25,6 @@ export class CommentService {
   setComments(comments: Comment[]): void {
     this.comments = [...this.comments, ...comments];
     this.commentsSubject.next(this.comments); // 구독하는 옵저버들에게 값 전달
-    console.log('서비스의 코멘트 자료', this.comments);
   }
   pullComment(id: string): void {
     const commentToUpdate = this.comments.find(comment => comment._id === id);
@@ -39,8 +38,6 @@ export class CommentService {
       });
       this.comments = updatedComments;
       this.commentsSubject.next(this.comments);
-      // TODO: consol 지울 것
-      console.log(this.comments);
     }
   }
   getComments(): Comment[] {
@@ -66,7 +63,6 @@ export class CommentService {
   // delete comment
   deleteComment(id: string) {
     const commentId = id;
-    console.log('코멘트 삭제');
     return this._http.delete(`${this.commentUrl}/${commentId}`);
   }
 }

@@ -99,11 +99,11 @@ export async function viewsUpdate(id, views) {
 }
 
 export async function updateUsername(id, username){
-  await Card.findByIdAndUpdate(id, { username });
+  await Card.findByIdAndUpdate(id, { username: username });
 }
 
 export async function updateAvatarUrl(id, avatarUrl){
-  await Card.findByIdAndUpdate(id, { avatarUrl });
+  await Card.findByIdAndUpdate(id, { avatarUrl: avatarUrl });
 }
 
 export async function remove(id, googleID) {
@@ -128,11 +128,11 @@ export async function commentUpdate(id, text) {
 }
 
 export async function commentUpdateUsername(id, username){
-  await Comment.findByIdAndUpdate(id, { username });
+  await Comment.findByIdAndUpdate(id, { username: username });
 }
 
 export async function commentUpdateAvatarUrl(id, avatarUrl){
-  await Comment.findByIdAndUpdate(id, { avatarUrl });
+  await Comment.findByIdAndUpdate(id, { avatarUrl: avatarUrl });
 }
 
 export async function commentRemove(id) {

@@ -25,6 +25,7 @@ export class SidenavComponent implements OnInit{
     avatarUrl: '',
     rwthVerified: false,
   }
+  updatedAvatarUrl: string;
 
   constructor( 
     private _authService: AuthService, 
@@ -40,6 +41,7 @@ export class SidenavComponent implements OnInit{
     console.log(this.curUser);
 	}
   onToggleClose(): void {
+    this.navMode = 'default';
     this.closeSideNav.emit();
   }
   changeViewMode() {
@@ -55,10 +57,11 @@ export class SidenavComponent implements OnInit{
   updateUser() {
     this._authService.updateUser(this.curUser)
     .subscribe({
-      next: (updatedUser) => {
-        this.curUser = updatedUser;    
+      next: async (updatedUser) => {
+        this.curUser = await updatedUser;    
         this._authService.setAvatarUrl(updatedUser.avatarUrl);
-        // todo: username도 update()
+         this._authService.setUsername(updatedUser.username);
+        console.log('업데이트 한 유저 ver.2: ',this.curUser);
       },
       error: (err) => {
         console.error('Failed to update user:', err);
@@ -66,6 +69,7 @@ export class SidenavComponent implements OnInit{
     })
     this.navMode = 'default';
   }
+
   signOut() {
     this.toastr.warning('여기를 클릭해주세요 !', 'Log out을 원하면')
       .onTap
@@ -73,11 +77,12 @@ export class SidenavComponent implements OnInit{
       .subscribe(() => {
         this._authService.logoutUser();
         this.onToggleClose();
+        this.cookieService.deleteAll();
+        localStorage.clear();
+        this._authService.setLoggedOut();
+        this.router.navigate(['/']);
       }
     );
-    this._authService.setLoggedOut();
-    this.cookieService.deleteAll();
-    localStorage.clear();
-    this.router.navigate(['/']);
+    
   }
 }
