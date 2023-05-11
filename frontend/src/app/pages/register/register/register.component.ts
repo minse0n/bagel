@@ -5,7 +5,7 @@ import { BagelCard } from 'src/app/models/bagelCard';
 import { COURSES } from 'src/app/models/courses';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 import { ToastrService } from 'ngx-toastr';
-import { filter, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
   saveType: string = '';
   isMy: boolean = true;
   isEnabled: boolean = false;
+  isCategorySelected: boolean = false;
   quillConfig = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],        
@@ -59,12 +60,19 @@ export class RegisterComponent implements OnInit {
   }
   
   selectCategory() {
+    this.isCategorySelected = true;
     let categorySelect = (document.getElementById('selectCategory')) as HTMLSelectElement;
     let selected = categorySelect.selectedIndex;
     let selectedValue = categorySelect.options[selected].value;
     this.isEnabled = selectedValue === 'InAachen' || selectedValue === 'AfterRWTH';
   }
   bagelSave() {
+    if (!this.isCategorySelected) {
+      this.toastr.error('', `Category must be selected.`, {
+        positionClass: 'toast-top-center',
+      });
+      return
+    }
     if(this.saveType === 'REGISTER') {
     this._cardservice.create(this.bagelCard).subscribe({
         next: (res) => {
@@ -108,10 +116,8 @@ export class RegisterComponent implements OnInit {
   async userData() {
     const username = await this.authService.getUsername();
     this.bagelCard.username = username;
-    console.log('이름: ',this.bagelCard.username);
 
     const avatarUrl = await this.authService.getAvatarUrl()
     this.bagelCard.avatarUrl = avatarUrl;
-    console.log('사진: ',this.bagelCard.avatarUrl);
   }
 }
