@@ -30,11 +30,11 @@ export class CardService {
   
   // http mehtods for card data
   getAllData(): Observable<BagelCard[]> {
-    return this._http.get<BagelCard[]>(this.cardListUrl);
+    return this._http.get<BagelCard[]>(this.cardListUrl, { withCredentials: true });
    }
   
   get(_id: string): Observable<object> {
-    return this._http.get(`${this.cardUrl}/${_id}`);
+    return this._http.get(`${this.cardUrl}/${_id}`, { withCredentials: true });
   }
 
   create(data: BagelCard): Observable<any> {
