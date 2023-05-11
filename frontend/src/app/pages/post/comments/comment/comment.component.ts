@@ -13,6 +13,7 @@ export class CommentComponent implements OnInit{
   isCommentInEditMode: boolean = false;
   myComment: Comment = {}
   isWriter: boolean = false;
+  deletedComment: boolean = false;
   @Input() comment: Comment;
 
   constructor(
@@ -40,6 +41,7 @@ export class CommentComponent implements OnInit{
     this.commentService.deleteComment(this.myComment._id).subscribe({
       next: (res) => {
         this.commentService.pullComment(this.myComment._id);
+        this.deletedComment = true;
       }
     })
   }

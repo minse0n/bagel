@@ -1,6 +1,9 @@
 <div class="comment-container">
   <div *ngIf="!isCommentInEditMode"  class="content-container">
-    <p class="comment">
+    <p *ngIf="!deletedComment" class="comment">
+      {{ comment.text }}
+    </p>
+    <p *ngIf="deletedComment" class="deleted-comment">
       {{ comment.text }}
     </p>
   </div>
