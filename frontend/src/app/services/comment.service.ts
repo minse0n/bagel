@@ -50,7 +50,7 @@ export class CommentService {
 
   // get all comment via cardID
   getAllComments(id:string): Observable<any> {
-    return this._http.get(`${this.cardUrl}/${id}/comments`);
+    return this._http.get(`${this.cardUrl}/${id}/comments`, { withCredentials: true });
   }
 
   // create comment
@@ -63,6 +63,6 @@ export class CommentService {
   // delete comment
   deleteComment(id: string) {
     const commentId = id;
-    return this._http.delete(`${this.commentUrl}/${commentId}`);
+    return this._http.delete(`${this.commentUrl}/${commentId}`, { withCredentials: true });
   }
 }

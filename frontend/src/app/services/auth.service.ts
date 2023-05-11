@@ -222,25 +222,25 @@ export class AuthService {
   verificationEmail (email: string) {
     const body = { email };
     // observe: 'response' - 특정 헤더 정보나 status code 확인을 위해 전체 응답을 받는 옵션
-    return this.http.post<any>(`${this.verificationUrl}/send`, body, { observe: 'response' }); 
+    return this.http.post<any>(`${this.verificationUrl}/send`, body, { observe: 'response', withCredentials: true }); 
   }
 
   // Validate verification code
   validateCode(email: string, verifiCode: string, userID: string) {
     const body = { email, verifiCode, userID };
-    return this.http.post<any>(`${this.verificationUrl}/check`, body, { observe: 'response' });
+    return this.http.post<any>(`${this.verificationUrl}/check`, body, { observe: 'response', withCredentials: true });
     }
 
   // Update DB for User information  - rwthVerified: true
   updateDBVerified(rwthVerified: boolean) {
     const body = rwthVerified;
-    return this.http.post<any>(`${this.verificationUrl}/google/update/verified`, body, { observe: 'response' });
+    return this.http.post<any>(`${this.verificationUrl}/google/update/verified`, body, { observe: 'response', withCredentials: true });
   }
 
   // Get AvatarUrl via username
   getAvatar(username: string) {
     const body = username;
-    return this.http.get<any>(`${this.authUrl}/avatar`);
+    return this.http.get<any>(`${this.authUrl}/avatar`, { withCredentials: true });
   }
   // Update user information - username, avatarUrl
   updateUser(data: any): Observable<any> {
@@ -250,6 +250,6 @@ export class AuthService {
   }
   // Log out
   logoutUser() {
-    return this.http.get(`${this.authUrl}/logout`);
+    return this.http.get(`${this.authUrl}/logout`, { withCredentials: true });
   }
 }

@@ -23,18 +23,23 @@ export class CommentComponent implements OnInit{
 
   ngOnInit(): void {
     this.myComment = this.comment;
-
     this.authCheck();
+    this.deletedCheck();
   }
 
   async authCheck() {
     const username = await this.authService.getUsername();
-    // TODO: console.log 지울 것
-    console.log('username: ',username, '카드 username: ', this.myComment.username);
-    if (this.myComment.username === username) {
+    if (this.myComment.username === username && !(this.myComment.text == "삭제 되었습니다.")) {
       return this.isWriter = true;
     }
     return this.isWriter = false;
+  }
+
+  async deletedCheck() {
+    if (this.myComment.text == "삭제 되었습니다.") {
+      return this.deletedComment = true;
+    }
+    return this.deletedComment = false;
   }
 
   async deleteComment() {
