@@ -46,6 +46,7 @@ export class PostPageComponent implements OnInit {
   }
 
   gotoCards() {
+    this.commentService.clearComments();
     this.router.navigate(['/home']);
   }
   getBagel(_id: string): void {
