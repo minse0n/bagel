@@ -46,6 +46,9 @@ export class CommentService {
   followComments() {
     return this.commentsSubject.asObservable()
   }
+  clearComments(): Comment[] {
+    return this.comments = [];
+  }
   
 
   // get all comment via cardID
