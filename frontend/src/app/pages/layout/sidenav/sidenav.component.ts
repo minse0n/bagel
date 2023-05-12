@@ -38,7 +38,6 @@ export class SidenavComponent implements OnInit{
     this.curUser.username = this._authService.getUsername();
     this.curUser.avatarUrl = this._authService.getAvatarUrl();
     this.curUser.rwthVerified = this._authService.getVerified();
-    console.log(this.curUser);
 	}
   onToggleClose(): void {
     this.navMode = 'default';
@@ -60,8 +59,7 @@ export class SidenavComponent implements OnInit{
       next: async (updatedUser) => {
         this.curUser = await updatedUser;    
         this._authService.setAvatarUrl(updatedUser.avatarUrl);
-         this._authService.setUsername(updatedUser.username);
-        console.log('업데이트 한 유저 ver.2: ',this.curUser);
+        this._authService.setUsername(updatedUser.username);
       },
       error: (err) => {
         console.error('Failed to update user:', err);

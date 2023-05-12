@@ -77,8 +77,6 @@ export class AuthService {
     const usernameEncrypt = CryptoJS.AES.encrypt(username, environment.CRYPTOKEY);
     localStorage.setItem('username', usernameEncrypt.toString());
     this.usernameSubject.next(username);
-    console.log('서비스의 새로운 username', username, this.getUsername());
-    this.cookieService.delete('username');
   }
   getUsername(): string {
     const username = localStorage.getItem('username');  
@@ -100,7 +98,6 @@ export class AuthService {
     const avatarUrlEncrypt = CryptoJS.AES.encrypt(avatarUrl, environment.CRYPTOKEY);
     localStorage.setItem('avatarUrl', avatarUrlEncrypt.toString());
     this.avatarUrlSubject.next(avatarUrl);
-    console.log('서비스의 새로운 avatar', avatarUrl, this.getAvatarUrl());
     this.cookieService.delete('avatarUrl');
   }
   getAvatarUrl(): string {
@@ -200,7 +197,6 @@ export class AuthService {
   }
   setLoggedOut() {
     this.loggedInSubject.next(false);
-    console.log('로그아웃 되었습니다.')
   }
   getLoggedIn(): boolean {
     const logggedIn = localStorage.getItem('bagelLoggedIn');  
@@ -244,7 +240,6 @@ export class AuthService {
   }
   // Update user information - username, avatarUrl
   updateUser(data: any): Observable<any> {
-    console.log(data);
     const options = { withCredentials: true };
     return this.http.put(`${this.authUrl}/google/update`, data, options);
   }

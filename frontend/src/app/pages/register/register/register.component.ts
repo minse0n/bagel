@@ -67,30 +67,29 @@ export class RegisterComponent implements OnInit {
     this.isEnabled = selectedValue === 'InAachen' || selectedValue === 'AfterRWTH';
   }
   bagelSave() {
-    if (!this.isCategorySelected) {
-      this.toastr.error('', `Category must be selected.`, {
-        positionClass: 'toast-top-center',
-      });
-      return
-    }
     if(this.saveType === 'REGISTER') {
-    this._cardservice.create(this.bagelCard).subscribe({
-        next: (res) => {
-          this.toastr.success('saved successfully :D', 'New Post');
-          this.router.navigate(['']);
-        },
-        error: (e) => console.error(e)
-      });
-      } else if (this.saveType === 'EDIT') {
-        this._cardservice.update(this.bagelCard._id, this.bagelCard).subscribe({
-          next: (data) => {
-            this.bagelCard = data;
-            console.log(this.bagelCard.text);
-            this.toastr.success('updated successfully :)', 'Post');
+      if (!this.isCategorySelected) {
+        this.toastr.error('', `Category must be selected.`, {
+          positionClass: 'toast-top-center',
+        });
+        return
+      }
+      this._cardservice.create(this.bagelCard).subscribe({
+          next: (res) => {
+            this.toastr.success('saved successfully :D', 'New Post');
             this.router.navigate(['']);
           },
           error: (e) => console.error(e)
-      });
+        });
+        } else if (this.saveType === 'EDIT') {
+          this._cardservice.update(this.bagelCard._id, this.bagelCard).subscribe({
+            next: (data) => {
+              this.bagelCard = data;
+              this.toastr.success('updated successfully :)', 'Post');
+              this.router.navigate(['']);
+            },
+            error: (e) => console.error(e)
+        });
     }
   }
   bagelDelete() {
