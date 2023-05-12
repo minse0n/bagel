@@ -110,7 +110,7 @@ app.get('/cards', async (req, res, next) => {
 
 app.get('/cards/', async (req, res) => {
   const page = req.query.page;
-  const cards = await cardRepository.getPages(page);
+  const cards = await cardRepository.getAll();
   if(cards) {
     const { googleID, username } = req.user;
     res.status(200).json(cards);

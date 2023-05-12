@@ -71,6 +71,9 @@
   flex-direction: column;
   margin: 1rem 0;
   font-size: 1.5rem;
+  & #text-course {
+    font-size: 1.2rem;
+  }
 }
 .cardItemC-text {
   margin: 1rem 0;
@@ -160,8 +163,8 @@
     height: 50%;
   }
   .cardItemC-text {
-    height: auto;
-    margin: 0;
+    height: 24px;
+    margin: 0.3rem;
     line-height: 150%;
   }
   .cardItem-content #text-course{

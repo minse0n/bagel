@@ -18,12 +18,17 @@
   margin: 40px auto 60px;
 }
 .back-btn-container {
-  height: 68px;
+  height: 60px;
   display: flex;
+  flex-direction: row;
   align-items: center;
-}
-.back-btn-container a {
-  cursor: pointer;
+  & a {
+    cursor: pointer;
+  }
+  & img {
+    width: 30;
+    height: 20;
+  }
 }
 .post-info {
   display: flex;
@@ -33,6 +38,7 @@
 #course {
   font-size: 1.5rem;
   margin-bottom: 32px;
+  height: 32px;
 }
 #title {
   font-size: 2.5rem;
@@ -91,6 +97,7 @@
   }
   #course {
     font-size: 1.1rem;
+    margin-bottom: 15px;
   }
   #title {
     font-size: 1.5rem;
