@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AVATARS } from './avatar';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service';
 import { take } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
@@ -24,20 +25,23 @@ export class SidenavComponent implements OnInit{
     avatarUrl: '',
     rwthVerified: false,
   }
+  updatedAvatarUrl: string;
 
   constructor( 
     private _authService: AuthService, 
     private toastr: ToastrService,
-    private router: Router ) { 
-  }
+    private router: Router,
+    private cookieService: CookieService
+  ) {}
   
   ngOnInit(): void {
-    this.curUser.googleID = this._authService.getGoogleID();
+    this.curUser.username = this._authService.getUsername();
     this.curUser.avatarUrl = this._authService.getAvatarUrl();
     this.curUser.rwthVerified = this._authService.getVerified();
     console.log(this.curUser);
 	}
   onToggleClose(): void {
+    this.navMode = 'default';
     this.closeSideNav.emit();
   }
   changeViewMode() {
@@ -53,10 +57,11 @@ export class SidenavComponent implements OnInit{
   updateUser() {
     this._authService.updateUser(this.curUser)
     .subscribe({
-      next: (updatedUser) => {
-        this.curUser = updatedUser;    
+      next: async (updatedUser) => {
+        this.curUser = await updatedUser;    
         this._authService.setAvatarUrl(updatedUser.avatarUrl);
-        // todo: googleId, username도 update()
+         this._authService.setUsername(updatedUser.username);
+        console.log('업데이트 한 유저 ver.2: ',this.curUser);
       },
       error: (err) => {
         console.error('Failed to update user:', err);
@@ -64,12 +69,20 @@ export class SidenavComponent implements OnInit{
     })
     this.navMode = 'default';
   }
+
   signOut() {
-    this.toastr.warning('please here click', 'If you really want to sign out,')
+    this.toastr.warning('to Log out', 'Click here !')
       .onTap
       .pipe(take(1))
-      .subscribe(() => this._authService.logoutUser()
+      .subscribe(() => {
+        this._authService.logoutUser();
+        this.onToggleClose();
+        this.cookieService.deleteAll();
+        localStorage.clear();
+        this._authService.setLoggedOut();
+        this.router.navigate(['/']);
+      }
     );
-    this.router.navigate(['/']);
+    
   }
 }
