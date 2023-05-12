@@ -71,7 +71,7 @@ export class SidenavComponent implements OnInit{
   }
 
   signOut() {
-    this.toastr.warning('여기를 클릭해주세요 !', 'Log out을 원하면')
+    this.toastr.warning('to Log out', 'Click here !')
       .onTap
       .pipe(take(1))
       .subscribe(() => {

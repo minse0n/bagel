@@ -94,7 +94,7 @@ export class RegisterComponent implements OnInit {
     }
   }
   bagelDelete() {
-    this.toastr.warning('여기를 클릭해주세요 !', '삭제를 원하면')
+    this.toastr.warning('to Delete', 'Click here !')
       .onTap
       .pipe(take(1))
       .subscribe(() => this.trueDelete()

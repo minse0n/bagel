@@ -432,5 +432,16 @@ export const LEHRSTUHLE: Lehrstuhl[] = [
 		module: 'Informatik',
 		moduleUrl: "../../assets/logos/informatik.svg",
     href: "https://www.informatik.rwth-aachen.de/cms/informatik/Forschung/Forschungsbereiche/~mrys/Liste-der-Forschungsbereiche/?lidx=1"
-  },
+  }
 ]
+
+export const Archive: Lehrstuhl[] = [
+  {    
+    courseName: 'Archive',
+    category: 'Archive',
+    courseId: 52,
+		module: 'Archive',
+		moduleUrl: iconArchive,
+    href: ""
+  }
+];
