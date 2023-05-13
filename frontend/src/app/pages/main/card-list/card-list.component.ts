@@ -70,6 +70,8 @@ export class CardListComponent implements OnInit {
     this.router.navigate(['/register'], navigationExtras);
   }
   showDetail(id: string) {
-    this.router.navigate(['/card',id], { skipLocationChange: true });
+    // this.router.navigate(['/card',id], { skipLocationChange: true });
+    this.router.navigate(['/card',id]);
+
   }
 }
