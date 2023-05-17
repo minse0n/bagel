@@ -449,6 +449,6 @@ export const Archive: Lehrstuhl[] = [
     courseId: 52,
 		module: 'Archive',
 		moduleUrl: iconArchive,
-    href: ""
+    href: "https://studentsrwthaachende-my.sharepoint.com/:f:/r/personal/scpm9mnjy9v4r66r_students_rwth-aachen_de/Documents/Bagel?csf=1&web=1&e=6yVWaV"
   }
 ];
