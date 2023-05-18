@@ -1,4 +1,5 @@
-<mat-sidenav-container class="container-fluid" [(ngModel)]="screenMode">
+<!-- <mat-sidenav-container class="container-fluid" [(ngModel)]="screenMode"> -->
+<mat-sidenav-container class="container-fluid" [ngClass]="screenMode">
   <mat-sidenav #sidenav mode="over" position="end">
     <app-sidenav (closeSideNav)="sidenav.close()"></app-sidenav>
   </mat-sidenav>
