@@ -23,6 +23,7 @@
 .cardItem {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 30px;
   height: 400px;
   background-color: #fff;
@@ -69,6 +70,8 @@
 .cardItem-content {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  row-gap: 1rem;
   margin: 1rem 0;
   font-size: 1.5rem;
   & #text-course {
@@ -76,9 +79,9 @@
   }
 }
 .cardItemC-text {
-  margin: 1rem 0;
-  height: 64px;
-  line-height: 1.3;
+  margin: 0.5rem 0;
+  height: 54px;
+  line-height: 1.2;
   vertical-align: top;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -132,6 +135,9 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
   }
+  #text-title {
+    line-height: 1.2;
+  }
 }
 @media only screen and (max-width: 576px) {
   /* For mobile: */
@@ -156,7 +162,6 @@
     font-size: 0.5rem;
   } 
   .cardItemH-right {
-    border: 1pr solid red;
     margin-right: -16px;
     padding-right: 16px;
     width: 80px;
@@ -168,18 +173,20 @@
   }  
   .cardItem-content {
     margin: 0;
-    height: 50%;
+    justify-content: space-evenly;
+    row-gap: 0.25rem;
   }
   .cardItemC-text {
-    height: 24px;
     margin: 0.3rem;
-    line-height: 150%;
+    line-height: 1.3;
   }
   .cardItem-content #text-course{
+    height: 2rem;
     font-size: 1rem;
   }
   .cardItem-content #text-title{
     font-size: 1.2rem;
+    word-wrap: break-word;
   }
   .cardItem-footer {
     margin: 0;
