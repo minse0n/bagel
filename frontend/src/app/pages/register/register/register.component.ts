@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CardService } from 'src/app/services/card.service';
 import { BagelCard } from 'src/app/models/bagelCard';
 import { COURSES } from 'src/app/models/courses';
-import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,22 +13,23 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  
   avatarUrl: string;
-
   saveType: string = '';
   isMy: boolean = true;
   isEnabled: boolean = false;
   isCategorySelected: boolean = false;
+
   quillConfig = {
     toolbar: [
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
       ['bold', 'italic', 'underline', 'strike'],        
       ['blockquote', 'code-block'],
-      [{ 'header': 1 }, { 'header': 2 }],
-      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'indent': '-1'}, { 'indent': '+1' }],
       [{ 'script': 'sub' }, { 'script': 'super' }],
       // ['image'] 
-    ],
-  }; 
+    ]
+  };
   courses = COURSES;
   bagelCard: BagelCard = {
     title: '', 
@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
     // username, avatarUrl 불러오기 + bagelCard에 각각 할당
     this.userData();
   }
-  
+
   selectCategory() {
     this.isCategorySelected = true;
     let categorySelect = (document.getElementById('selectCategory')) as HTMLSelectElement;
@@ -108,7 +108,7 @@ export class RegisterComponent implements OnInit {
         error: (e) => console.error(e)
       });  
   }
-  changedEditor(event: EditorChangeContent | EditorChangeSelection) {
+  changedEditor(event: any) {
     // console.log('editor got changed', event);
   }
 
