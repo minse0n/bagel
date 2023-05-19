@@ -27,6 +27,8 @@ export class RegisterComponent implements OnInit {
       ['blockquote', 'code-block'],
       [{ 'indent': '-1'}, { 'indent': '+1' }],
       [{ 'script': 'sub' }, { 'script': 'super' }],
+      [{ 'color': ['#000', '#b2bec3', '#FFF', '#ee5133', '#0984e3', '#00b894'] }
+        , { 'background': ['#f0cb92', '#fd79a8', '#34e7e4','#dfe6e9']}],
       // ['image'] 
     ]
   };
